@@ -1,9 +1,18 @@
 <body>
-    <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
-    <p>Name: {{splayer.name}}</p>
-    <p>ID: {{splayer.id}}</p>
-    <p>Real Name: {{splayer.realName}}</p>
-    <p>Match ID: {{matches.id[0]}}</p>
-    <p>Match Duration: {{matches.duration[0]}}</p>
-    <p>isVictoy: {{matches.isVictory[0]}}</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm">
+                <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
+                <p>{{splayer.name}}</p>
+            </div>
+            <div class="col-sm">
+                <p>ID: {{splayer.id}}</p>
+                <p>Real Name: {{splayer.realName}}</p>
+                <p>Match ID: {{matches.id[0]}}</p>
+                <p>Match Duration: {{matches.duration[0]}} minutes</p>
+                <div *ngIf="matches.isVictory[0] == true; else elseBlock">Victory</div>
+                    <ng-template #elseBlock>Defeat</ng-template>
+            </div>
+        </div>
+    </div>
 </body>
