@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Match } from 'src/app/models/match/match.model';
+import { Matches } from 'src/app/models/matches/matches.model';
 import { StratzService } from 'src/app/services/stratz.service';
 
 @Component({
@@ -9,25 +9,25 @@ import { StratzService } from 'src/app/services/stratz.service';
 })
 export class PlayerMatchesComponent implements OnInit {
 
-  @Input() match!: Match;
+  @Input() matches!: Matches;
   @Input() steamid!: string;
 
   constructor(private stratzService: StratzService) { }
 
   ngOnInit(): void {
-    this.stratzService.getPlayerMatches(this.steamid).subscribe((match: any) => {
+    this.stratzService.getPlayerMatches(this.steamid).subscribe((matches: any) => {
       
       //initilize match object properties (since it is an array)
-      this.match.id = [];
-      this.match.duration = [];
-      this.match.isVictory = [];
+      this.matches.id = [];
+      this.matches.duration = [];
+      this.matches.isVictory = [];
 
       //add match information to match object
       for(let i = 0; i <= 10; ++i){
-        if(match[i]?.id !== undefined){
-          this.match.id.push(match[i].id);
-          this.match.duration.push((match[i].durationSeconds / 60).toFixed(2));
-          this.match.isVictory.push(match[i].players[0].isVictory);
+        if(matches[i]?.id !== undefined){
+          this.matches.id.push(matches[i].id);
+          this.matches.duration.push((matches[i].durationSeconds / 60).toFixed(2));
+          this.matches.isVictory.push(matches[i].players[0].isVictory);
         }
       }
 
