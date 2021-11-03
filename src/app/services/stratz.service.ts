@@ -11,7 +11,9 @@ export class StratzService {
 
   endpoint: string = `https://api.stratz.com`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    
+   }
 
   getPlayer(id: any): Observable<SPlayer> {
     return this.http.get<any>(`${this.endpoint}/api/v1/Player/${id}`);

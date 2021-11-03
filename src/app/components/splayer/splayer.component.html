@@ -1,9 +1,9 @@
 <body>
     <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
-    <p>Name:{{splayer.name}}</p>
-    <p>ID:{{splayer.id}}</p>
-    <p>Real Name:{{splayer.realName}}</p>
-    <p *ngFor="let a of matches.id; let i =index">Match {{i + 1}}: {{a}}</p>
-    <p *ngFor="let b of matches.duration">{{b}}</p>
-    <p *ngFor="let c of matches.isVictory">{{c}}</p>
+    <p>Name: {{splayer.name}}</p>
+    <p>ID: {{splayer.id}}</p>
+    <p>Real Name: {{splayer.realName}}</p>
+    <p>Match ID: {{matches.id[0]}}</p>
+    <p>Match Duration: {{matches.duration[0]}}</p>
+    <p>isVictoy: {{matches.isVictory[0]}}</p>
 </body>
