@@ -15,4 +15,7 @@ export class OpendotaService {
   getPlayer(id: any): Observable<Player>{
     return this.http.get<any>(`${this.endpoint}/api/players/${id}`);
   }
+  getMatch(id: any): Observable<any>{
+    return this.http.get<any>(`${this.endpoint}/api/matches/${id}`);
+  }
 }

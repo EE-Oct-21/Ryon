@@ -1,5 +1,7 @@
 export class Match {
-  id!: any[];
-  duration!: any[];
-  isVictory!: any[];
-}
+   matchid!: any;
+   duration!: any;
+   firstBloodTime!: any;
+   gameMode!: any;
+   heroes!: any;
+ }
