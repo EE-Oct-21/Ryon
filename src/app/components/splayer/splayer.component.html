@@ -1,17 +1,22 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-sm">
+            <div class="col-sm text-center">
                 <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
-                <p>{{splayer.name}}</p>
-            </div>
-            <div class="col-sm">
-                <p>ID: {{splayer.id}}</p>
+                <br>
+                <h1>{{splayer.name}}</h1>
+                <p>Steam ID: {{splayer.id}}</p>
                 <p>Real Name: {{splayer.realName}}</p>
-                <p>Match ID: {{matches.id[0]}}</p>
-                <p>Match Duration: {{matches.duration[0]}} minutes</p>
-                <div *ngIf="matches.isVictory[0] == true; else elseBlock">Victory</div>
-                    <ng-template #elseBlock>Defeat</ng-template>
+            </div>
+            <div class="col-sm text-center">
+                <h3>Most recent match status:</h3>
+                <p>Match ID: {{matches.id[1]}}</p>
+                <p>Match Duration: {{matches.duration[1]}} minutes</p>
+                <p *ngIf="matches.isVictory[1] == true; else elseBlock">Victory</p>
+                <ng-template #elseBlock>Defeat</ng-template>
+                <p>{{match.largestGoldLeadTeam}} had the highest gold lead of {{match.largestGoldLead}} gold</p>
+                <p>{{match.largestXpLeadTeam}} had the highest experience lead of {{match.largestXpLead}} experience</p>
+                <p>The match began at {{match.startTime}}</p>
             </div>
         </div>
     </div>
