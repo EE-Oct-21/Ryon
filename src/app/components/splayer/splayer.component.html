@@ -3,9 +3,9 @@
         <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
-            <h1>{{splayer.name}}</h1>
-            <p>Steam ID: {{splayer.id}}</p>
-            <p>Real Name: {{splayer.realName}}</p>
+            <h1 *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
+            <p *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
+            <p *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
         </div>
         <div class="col-sm text-center">
             <h3>Most recent match details:</h3>
