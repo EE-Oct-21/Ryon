@@ -12,6 +12,7 @@
                 </span>
             </div>
         </div>
+        {{steamId}}
         <app-splayer style="margin-top: 1rem" *ngIf="isId == true" [splayer]="splayer" [steamid]="steamId" [matches]="matches"></app-splayer>
         <div *ngIf="isId == false">
             <img src="favicon.ico">

@@ -23,6 +23,7 @@ export class SplayerComponent implements OnInit {
    }
   
   ngOnChanges(){
+    console.log(this.steamid);
   }
   ngOnInit(): void {
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {

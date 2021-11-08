@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
   splayer: SPlayer = new SPlayer;
   matches: Matches = new Matches;
   hero: Hero = new Hero;
-  steamId = '66914827';
+  steamId = '';
   isId = false;
 
   onSubmit(){
