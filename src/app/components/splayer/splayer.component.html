@@ -1,23 +1,27 @@
-<body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-sm text-center">
-                <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
-                <br>
-                <h1>{{splayer.name}}</h1>
-                <p>Steam ID: {{splayer.id}}</p>
-                <p>Real Name: {{splayer.realName}}</p>
-            </div>
-            <div class="col-sm text-center">
-                <h3>Most recent match status:</h3>
-                <p>Match ID: {{matches.id[1]}}</p>
-                <p>Match Duration: {{matches.duration[1]}} minutes</p>
-                <p *ngIf="matches.isVictory[1] == true; else elseBlock">Victory</p>
-                <ng-template #elseBlock>Defeat</ng-template>
-                <p>{{match.largestGoldLeadTeam}} had the highest gold lead of {{match.largestGoldLead}} gold</p>
-                <p>{{match.largestXpLeadTeam}} had the highest experience lead of {{match.largestXpLead}} experience</p>
-                <p>The match began at {{match.startTime}}</p>
-            </div>
+<body class="container p-3 mb-2 bg-dark text-white">
+    <div class="row justify-content-center">
+        <div class="col-sm text-center">
+            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
+            <br>
+            <h1>{{splayer.name}}</h1>
+            <p>Steam ID: {{splayer.id}}</p>
+            <p>Real Name: {{splayer.realName}}</p>
+        </div>
+        <div class="col-sm text-center">
+            <h3>Most recent match details:</h3>
+            <p *ngIf="matches.id[0] != undefined">The match id was {{matches.id[0]}}.</p>
+            <p *ngIf="matches.duration[0] != undefined">It lasted {{matches.duration[0]}} minutes.</p>
+            <p *ngIf="matches.isVictory[0] == true; else elseBlock">You won.</p>
+            <p>
+                <ng-template #elseBlock>You lost.</ng-template>
+            </p>
+            <p *ngIf="match.largestGoldLeadTeam != undefined">{{match.largestGoldLeadTeam}} had the highest gold lead of
+                {{match.largestGoldLead}} gold.</p>
+            <p *ngIf="match.largestXpLeadTeam != undefined">{{match.largestXpLeadTeam}} had the highest experience lead
+                of {{match.largestXpLead}} experience.</p>
+            <p *ngIf="match.startTime != undefined">The match began at {{match.startTime}}.</p>
+            <p *ngIf="match.deaths != undefined">You died {{match.deaths}} times.</p>
+            <p *ngIf="match.deaths > 10">Stop feeding.</p>
         </div>
     </div>
 </body>

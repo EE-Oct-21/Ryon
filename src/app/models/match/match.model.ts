@@ -11,4 +11,5 @@ export class Match {
    largestXpLead!: any;
    largestXpLeadTeam!: any;
    startTime!: any;
+   deaths!: any;
  }

@@ -17,7 +17,7 @@ export class SplayerComponent implements OnInit {
   @Input() splayer!: SPlayer;
   @Input() steamid!: string;
   @Input() matches!: Matches;
-  @Input() match!: Match;
+  match!: Match;
 
   constructor(private stratzService: StratzService, private opendotaService: OpendotaService) {
    }
@@ -51,7 +51,7 @@ export class SplayerComponent implements OnInit {
         }
       }
       //grab first match data from opendota
-      this.opendotaService.getMatch(this.matches.id[1]).subscribe((match: any) => {
+      this.opendotaService.getMatch(this.matches.id[5]).subscribe((match: any) => {
         this.match = match;
         this.match.matchid = match?.match_id;
 
@@ -64,13 +64,6 @@ export class SplayerComponent implements OnInit {
         let seconds = "0" + date.getSeconds();
         let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
         this.match.startTime = formattedTime;
-
-        //**********************************************************/
-        //Chat
-        //**********************************************************/
-        for(let i = 0; i < match?.chat.length; ++i){
-          this.match.chat[i] = match?.chat[i].key;
-        }
 
 
         //**********************************************************/
@@ -129,8 +122,15 @@ export class SplayerComponent implements OnInit {
           this.match.largestXpLeadTeam = "Dire";
         }
 
+        //**********************************************************/
+        //Deaths
+        //**********************************************************/
+        for(let i = 0; match?.players.length > 0; ++i){
+          if(match?.players[i].account_id == this.steamid){
+            this.match.deaths = match?.players[i].deaths;
+          }
+        }
 
-        console.log();
       })
     });
   }
