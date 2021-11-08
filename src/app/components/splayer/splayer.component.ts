@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { map } from 'jquery';
 import { Match } from 'src/app/models/match/match.model';
 import { Matches } from 'src/app/models/matches/matches.model';
-import { Player } from 'src/app/models/player/player.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
 import { StratzService } from 'src/app/services/stratz.service';
@@ -14,18 +13,18 @@ import { StratzService } from 'src/app/services/stratz.service';
 })
 export class SplayerComponent implements OnInit {
 
-  @Input() splayer!: SPlayer;
-  @Input() steamid!: string;
-  @Input() matches!: Matches;
-  match!: Match;
+
+  splayer = new SPlayer;
+  matches = new Matches;
+  match = new Match;
+  steamid = '';
+  isTrue = false;
 
   constructor(private stratzService: StratzService, private opendotaService: OpendotaService) {
    }
   
-  ngOnChanges(){
-    console.log(this.steamid);
-  }
-  ngOnInit(): void {
+   onSubmit(){
+    this.isTrue = true;
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
       //console.log(Player)
       this.splayer = Player;
@@ -136,5 +135,8 @@ export class SplayerComponent implements OnInit {
 
       })
     });
+  }
+  ngOnInit(): void {
+    
   }
 }

@@ -1,6 +1,13 @@
 <body class="container p-3 mb-2 bg-dark text-white">
-    <div class="row justify-content-center">
-        <div class="col-sm text-center">
+    <div class="col-sm text-center">
+        <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
+            [(ngModel)]="steamid">
+        <span class="input-group-btn">
+            <form class="form-inline">
+                <button class="btn btn-outline-light" type="submit" (click)="onSubmit()">Submit</button>
+            </form>
+        </span>
+    <div *ngIf="isTrue == true" class="row justify-content-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
             <h1 *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
