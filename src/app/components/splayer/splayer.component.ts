@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { map } from 'jquery';
 import { Match } from 'src/app/models/match/match.model';
 import { Matches } from 'src/app/models/matches/matches.model';
@@ -21,7 +21,10 @@ export class SplayerComponent implements OnInit {
 
   constructor(private stratzService: StratzService, private opendotaService: OpendotaService) {
    }
+  
+  ngOnChanges(){
 
+  }
   ngOnInit(): void {
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
       //console.log(Player)

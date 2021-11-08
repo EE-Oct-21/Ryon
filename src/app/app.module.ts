@@ -14,6 +14,7 @@ import { HeroComponent } from './components/hero/hero.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    FormsModule,
     AuthModule.forRoot({
       domain: 'dev-ulpdvjy2.us.auth0.com',
       clientId: 'k6E8BCBB1pmYMyAFxpuCw6j025SS3Mdq'
