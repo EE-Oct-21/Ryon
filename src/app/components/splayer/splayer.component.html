@@ -1,5 +1,7 @@
-<body class="container p-3 mb-2 bg-dark text-white">
-    <div class="col-sm text-center">
+<div class="row justify-content-center" style="margin-top: 1rem">
+
+    <!--66914827-->
+    <div class="input-group input-group-lg">
         <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
             [(ngModel)]="steamid">
         <span class="input-group-btn">
@@ -7,13 +9,16 @@
                 <button class="btn btn-outline-light" type="submit" (click)="onSubmit()">Submit</button>
             </form>
         </span>
-    <div *ngIf="isTrue == true" class="row justify-content-center">
+    </div>
+    <div *ngIf="isTrue == true" class="row justify-content-center" style="margin-top: 3rem">
+        <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
             <h1 *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
             <p *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
             <p *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
         </div>
+
         <div class="col-sm text-center">
             <h3>Most recent match details:</h3>
             <p *ngIf="matches.id[0] != undefined">The match id was {{matches.id[0]}}.</p>
@@ -22,13 +27,17 @@
             <p>
                 <ng-template #elseBlock>You lost.</ng-template>
             </p>
-            <p *ngIf="match.largestGoldLeadTeam != undefined">{{match.largestGoldLeadTeam}} had the highest gold lead of
+            <p *ngIf="match.largestGoldLeadTeam != undefined">{{match.largestGoldLeadTeam}} had the highest gold
+                lead of
                 {{match.largestGoldLead}} gold.</p>
-            <p *ngIf="match.largestXpLeadTeam != undefined">{{match.largestXpLeadTeam}} had the highest experience lead
+            <p *ngIf="match.largestXpLeadTeam != undefined">{{match.largestXpLeadTeam}} had the highest
+                experience
+                lead
                 of {{match.largestXpLead}} experience.</p>
             <p *ngIf="match.startTime != undefined">The match began at {{match.startTime}}.</p>
             <p *ngIf="match.deaths != undefined">You died {{match.deaths}} times.</p>
             <p *ngIf="match.deaths > 10">Stop feeding.</p>
         </div>
     </div>
-</body>
+
+    <img *ngIf="isTrue == false" src="favicon.ico" style="padding-top: 2rem">
