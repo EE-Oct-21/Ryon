@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Player } from './models/player/player.model';
-import { OpendotaService } from './services/opendota.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +6,7 @@ import { OpendotaService } from './services/opendota.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'EZDota-UI';
+  title = 'Dota2Protractor';
 
   constructor() { }
 

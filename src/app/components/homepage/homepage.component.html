@@ -1,23 +1,5 @@
 <div class="p-3 mb-2 bg-dark text-white">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="input-group input-group-lg">
-                <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
-                    [(ngModel)]="steamId">
-                <span class="input-group-btn">
-                    <form class="form-inline">
-                        <button class="btn btn-outline-light" type="submit"
-                            (click)="onSubmit()">Submit</button>
-                    </form>
-                </span>
-            </div>
-        </div>
-        {{steamId}}
-        <app-splayer style="margin-top: 1rem" *ngIf="isId == true" [splayer]="splayer" [steamid]="steamId" [matches]="matches"></app-splayer>
-        <div *ngIf="isId == false">
-            <img src="favicon.ico">
-        </div>
-
+        <app-splayer></app-splayer>
         <!--66914827-->
         <!-- <div class="player1">
               <app-player-matches [matches]="matches" [steamid]="'268590680'"></app-player-matches>

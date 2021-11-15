@@ -6,10 +6,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { PlayerComponent } from './components/player/player.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SplayerComponent } from './components/splayer/splayer.component';
-import { PlayerMatchesComponent } from './components/player-matches/player-matches.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
@@ -20,10 +18,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     HomepageComponent,
-    PlayerComponent,
     NavbarComponent,
     SplayerComponent,
-    PlayerMatchesComponent,
     HeroComponent,
     AuthButtonComponent,
     UserProfileComponent
@@ -39,7 +35,7 @@ import { FormsModule } from '@angular/forms';
       clientId: 'k6E8BCBB1pmYMyAFxpuCw6j025SS3Mdq'
     }),
   ],
-  providers: [],
+  providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

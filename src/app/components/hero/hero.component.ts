@@ -17,7 +17,9 @@ export class HeroComponent implements OnInit {
   constructor(private stratzService: StratzService) { }
 
   ngOnInit(): void {
-    //This searches the api for the given hero id and sets the appropriate values
+    //**********************************************************/
+    // Searches the API for the given hero ID and then stores the hero data
+    //**********************************************************/
     this.stratzService.getHero().subscribe((object) => {
       for(let i = 1; i <= 135; ++i){
         if(object[i]?.id !== undefined)

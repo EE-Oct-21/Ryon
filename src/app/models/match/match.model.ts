@@ -3,9 +3,6 @@ export class Match {
    duration!: any;
    firstBloodTime!: any;
    gameMode!: any;
-   heroes!: any;
-   chat!: any[];
-   mostSaidPhrase!: any;
    largestGoldLead!: any;
    largestGoldLeadTeam!: any;
    largestXpLead!: any;

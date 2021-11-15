@@ -7,6 +7,9 @@ import { SPlayer } from '../models/s-player/splayer.model';
 @Injectable({
   providedIn: 'root'
 })
+//**********************************************************/
+// Connects to Stratz API to retrieve data
+//**********************************************************/
 export class StratzService {
 
   endpoint: string = `https://api.stratz.com`;
