@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { map } from 'jquery';
+import { Component, OnInit } from '@angular/core';
 import { Match } from 'src/app/models/match/match.model';
 import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
@@ -11,20 +10,25 @@ import { StratzService } from 'src/app/services/stratz.service';
   templateUrl: './splayer.component.html',
   styleUrls: ['./splayer.component.scss']
 })
+//***********************************************************************************/
+// This class retrieves data from various API's based on given steam ID, and displays 
+//***********************************************************************************/
 export class SplayerComponent implements OnInit {
-
 
   splayer = new SPlayer;
   matches = new Matches;
   match = new Match;
   steamid = '';
-  isTrue = false;
+  isTrue = false; //flag for displaying logo
 
   constructor(private stratzService: StratzService, private opendotaService: OpendotaService) {
    }
   
    onSubmit(){
     this.isTrue = true;
+    //**********************************************************/
+    // Gets player details and stores them in SPlayer model
+    //**********************************************************/
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
       //console.log(Player)
       this.splayer = Player;
@@ -34,6 +38,9 @@ export class SplayerComponent implements OnInit {
       this.splayer.avatar = Player.steamAccount.avatar;
       this.splayer.profileUri = Player.steamAccount.profileUri;
     }),
+    //**********************************************************/
+    // Gets 10 most recent matches and stores them all in Matches Model
+    //**********************************************************/
     this.stratzService.getPlayerMatches(this.steamid).subscribe((matches: any) => {
       
       //initilize match object properties (since it is an array)
@@ -52,7 +59,9 @@ export class SplayerComponent implements OnInit {
 
         }
       }
-      //grab first match data from opendota
+      //**********************************************************/
+      // Gets match data from first match and stores in Match Model
+      //**********************************************************/
       this.opendotaService.getMatch(this.matches.id[5]).subscribe((match: any) => {
         this.match = match;
         this.match.matchid = match?.match_id;

@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Player } from './models/player/player.model';
-import { OpendotaService } from './services/opendota.service';
 
 @Component({
   selector: 'app-root',
