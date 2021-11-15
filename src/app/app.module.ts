@@ -35,7 +35,7 @@ import { FormsModule } from '@angular/forms';
       clientId: 'k6E8BCBB1pmYMyAFxpuCw6j025SS3Mdq'
     }),
   ],
-  providers: [],
+  providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
