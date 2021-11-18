@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { Match } from 'src/app/models/match/match.model';
 import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
+import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 
 @Component({
@@ -11,7 +14,9 @@ import { StratzService } from 'src/app/services/stratz.service';
   styleUrls: ['./splayer.component.scss']
 })
 //***********************************************************************************/
-// This class retrieves data from various API's based on given steam ID, and displays 
+// This class retrieves data from various API's based on given steam ID, and displays.
+// It also saves the given match and player.  If a player already exists, it adds the
+//    match data to that player
 //***********************************************************************************/
 export class SplayerComponent implements OnInit {
 
@@ -21,7 +26,7 @@ export class SplayerComponent implements OnInit {
   steamid = '';
   isTrue = false; //flag for displaying logo
 
-  constructor(private stratzService: StratzService, private opendotaService: OpendotaService) {
+  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService,@Inject(DOCUMENT) public document: Document, public auth: AuthService) {
    }
   
    onSubmit(){
@@ -145,6 +150,25 @@ export class SplayerComponent implements OnInit {
       })
     });
   }
+  //**********************************************************/
+  // Saves match and player to database
+  //**********************************************************/
+  onSubmit2(){
+
+    this.savePlayerService.addMatch(this.match);
+
+    //If player exists, add match to player
+    this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
+      for(let i=0; i < players.length ; i++){
+        if(players.id == this.splayer.id){
+            //add match to player
+            this.splayer.matches.id.push(this.match);
+        }
+      }
+    });
+    this.savePlayerService.addPlayer(this.splayer);
+  }
+
   ngOnInit(): void {
     
   }

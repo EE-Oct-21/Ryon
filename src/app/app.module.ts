@@ -13,6 +13,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FormsModule } from '@angular/forms';
+import { CreatePlayerComponent } from './create-player/create-player.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     SplayerComponent,
     HeroComponent,
     AuthButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CreatePlayerComponent
   ],
   imports: [
     BrowserModule,

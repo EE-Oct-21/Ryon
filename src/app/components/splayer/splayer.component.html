@@ -39,5 +39,11 @@
             <p *ngIf="match.deaths > 10">Stop feeding.</p>
         </div>
     </div>
-
     <img *ngIf="isTrue == false" src="favicon.ico" style="padding-top: 2rem">
+</div>
+<div *ngIf="isTrue == true">
+    <div *ngIf="auth.isAuthenticated$ | async;" class="row justify-content-center"
+        style="margin-top: 3rem">
+        <button class="btn btn-outline-light" type="submit" (click)="onSubmit2()" style="width: 10rem;">Save Match</button>
+    </div>
+</div>
