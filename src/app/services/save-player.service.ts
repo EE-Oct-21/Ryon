@@ -9,7 +9,7 @@ import { SPlayer } from '../models/s-player/splayer.model';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com/';
+  endpoint: string = 'https://ryon.ee-cognizantacademy.com';
 
   postHeader =  {
     headers: new HttpHeaders({
