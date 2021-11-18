@@ -21,9 +21,9 @@
 
         <div class="col-sm text-center">
             <h3>Most recent match details:</h3>
-            <p *ngIf="matches.id[0] != undefined">The match id was {{matches.id[0]}}.</p>
-            <p *ngIf="matches.duration[0] != undefined">It lasted {{matches.duration[0]}} minutes.</p>
-            <p *ngIf="matches.isVictory[0] == true; else elseBlock">You won.</p>
+            <p *ngIf="match.matchId != undefined">The match id was {{match.matchId}}.</p>
+            <p *ngIf="match.duration != undefined">It lasted {{match.duration}} minutes.</p>
+            <p *ngIf="match.isVictory == true; else elseBlock">You won.</p>
             <p>
                 <ng-template #elseBlock>You lost.</ng-template>
             </p>

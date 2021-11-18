@@ -9,7 +9,8 @@ import { SPlayer } from '../models/s-player/splayer.model';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com';
+  //endpoint: string = 'https://ryon.ee-cognizantacademy.com';
+  endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
 
   postHeader =  {
     headers: new HttpHeaders({
@@ -65,7 +66,7 @@ export class SavePlayerService {
   }
 
   deleteMatch(match: Match): boolean{
-    this.http.delete<Match>(this.endpoint+"/match/", match.matchid)
+    this.http.delete<Match>(this.endpoint+"/match/", match.matchId)
     .subscribe(res => {
     }, (err) => {
       console.log(err);

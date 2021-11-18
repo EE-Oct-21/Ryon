@@ -1,6 +1,7 @@
 export class Match {
-   matchid!: any;
+   matchId!: any;
    duration!: any;
+   isVictory!: any;
    firstBloodTime!: any;
    gameMode!: any;
    largestGoldLead!: any;
