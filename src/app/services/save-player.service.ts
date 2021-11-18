@@ -9,7 +9,7 @@ import { SPlayer } from '../models/s-player/splayer.model';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
+  endpoint: string = 'https://ryon.ee-cognizantacademy.com/';
 
   postHeader =  {
     headers: new HttpHeaders({
