@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class SavePlayerService {
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
+      catchError(this.handleError<any>());
     });
   return true;
   }

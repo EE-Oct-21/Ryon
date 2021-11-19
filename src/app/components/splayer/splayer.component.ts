@@ -151,13 +151,49 @@ export class SplayerComponent implements OnInit {
   //**********************************************************/
   onSubmit2(){
 
-    //create data from onSubmit1 into this function, then call
-    //post match to successfully post match to database
+    //call post match to successfully post match to database
+
+    //set all values to null if dont exist
+    if(this.match.matchId == undefined){
+      this.match.matchId = 0;
+    }
+    if(this.match.duration == undefined){
+      this.match.duration = "0";
+    }
+    if(this.match.isVictory == undefined){
+      this.match.isVictory = true;
+    }
+    if(this.match.firstBloodTime == undefined){
+      this.match.firstBloodTime = "0";
+    }
+    if(this.match.gameMode == undefined){
+      this.match.gameMode = "0";
+    }
+    if(this.match.largestGoldLead == undefined){
+      this.match.largestGoldLead = "0";
+    }
+    if(this.match.largestGoldLeadTeam == undefined){
+      this.match.largestGoldLeadTeam = "0";
+    }
+    if(this.match.largestXpLead == undefined){
+      this.match.largestXpLead = "0";
+    }
+    if(this.match.largestXpLeadTeam == undefined){
+      this.match.largestXpLeadTeam = "0";
+    }
+    if(this.match.startTime == undefined){
+      this.match.startTime = "0";
+    }
+    if(this.match.deaths == undefined){
+      this.match.deaths = 0;
+    }
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
     this.match2.matchId = match[0].matchId;
-    console.log(this.match2.matchId);
-    //this.savePlayerService.addMatch(this.match);
+
+    console.log(this.match);
+
+    this.savePlayerService.addMatch(this.match);
 
     // //If player exists, add match to player
     // this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
