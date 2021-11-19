@@ -26,7 +26,6 @@ export class SavePlayerService {
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
-      catchError(this.handleError<any>());
     });
   return true;
   }

@@ -1,4 +1,4 @@
-import { Matches } from "../matches/matches.model";
+import { Match } from "../match/match.model";
 
 export class SPlayer {
   name!: any;
@@ -6,5 +6,5 @@ export class SPlayer {
   realName!: any;
   avatar!: any;
   profileUri!: any;
-  matches!: Matches;
+  match!: Match;
 }
