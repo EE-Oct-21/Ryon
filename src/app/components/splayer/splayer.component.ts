@@ -169,6 +169,9 @@ export class SplayerComponent implements OnInit {
     if(this.match.gameMode == undefined){
       this.match.gameMode = "0";
     }
+    if(this.match.heroes == undefined){
+      this.match.heroes = "0";
+    }
     if(this.match.largestGoldLead == undefined){
       this.match.largestGoldLead = "0";
     }
@@ -196,6 +199,7 @@ export class SplayerComponent implements OnInit {
     this.match2.victory = true;
     this.match2.firstBloodTime= "1";
     this.match2.gameMode = "1";
+    this.match2.heroes = "1";
     this.match2.largestGoldLead = "1";
     this.match2.largestGoldLeadTeam = "1";
     this.match2.largestXpLead = "1";
