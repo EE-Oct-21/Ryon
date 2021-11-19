@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
+import { StratzService } from 'src/app/services/stratz.service';
 
 import { SplayerComponent } from './splayer.component';
 
@@ -39,7 +40,10 @@ describe('SplayerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SplayerComponent ],
-      imports: [ AppModule ]
+      imports: [ AppModule ],
+      providers: [
+        { provide: StratzService, useValue: stratzServiceSpy }
+      ]
     })
     .compileComponents();
   });
