@@ -209,7 +209,7 @@ export class SplayerComponent implements OnInit {
 
     console.log(this.match);
 
-    this.savePlayerService.addMatch(this.match2);
+    this.savePlayerService.addMatch(this.match);
 
     // //If player exists, add match to player
     // this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
