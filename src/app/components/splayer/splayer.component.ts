@@ -54,7 +54,7 @@ export class SplayerComponent implements OnInit {
         if(match[i]?.id !== undefined){
           this.match.matchId = match[i].id;
           this.match.duration = (match[i].durationSeconds / 60).toFixed(2);
-          this.match.isVictory = match[i].players[0].isVictory;
+          this.match.victory = match[i].players[0].isVictory;
 
           //**********************************************************/
           //Start time
@@ -160,8 +160,8 @@ export class SplayerComponent implements OnInit {
     if(this.match.duration == undefined){
       this.match.duration = "0";
     }
-    if(this.match.isVictory == undefined){
-      this.match.isVictory = true;
+    if(this.match.victory == undefined){
+      this.match.victory = true;
     }
     if(this.match.firstBloodTime == undefined){
       this.match.firstBloodTime = "0";
@@ -193,7 +193,7 @@ export class SplayerComponent implements OnInit {
 
     this.match2.matchId = 1000;
     this.match2.duration = "1";
-    this.match2.isVictory = true;
+    this.match2.victory = true;
     this.match2.firstBloodTime= "1";
     this.match2.gameMode = "1";
     this.match2.largestGoldLead = "1";
