@@ -21,6 +21,7 @@ import { StratzService } from 'src/app/services/stratz.service';
 export class SplayerComponent implements OnInit {
 
   flag: boolean = false;
+  flag2: boolean = false;
   splayer = new SPlayer;
   matches = new Matches;
   match = new Match;
@@ -151,6 +152,8 @@ export class SplayerComponent implements OnInit {
   //**********************************************************/
   onSubmit2(){
 
+    this.flag2 = true;
+
     //call post match to successfully post match to database
 
     //set all values to null if dont exist
@@ -161,7 +164,7 @@ export class SplayerComponent implements OnInit {
       this.match.duration = "0";
     }
     if(this.match.victory == undefined){
-      this.match.victory = true;
+      this.match.victory = false;
     }
     if(this.match.firstBloodTime == undefined){
       this.match.firstBloodTime = "0";
