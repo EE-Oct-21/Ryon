@@ -28,7 +28,7 @@ export class SplayerComponent implements OnInit {
   steamid = '';
   isTrue = false; //flag for displaying logo
 
-  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService,@Inject(DOCUMENT) public document: Document, public auth: AuthService) {
+  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService,@Inject(DOCUMENT) public document: Document, public auth: AuthService) {
    }
   
    onSubmit(){
@@ -192,22 +192,6 @@ export class SplayerComponent implements OnInit {
     }
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
-    //this.match2.matchId = match[0].matchId;
-
-    this.match2.matchId = 1000;
-    this.match2.duration = "1";
-    this.match2.victory = true;
-    this.match2.firstBloodTime= "1";
-    this.match2.gameMode = "1";
-    this.match2.heroes = "1";
-    this.match2.largestGoldLead = "1";
-    this.match2.largestGoldLeadTeam = "1";
-    this.match2.largestXpLead = "1";
-    this.match2.largestXpLeadTeam = "1";
-    this.match2.startTime = "1";
-    this.match2.deaths = 1;
-
-    console.log(this.match);
 
     this.savePlayerService.addMatch(this.match);
 
