@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
+import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 
 import { SplayerComponent } from './splayer.component';
@@ -33,16 +34,22 @@ describe('SplayerComponent', () => {
   player.match = match;
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
-    'getPlayer'
-  ]);
-  stratzServiceSpy.getPlayer.and.returnValue(of(player));
+    'getPlayer', 'getPlayerMatches']);
+  const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(of(player));
+  const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(of(match));
+
+  const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',[
+    'getAllSavedMatches', 'addMatch']);
+    const getAllSavedMatchesSpy = savePlayerServiceSpy.getAllSavedMatches.and.returnValue(of(match));
+    const addMatch = savePlayerServiceSpy.addMatch.and.returnValue(of(match));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SplayerComponent ],
       imports: [ AppModule ],
       providers: [
-        { provide: StratzService, useValue: stratzServiceSpy }
+        { provide: StratzService, useValue: stratzServiceSpy },
+        { provide: SavePlayerService, useValue: savePlayerServiceSpy }
       ]
     })
     .compileComponents();
@@ -56,5 +63,10 @@ describe('SplayerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display the player details', ()=>{
+    const headerTag = fixture.debugElement.nativeElement.querySelector('h1');
+    expect(headerTag.textContent).toBe(player.name);
   });
 });

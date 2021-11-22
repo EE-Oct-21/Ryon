@@ -1,6 +1,4 @@
-
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-    <a class="linkFix" routerLink="/profile">Profile</a>
     <button type="button" class="btn btn-outline-light" (click)="auth.logout({ returnTo: document.location.origin })">
       Log out
     </button>
