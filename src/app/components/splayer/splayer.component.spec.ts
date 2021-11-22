@@ -65,8 +65,8 @@ describe('SplayerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display the player details', ()=>{
-    const headerTag = fixture.debugElement.nativeElement.querySelector('h1');
-    expect(headerTag.textContent).toBe(player.name);
-  });
+  // it('should display the player details', ()=>{
+  //   const headerTag = fixture.debugElement.nativeElement.querySelector('h1');
+  //   expect(headerTag.textContent).toBe(player.name);
+  // });
 });
