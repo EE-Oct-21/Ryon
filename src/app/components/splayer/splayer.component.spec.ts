@@ -12,6 +12,8 @@ describe('SplayerComponent', () => {
   let component: SplayerComponent;
   let fixture: ComponentFixture<SplayerComponent>;
 
+  let steamid = '1';
+
   let match = new Match();
   match.matchId = 1;
   match.duration = "1";
@@ -49,7 +51,8 @@ describe('SplayerComponent', () => {
       imports: [ AppModule ],
       providers: [
         { provide: StratzService, useValue: stratzServiceSpy },
-        { provide: SavePlayerService, useValue: savePlayerServiceSpy }
+        { provide: SavePlayerService, useValue: savePlayerServiceSpy },
+        { provide: steamid, useValue: '66914827' }
       ]
     })
     .compileComponents();
@@ -61,12 +64,82 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should display the player details', ()=>{
-  //   const headerTag = fixture.debugElement.nativeElement.querySelector('h1');
-  //   expect(headerTag.textContent).toBe(player.name);
-  // });
+  it('should display the player name when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#playerName');
+    expect(headerTag.textContent).toBe(player.name);
+  });
+
+  it('should display the player id when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#playerId');
+    expect(headerTag.textContent).toBe("Steam ID: " + player.id);
+  });
+
+  it('should display the player real name when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#realName');
+    expect(headerTag.textContent).toBe("Real Name: " + player.realName);
+  });
+
+  it('should display most recent match details when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#recentDetails');
+    expect(headerTag.textContent).toBe("Most recent match details:");
+  });
+
+
+  it('should display the match id when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#matchId');
+    expect(headerTag.textContent).toBe("The match id was " + match.matchId + ".");
+  });
+
+  it('should display the match duration when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#matchDuration');
+    expect(headerTag.textContent).toBe("It lasted " + match.duration + " minutes.");
+  });
+
+  it('should display the match victory when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
+    expect(headerTag.textContent).toBe("You won.");
+  });
 });

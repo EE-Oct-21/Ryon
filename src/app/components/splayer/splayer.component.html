@@ -6,7 +6,7 @@
             [(ngModel)]="steamid">
         <span class="input-group-btn">
             <form class="form-inline">
-                <button class="btn btn-outline-light" type="submit" (click)="onSubmit()" style="margin-left: 1rem;">Submit</button>
+                <button id="submitButton" class="btn btn-outline-light" type="submit" (click)="onSubmit()" style="margin-left: 1rem;">Submit</button>
             </form>
         </span>
     </div>
@@ -14,16 +14,16 @@
         <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
-            <h1 *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
-            <p *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
-            <p *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
+            <h1 id="playerName" *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
+            <p id="playerId" *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
+            <p id="realName" *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
         </div>
 
         <div class="col-sm text-center">
-            <h3>Most recent match details:</h3>
-            <p *ngIf="match.matchId != undefined && match.matchId != '0'">The match id was {{match.matchId}}.</p>
-            <p *ngIf="match.duration != undefined && match.duration != '0'">It lasted {{match.duration}} minutes.</p>
-            <p *ngIf="match.victory == true; else elseBlock">You won.</p>
+            <h3 id="recentDetails">Most recent match details:</h3>
+            <p id="matchId" *ngIf="match.matchId != undefined && match.matchId != '0'">The match id was {{match.matchId}}.</p>
+            <p id="matchDuration" *ngIf="match.duration != undefined && match.duration != '0'">It lasted {{match.duration}} minutes.</p>
+            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
             <p>
                 <ng-template #elseBlock>You lost.</ng-template>
             </p>
