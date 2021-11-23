@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
+import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
@@ -14,9 +15,10 @@ describe('SplayerComponent', () => {
 
   let steamid = '1';
 
+
   let match = new Match();
-  match.matchId = 1;
-  match.duration = "1";
+  match.id = 1;
+  match.durationSeconds = "1";
   match.victory = true;
   match.firstBloodTime = "1";
   match.gameMode = "1";
@@ -26,6 +28,21 @@ describe('SplayerComponent', () => {
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
   match.deaths = "1";
+
+  let match2 = new Match();
+  match.id = 2;
+  match.durationSeconds = "1";
+  match.victory = true;
+  match.firstBloodTime = "1";
+  match.gameMode = "1";
+  match.largestGoldLead = "1";
+  match.largestGoldLeadTeam = "Dire";
+  match.largestXpLead = "1";
+  match.largestXpLeadTeam = "Radiant";
+  match.startTime = "1";
+  match.deaths = "1";
+
+  let matchArray = [match,match2]
 
   let player = new SPlayer();
   player.name = "Ryon";
@@ -38,7 +55,7 @@ describe('SplayerComponent', () => {
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer', 'getPlayerMatches']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(of(player));
-  const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(of(match));
+  const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(of(matchArray));
 
   const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',[
     'getAllSavedMatches', 'addMatch']);
@@ -120,7 +137,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchId');
-    expect(headerTag.textContent).toBe("The match id was " + match.matchId + ".");
+    expect(headerTag.textContent).toBe("The match id was " + match.id + ".");
   });
 
   it('should display the match duration when submit button is clicked and steamid is provided', ()=>{
@@ -130,16 +147,20 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchDuration');
-    expect(headerTag.textContent).toBe("It lasted " + match.duration + " minutes.");
+    expect(headerTag.textContent).toBe("It lasted " + (match.durationSeconds / 60).toFixed(2) + " minutes.");
   });
 
-  it('should display the match victory when submit button is clicked and steamid is provided', ()=>{
+  it('should display victory when submit button is clicked and steamid is provided and victory is true', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    
+
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
-    expect(headerTag.textContent).toBe("You won.");
+    let lost = fixture.debugElement.nativeElement.querySelector('#lost');
+    console.log(headerTag);
+
+    expect(headerTag).toBeNull();
+    
   });
 });

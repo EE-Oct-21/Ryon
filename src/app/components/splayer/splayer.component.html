@@ -10,7 +10,7 @@
             </form>
         </span>
     </div>
-    <div *ngIf="isTrue == true" class="row justify-content-center" style="margin-top: 3rem">
+    <div *ngIf="isPlayer == true" class="row justify-content-center" style="margin-top: 3rem">
         <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
@@ -21,11 +21,11 @@
 
         <div class="col-sm text-center">
             <h3 id="recentDetails">Most recent match details:</h3>
-            <p id="matchId" *ngIf="match.matchId != undefined && match.matchId != '0'">The match id was {{match.matchId}}.</p>
-            <p id="matchDuration" *ngIf="match.duration != undefined && match.duration != '0'">It lasted {{match.duration}} minutes.</p>
+            <p id="matchId" *ngIf="match.id != undefined && match.id != '0'">The match id was {{match.id}}.</p>
+            <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
             <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
             <p>
-                <ng-template #elseBlock>You lost.</ng-template>
+                <ng-template id="lost" #elseBlock>You lost.</ng-template>
             </p>
             <p *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLeadTeam != '0'">
                 {{match.largestGoldLeadTeam}} had the highest gold
@@ -42,9 +42,9 @@
             <p *ngIf="match.deaths > 10">You fed.</p>
         </div>
     </div>
-    <img *ngIf="isTrue == false" src="favicon.ico" style="padding-top: 2rem">
+    <img *ngIf="isPlayer == false" src="favicon.ico" style="padding-top: 2rem">
 </div>
-<div *ngIf="isTrue == true">
+<div *ngIf="isPlayer == true">
     <div *ngIf="auth.isAuthenticated$ | async;" class="row justify-content-center" style="margin-top: 3rem">
         <button class="btn btn-outline-light" type="submit" (click)="onSubmit2()" style="width: 10rem;">Save
             Match</button>

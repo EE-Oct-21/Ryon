@@ -1,6 +1,6 @@
 export class Match {
-   matchId!: any;
-   duration!: any;
+   id!: any;
+   durationSeconds!: any;
    victory!: any;
    firstBloodTime!: any;
    gameMode!: any;
