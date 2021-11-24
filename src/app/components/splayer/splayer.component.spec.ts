@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
-import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
@@ -40,7 +39,7 @@ describe('SplayerComponent', () => {
   match.largestXpLead = "1";
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
-  match.deaths = "1";
+  match.deaths = "10";
 
   let matchArray = [match,match2]
 
@@ -162,5 +161,34 @@ describe('SplayerComponent', () => {
 
     expect(headerTag).toBeNull();
     
+  });
+
+  it('should display the deaths when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#deaths');
+    if(headerTag != undefined){
+      expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
+    }
+  });
+
+  it('should display the special message when submit button is clicked and steamid is provided and deaths are greater than 10', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#feed');
+    if(match.deaths > 10){
+      expect(headerTag.textContent).toBe("You fed.");
+    }
+  });
+
+  it('should display logo when no id is provided', ()=>{
+
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#protractor');
+    expect(headerTag['src']).toContain('favicon.ico');
+
   });
 });

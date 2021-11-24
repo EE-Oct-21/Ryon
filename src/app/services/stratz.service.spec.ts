@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { StratzService } from './stratz.service';
 import { SPlayer } from '../models/s-player/splayer.model';
-import { Matches } from '../models/matches/matches.model';
 import { Hero } from '../models/hero/hero.model';
 import { Match } from '../models/match/match.model';
 
@@ -12,13 +11,12 @@ describe('StratzService', () => {
   let service: StratzService;
   let baseUrl = `https://api.stratz.com`;
   let player = new SPlayer();
-  let matches = new Matches();
   let hero = new Hero();
   let match = new Match();
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',['getPlayer','getPlayerMatches','getHero','getMatch']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(player);
-  const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(matches);
+  const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(match);
   const getHeroSpy = stratzServiceSpy.getHero.and.returnValue(hero);
   const getMatchSpy = stratzServiceSpy.getMatch.and.returnValue(match);
 

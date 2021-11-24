@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Matches } from '../models/matches/matches.model';
+import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class StratzService {
   getPlayer(id: any): Observable<SPlayer> {
     return this.http.get<any>(`${this.endpoint}/api/v1/Player/${id}`, this.header);
   }
-  getPlayerMatches(id:any): Observable<Matches> {
+  getPlayerMatches(id:any): Observable<Match> {
     return this.http.get<any>(`${this.endpoint}/api/v1/Player/${id}/matches`, this.header);
   }
   getHero(): Observable<any>{

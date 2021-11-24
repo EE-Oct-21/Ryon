@@ -2,9 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Match } from 'src/app/models/match/match.model';
-import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
-import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 
@@ -23,7 +21,6 @@ export class SplayerComponent implements OnInit {
   flag: boolean = false;
   flag2: boolean = false;
   splayer = new SPlayer;
-  matches = new Matches;
   match = new Match;
   match2 = new Match;
   steamid = '';
