@@ -6,28 +6,30 @@
             [(ngModel)]="steamid">
         <span class="input-group-btn">
             <form class="form-inline">
-                <button class="btn btn-outline-light" type="submit" (click)="onSubmit()" style="margin-left: 1rem;">Submit</button>
+                <button id="submitButton" class="btn btn-outline-light" type="submit" (click)="onSubmit()"
+                    style="margin-left: 1rem;">Submit</button>
             </form>
         </span>
     </div>
-    <div *ngIf="isTrue == true" class="row justify-content-center" style="margin-top: 3rem">
+    <div *ngIf="isPlayer == true" class="row justify-content-center" style="margin-top: 3rem">
         <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
-            <h1 *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
-            <p *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
-            <p *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
+            <h1 id="playerName" *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
+            <p id="playerId" *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
+            <p id="realName" *ngIf="splayer.realName != undefined">Real Name: {{splayer.realName}}</p>
         </div>
 
         <div class="col-sm text-center">
-            <h3>Most recent match details:</h3>
-            <p *ngIf="match.matchId != undefined && match.matchId != '0'">The match id was {{match.matchId}}.</p>
-            <p *ngIf="match.duration != undefined && match.duration != '0'">It lasted {{match.duration}} minutes.</p>
-            <p *ngIf="match.victory == true; else elseBlock">You won.</p>
+            <h3 id="recentDetails">Most recent match details:</h3>
+            <p id="matchId" *ngIf="match.id != undefined && match.id != '0'">The match id was {{match.id}}.</p>
+            <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
+                {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
+            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
             <p>
-                <ng-template #elseBlock>You lost.</ng-template>
+                <ng-template id="lost" #elseBlock>You lost.</ng-template>
             </p>
-            <p *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLeadTeam != '0'">
+            <p id="goldLead" *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLeadTeam != '0'">
                 {{match.largestGoldLeadTeam}} had the highest gold
                 lead of
                 {{match.largestGoldLead}} gold.</p>
@@ -38,18 +40,18 @@
                 of {{match.largestXpLead}} experience.</p>
             <p *ngIf="match.startTime != undefined && match.startTime != '0'">The match began at {{match.startTime}}.
             </p>
-            <p *ngIf="match.deaths != undefined && match.deaths != '0'">You died {{match.deaths}} times.</p>
-            <p *ngIf="match.deaths > 10">You fed.</p>
+            <p id="deaths" *ngIf="match.deaths != undefined && match.deaths != '0'">You died {{match.deaths}} times.</p>
+            <p id="feed" *ngIf="match.deaths > 10">You fed.</p>
         </div>
     </div>
-    <img *ngIf="isTrue == false" src="favicon.ico" style="padding-top: 2rem">
+    <img id="protractor" *ngIf="isPlayer == false" src="favicon.ico" style="padding-top: 2rem">
 </div>
-<div *ngIf="isTrue == true">
+<div *ngIf="isPlayer == true">
     <div *ngIf="auth.isAuthenticated$ | async;" class="row justify-content-center" style="margin-top: 3rem">
-        <button class="btn btn-outline-light" type="submit" (click)="onSubmit2()" style="width: 10rem;">Save
+        <button id="saveMatchButton" class="btn btn-outline-light" type="submit" (click)="onSubmit2()" style="width: 10rem;">Save
             Match</button>
     </div>
-    <div *ngIf="flag2 == true" class="row justify-content-center" style="margin-top: 1rem">
+    <div id="matchConfirmation" *ngIf="flag2 == true" class="row justify-content-center" style="margin-top: 1rem">
         <p>Match added successfully</p>
     </div>
 </div>

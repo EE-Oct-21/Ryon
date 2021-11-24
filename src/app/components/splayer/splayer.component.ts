@@ -2,9 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Match } from 'src/app/models/match/match.model';
-import { Matches } from 'src/app/models/matches/matches.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
-import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 
@@ -23,17 +21,16 @@ export class SplayerComponent implements OnInit {
   flag: boolean = false;
   flag2: boolean = false;
   splayer = new SPlayer;
-  matches = new Matches;
   match = new Match;
   match2 = new Match;
   steamid = '';
-  isTrue = false; //flag for displaying logo
+  isPlayer = false; //flag for displaying logo
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService,@Inject(DOCUMENT) public document: Document, public auth: AuthService) {
    }
   
    onSubmit(){
-    this.isTrue = true;
+    this.isPlayer = true;
     //**********************************************************/
     // Gets player details and stores them in SPlayer model
     //**********************************************************/
@@ -53,24 +50,21 @@ export class SplayerComponent implements OnInit {
       //add match information to match object
       for(let i = 0; i <= 10 || this.flag == true; ++i){
         if(match[i]?.id !== undefined){
-          this.match.matchId = match[i].id;
-          this.match.duration = (match[i].durationSeconds / 60).toFixed(2);
+          this.match.id = match[i].id;
+          this.match.durationSeconds = match[i].durationSeconds;
           this.match.victory = match[i].players[0].isVictory;
 
           //**********************************************************/
           //Start time
           //**********************************************************/
-          if(isNaN(match[i].start_time)){
-            this.match.startTime = undefined;
-          }
-          else{
-            let date = new Date(match[i]?.start_time * 1000);
+
+            let date = new Date(match[i]?.startDateTime * 1000);
             let hours = date.getHours();
             let minutes = "0" + date.getMinutes();
             let seconds = "0" + date.getSeconds();
             let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
             this.match.startTime = formattedTime;
-          }
+          
 
 
           //**********************************************************/
@@ -145,23 +139,12 @@ export class SplayerComponent implements OnInit {
 
         }
       }
-    });
-  }
-  //**********************************************************/
-  // Saves match and player to database
-  //**********************************************************/
-  onSubmit2(){
-
-    this.flag2 = true;
-
-    //call post match to successfully post match to database
-
-    //set all values to null if dont exist
-    if(this.match.matchId == undefined){
-      this.match.matchId = 0;
+      //set all values to null if dont exist
+    if(this.match.id == undefined){
+      this.match.id = 0;
     }
-    if(this.match.duration == undefined){
-      this.match.duration = "0";
+    if(this.match.durationSeconds == undefined){
+      this.match.durationSeconds = "0";
     }
     if(this.match.victory == undefined){
       this.match.victory = false;
@@ -193,6 +176,18 @@ export class SplayerComponent implements OnInit {
     if(this.match.deaths == undefined){
       this.match.deaths = 0;
     }
+    });
+  }
+  //**********************************************************/
+  // Saves match and player to database
+  //**********************************************************/
+  onSubmit2(){
+
+    this.flag2 = true;
+
+    //call post match to successfully post match to database
+
+    
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
 

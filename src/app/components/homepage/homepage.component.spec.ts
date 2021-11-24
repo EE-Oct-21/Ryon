@@ -12,8 +12,8 @@ describe('HomepageComponent', () => {
   let fixture: ComponentFixture<HomepageComponent>;
 
   let match = new Match();
-  match.matchId = 1;
-  match.duration = "1";
+  match.id = 1;
+  match.durationSeconds = "1";
   match.victory = true;
   match.firstBloodTime = "1";
   match.gameMode = "1";

@@ -67,7 +67,7 @@ export class SavePlayerService {
   }
 
   deleteMatch(match: Match): boolean{
-    this.http.delete<Match>(this.endpoint+"/match/", match.matchId)
+    this.http.delete<Match>(this.endpoint+"/match/", match.id)
     .subscribe(res => {
     }, (err) => {
       console.log(err);
