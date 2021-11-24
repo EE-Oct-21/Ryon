@@ -140,6 +140,16 @@ export class SplayerComponent implements OnInit {
         }
       }
       //set all values to null if dont exist
+    
+    });
+  }
+  //**********************************************************/
+  // Saves match and player to database
+  //**********************************************************/
+  onSubmit2(){
+
+    this.flag2 = true;
+
     if(this.match.id == undefined){
       this.match.id = 0;
     }
@@ -176,14 +186,6 @@ export class SplayerComponent implements OnInit {
     if(this.match.deaths == undefined){
       this.match.deaths = 0;
     }
-    });
-  }
-  //**********************************************************/
-  // Saves match and player to database
-  //**********************************************************/
-  onSubmit2(){
-
-    this.flag2 = true;
 
     //call post match to successfully post match to database
 
