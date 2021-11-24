@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
-import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -94,10 +94,4 @@ export class SavePlayerService {
     return this.http.get<any>(`${this.endpoint}/matches`);
   }
 
-  private handleError<T>( result?: T) {
-    return (error: any): Observable<T> => {
-      console.log('An Error occured' + error);
-      return new Observable();
-    }
-  }
 }
