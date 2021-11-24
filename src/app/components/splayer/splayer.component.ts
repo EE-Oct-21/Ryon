@@ -150,42 +150,42 @@ export class SplayerComponent implements OnInit {
 
     this.flag2 = true;
 
-    if(this.match.id == undefined){
-      this.match.id = 0;
-    }
-    if(this.match.durationSeconds == undefined){
-      this.match.durationSeconds = "0";
-    }
-    if(this.match.victory == undefined){
-      this.match.victory = false;
-    }
-    if(this.match.firstBloodTime == undefined){
-      this.match.firstBloodTime = "0";
-    }
-    if(this.match.gameMode == undefined){
-      this.match.gameMode = "0";
-    }
-    if(this.match.heroes == undefined){
-      this.match.heroes = "0";
-    }
-    if(this.match.largestGoldLead == undefined){
-      this.match.largestGoldLead = "0";
-    }
-    if(this.match.largestGoldLeadTeam == undefined){
-      this.match.largestGoldLeadTeam = "0";
-    }
-    if(this.match.largestXpLead == undefined){
-      this.match.largestXpLead = "0";
-    }
-    if(this.match.largestXpLeadTeam == undefined){
-      this.match.largestXpLeadTeam = "0";
-    }
-    if(this.match.startTime == undefined){
-      this.match.startTime = "0";
-    }
-    if(this.match.deaths == undefined){
-      this.match.deaths = 0;
-    }
+    // if(this.match.id == undefined){
+    //   this.match.id = 0;
+    // }
+    // if(this.match.durationSeconds == undefined){
+    //   this.match.durationSeconds = "0";
+    // }
+    // if(this.match.victory == undefined){
+    //   this.match.victory = false;
+    // }
+    // if(this.match.firstBloodTime == undefined){
+    //   this.match.firstBloodTime = "0";
+    // }
+    // if(this.match.gameMode == undefined){
+    //   this.match.gameMode = "0";
+    // }
+    // if(this.match.heroes == undefined){
+    //   this.match.heroes = "0";
+    // }
+    // if(this.match.largestGoldLead == undefined){
+    //   this.match.largestGoldLead = "0";
+    // }
+    // if(this.match.largestGoldLeadTeam == undefined){
+    //   this.match.largestGoldLeadTeam = "0";
+    // }
+    // if(this.match.largestXpLead == undefined){
+    //   this.match.largestXpLead = "0";
+    // }
+    // if(this.match.largestXpLeadTeam == undefined){
+    //   this.match.largestXpLeadTeam = "0";
+    // }
+    // if(this.match.startTime == undefined){
+    //   this.match.startTime = "0";
+    // }
+    // if(this.match.deaths == undefined){
+    //   this.match.deaths = 0;
+    // }
 
     //call post match to successfully post match to database
 
