@@ -12,11 +12,21 @@ describe('HeroComponent', () => {
   let fixture: ComponentFixture<HeroComponent>;
 
   let hero = new Hero();
-  hero.id = '135';
-  hero.name = "Dawnbreaker";
+  hero.id = '1';
+  hero.displayName = 'Axe';
+
+  let hero1 = new Hero();
+  hero1.id = '2';
+  hero1.displayName = 'Anti-Mage';
+
+  let hero2 = new Hero();
+  hero2.id = '135';
+  hero2.displayName = 'Dawnbreaker';
+
+  let heroes = [hero, hero1, hero2]
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',['getHero']);
-  stratzServiceSpy.getHero.and.returnValue(of(hero));
+  stratzServiceSpy.getHero.and.returnValue(of(heroes));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,12 +51,12 @@ describe('HeroComponent', () => {
 
   it('should display correct hero given ID', ()=> {
     const heroId = fixture.debugElement.nativeElement.querySelector('#heroId');
-    expect(heroId.textContent).toBe(hero.id);
+    expect(heroId.textContent).toBe(heroes[2].id);
   });
 
   it('should display correct hero given name', ()=> {
     const heroName = fixture.debugElement.nativeElement.querySelector('#heroName');
-    expect(heroName.textContent).toBe(hero.name);
+    expect(heroName.textContent).toBe(heroes[2].displayName);
   });
 
 });

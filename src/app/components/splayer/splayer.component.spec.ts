@@ -162,14 +162,14 @@ describe('SplayerComponent', () => {
     expect(headerTag).toBeNull();
     
   });
-
+  
   it('should display the deaths when submit button is clicked and steamid is provided', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#deaths');
-    if(headerTag != undefined){
+    if(headerTag != undefined && headerTag != null){
       expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
     }
   });
