@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AuthService } from '@auth0/auth0-angular';
 import { AppModule } from 'src/app/app.module';
 
 import { UserProfileComponent } from './user-profile.component';

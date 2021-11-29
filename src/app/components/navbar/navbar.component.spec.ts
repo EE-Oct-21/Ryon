@@ -24,4 +24,23 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have link for Protractor', ()=>{
+    const home = fixture.debugElement.nativeElement.querySelector('#home'); 
+    expect(home.textContent).toBe("Protractor");
+  });
+
+  it('should have link for Profile when Authenticated', ()=>{
+    //need to mock authentication and create condition for when user is authenticated
+    const profile = fixture.debugElement.nativeElement.querySelector('#profile'); 
+    //expect(profile.textContent).toBe("Profile");
+  });
+
+  it('link should navigate to / and /profile', ()=>{
+    const anchorTags = fixture.debugElement.nativeElement.querySelectorAll('a');
+    expect(anchorTags[0].getAttribute("routerlink")).toEqual("");
+    //expect(anchorTags[1].getAttribute("routerlink")).toEqual("/profile");
+  })
+
+
 });
