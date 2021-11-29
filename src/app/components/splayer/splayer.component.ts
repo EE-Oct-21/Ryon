@@ -65,7 +65,9 @@ export class SplayerComponent implements OnInit {
             let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
             this.match.startTime = formattedTime;
 
-            //THIS IS WHERE OPEN DOTA SERVICE STARTS
+            //**********************************************************/
+            // Gets more match data on given match id from OpenDota API
+            //**********************************************************/
             this.opendotaService.getMatch(this.match.id).subscribe((match: any) => {
               //**********************************************************/
               //Gold lead

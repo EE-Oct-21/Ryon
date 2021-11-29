@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
+import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 
@@ -26,20 +27,21 @@ describe('SplayerComponent', () => {
   match.largestXpLead = "1";
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
-  match.deaths = "1";
+  match.deaths = 10;
+
 
   let match2 = new Match();
-  match.id = 2;
-  match.durationSeconds = "1";
-  match.victory = true;
-  match.firstBloodTime = "1";
-  match.gameMode = "1";
-  match.largestGoldLead = "1";
-  match.largestGoldLeadTeam = "Dire";
-  match.largestXpLead = "1";
-  match.largestXpLeadTeam = "Radiant";
-  match.startTime = "1";
-  match.deaths = "10";
+  match2.id = 2;
+  match2.durationSeconds = "1";
+  match2.victory = true;
+  match2.firstBloodTime = "1";
+  match2.gameMode = "1";
+  match2.largestGoldLead = "1";
+  match2.largestGoldLeadTeam = "Dire";
+  match2.largestXpLead = "1";
+  match2.largestXpLeadTeam = "Radiant";
+  match2.startTime = "1";
+  match2.deaths = 10;
 
   let matchArray = [match,match2]
 
@@ -59,7 +61,10 @@ describe('SplayerComponent', () => {
   const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',[
     'getAllSavedMatches', 'addMatch']);
     const getAllSavedMatchesSpy = savePlayerServiceSpy.getAllSavedMatches.and.returnValue(of(match));
-    const addMatch = savePlayerServiceSpy.addMatch.and.returnValue(of(match));
+    const addMatchSpy = savePlayerServiceSpy.addMatch.and.returnValue(of(match));
+
+  const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getMatch']);
+  const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(of(match));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -68,6 +73,7 @@ describe('SplayerComponent', () => {
       providers: [
         { provide: StratzService, useValue: stratzServiceSpy },
         { provide: SavePlayerService, useValue: savePlayerServiceSpy },
+        { provide: OpendotaService, useValue: opendotaServiceSpy },
         { provide: steamid, useValue: '66914827' }
       ]
     })
@@ -157,7 +163,6 @@ describe('SplayerComponent', () => {
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
     let lost = fixture.debugElement.nativeElement.querySelector('#lost');
-    console.log(headerTag);
 
     expect(headerTag).toBeNull();
     
@@ -169,8 +174,11 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#deaths');
-    if(headerTag != undefined && headerTag != null){
+    if(headerTag != undefined){
       expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
+    }
+    else{
+      expect(headerTag).toBeNull;
     }
   });
 
@@ -182,6 +190,9 @@ describe('SplayerComponent', () => {
     const headerTag = fixture.debugElement.nativeElement.querySelector('#feed');
     if(match.deaths > 10){
       expect(headerTag.textContent).toBe("You fed.");
+    }
+    else{
+      expect(headerTag).toBeNull;
     }
   });
 
