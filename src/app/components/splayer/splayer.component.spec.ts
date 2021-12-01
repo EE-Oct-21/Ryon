@@ -27,7 +27,7 @@ describe('SplayerComponent', () => {
   match.largestXpLead = "1";
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
-  match.deaths = 10;
+  match.deaths = 11;
 
 
   let match2 = new Match();
@@ -162,11 +162,12 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
-    let lost = fixture.debugElement.nativeElement.querySelector('#lost');
 
-    expect(headerTag).toBeNull();
+    expect(headerTag.textContent).toBe("You won.");
     
   });
+
+  
   
   it('should display the deaths when submit button is clicked and steamid is provided', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
@@ -174,12 +175,8 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#deaths');
-    if(headerTag != undefined){
-      expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
-    }
-    else{
-      expect(headerTag).toBeNull;
-    }
+    expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
+
   });
 
   it('should display the special message when submit button is clicked and steamid is provided and deaths are greater than 10', ()=>{
@@ -188,12 +185,7 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#feed');
-    if(match.deaths > 10){
-      expect(headerTag.textContent).toBe("You fed.");
-    }
-    else{
-      expect(headerTag).toBeNull;
-    }
+    expect(headerTag.textContent).toBe("You fed.");
   });
 
   it('should display logo when no id is provided', ()=>{

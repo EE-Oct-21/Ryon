@@ -46,13 +46,10 @@ export class SplayerComponent implements OnInit {
       // Gets 10 most recent matches and stores them all in Matches Model
       //**********************************************************/
       this.stratzService.getPlayerMatches(this.steamid).subscribe((match: any) => {
-
         //add match information to match object
         for (let i = 0; i <= 10; ++i) {
           if (match[i]?.id !== undefined) {
-            this.match.id = match[i].id;
-            this.match.durationSeconds = match[i].durationSeconds;
-            this.match.victory = match[i].players[0].isVictory;
+            this.match = match[i];
 
             //**********************************************************/
             //Start time
@@ -124,7 +121,6 @@ export class SplayerComponent implements OnInit {
                 this.match.largestXpLead = Math.abs(direXpLead);
                 this.match.largestXpLeadTeam = "Dire";
               }
-
               //**********************************************************/
               //Deaths
               //**********************************************************/
