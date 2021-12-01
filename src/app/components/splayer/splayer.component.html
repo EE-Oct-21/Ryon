@@ -33,12 +33,12 @@
                 {{match.largestGoldLeadTeam}} had the highest gold
                 lead of
                 {{match.largestGoldLead}} gold.</p>
-            <p *ngIf="match.largestXpLeadTeam != undefined && match.largestXpLead != '0'">
+            <p id="xpLead" *ngIf="match.largestXpLeadTeam != undefined && match.largestXpLead != '0'">
                 {{match.largestXpLeadTeam}} had the highest
                 experience
                 lead
                 of {{match.largestXpLead}} experience.</p>
-            <p *ngIf="match.startTime != undefined && match.startTime != '0'">The match began at {{match.startTime}}.
+            <p id="startTime" *ngIf="match.startTime != undefined && match.startTime != '0'">The match began at {{match.startTime}}.
             </p>
             <p id="deaths" *ngIf="match.deaths != undefined">You died {{match.deaths}} times.</p>
             <p id="feed" *ngIf="match.deaths > 10">You fed.</p>

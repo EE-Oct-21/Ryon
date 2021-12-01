@@ -28,6 +28,8 @@ describe('SplayerComponent', () => {
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
   match.deaths = 11;
+  match.radiant_gold_adv = [0, -34, 405, 224];
+  match.radiant_xp_adv = [0, 24, 212, 211];
 
 
   let match2 = new Match();
@@ -167,7 +169,39 @@ describe('SplayerComponent', () => {
     
   });
 
-  
+  it('should display largest gold lead and corresponding team when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const goldLead = fixture.debugElement.nativeElement.querySelector('#goldLead');
+
+    expect(goldLead.textContent).toBe(" " + match.largestGoldLeadTeam +  " had the highest gold lead of " + match.largestGoldLead + " gold.");
+    
+  });
+
+  it('should display largest xp lead and corresponding team when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const goldLead = fixture.debugElement.nativeElement.querySelector('#xpLead');
+
+    expect(goldLead.textContent).toBe(" " + match.largestXpLeadTeam +  " had the highest experience lead of " + match.largestXpLead + " experience.");
+    
+  });
+
+  it('should display the start time when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#startTime');
+    expect(headerTag.textContent).toBe("The match began at " + match.startTime + ". ");
+
+  });
   
   it('should display the deaths when submit button is clicked and steamid is provided', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
@@ -194,4 +228,11 @@ describe('SplayerComponent', () => {
     expect(headerTag['src']).toContain('favicon.ico');
 
   });
+
+  // it('should display save match button if user is logged in', ()=>{
+
+  //   const headerTag = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
+  //   expect(headerTag.textContent).toBe("Save Match");
+
+  // });
 });
