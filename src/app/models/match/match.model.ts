@@ -11,4 +11,6 @@ export class Match {
    largestXpLeadTeam!: any;
    startTime!: any;
    deaths!: any;
+   radiant_gold_adv!: any;
+   radiant_xp_adv!: any;
  }

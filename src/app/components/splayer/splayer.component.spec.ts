@@ -27,7 +27,9 @@ describe('SplayerComponent', () => {
   match.largestXpLead = "1";
   match.largestXpLeadTeam = "Radiant";
   match.startTime = "1";
-  match.deaths = 10;
+  match.deaths = 11;
+  match.radiant_gold_adv = [0, -34, 405, 224];
+  match.radiant_xp_adv = [0, 24, 212, 211];
 
 
   let match2 = new Match();
@@ -162,10 +164,43 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
-    let lost = fixture.debugElement.nativeElement.querySelector('#lost');
 
-    expect(headerTag).toBeNull();
+    expect(headerTag.textContent).toBe("You won.");
     
+  });
+
+  it('should display largest gold lead and corresponding team when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const goldLead = fixture.debugElement.nativeElement.querySelector('#goldLead');
+
+    expect(goldLead.textContent).toBe(" " + match.largestGoldLeadTeam +  " had the highest gold lead of " + match.largestGoldLead + " gold.");
+    
+  });
+
+  it('should display largest xp lead and corresponding team when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const goldLead = fixture.debugElement.nativeElement.querySelector('#xpLead');
+
+    expect(goldLead.textContent).toBe(" " + match.largestXpLeadTeam +  " had the highest experience lead of " + match.largestXpLead + " experience.");
+    
+  });
+
+  it('should display the start time when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#startTime');
+    expect(headerTag.textContent).toBe("The match began at " + match.startTime + ". ");
+
   });
   
   it('should display the deaths when submit button is clicked and steamid is provided', ()=>{
@@ -174,12 +209,8 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#deaths');
-    if(headerTag != undefined){
-      expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
-    }
-    else{
-      expect(headerTag).toBeNull;
-    }
+    expect(headerTag.textContent).toBe("You died " + match.deaths + " times.");
+
   });
 
   it('should display the special message when submit button is clicked and steamid is provided and deaths are greater than 10', ()=>{
@@ -188,12 +219,7 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#feed');
-    if(match.deaths > 10){
-      expect(headerTag.textContent).toBe("You fed.");
-    }
-    else{
-      expect(headerTag).toBeNull;
-    }
+    expect(headerTag.textContent).toBe("You fed.");
   });
 
   it('should display logo when no id is provided', ()=>{
@@ -202,4 +228,11 @@ describe('SplayerComponent', () => {
     expect(headerTag['src']).toContain('favicon.ico');
 
   });
+
+  // it('should display save match button if user is logged in', ()=>{
+
+  //   const headerTag = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
+  //   expect(headerTag.textContent).toBe("Save Match");
+
+  // });
 });

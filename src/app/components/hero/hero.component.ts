@@ -26,8 +26,6 @@ export class HeroComponent implements OnInit {
         {
           if(heroes[i]?.id == this.heroId)
           {
-            console.log(heroes[i].displayName);
-            console.log(heroes[i].displayName);
             this.hero.id = heroes[i].id;
             this.hero.displayName = heroes[i].displayName;       
           }
