@@ -157,6 +157,16 @@ describe('SplayerComponent', () => {
     expect(headerTag.textContent).toBe("It lasted " + (match.durationSeconds / 60).toFixed(2) + " minutes.");
   });
 
+  it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#firstBloodTime');
+    expect(headerTag.textContent).toBe("First blood was achieved at " + (match.firstBloodTime / 60).toFixed(2) + " minutes.");
+  });
+
   it('should display victory when submit button is clicked and steamid is provided and victory is true', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
