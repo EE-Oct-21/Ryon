@@ -56,11 +56,15 @@ export class SplayerComponent implements OnInit {
             //Start time
             //**********************************************************/
 
-            let date = new Date(match[i]?.startDateTime * 1000);
-            let hours = date.getHours();
-            let minutes = "0" + date.getMinutes();
-            let seconds = "0" + date.getSeconds();
-            let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            let a = new Date(match[i]?.startDateTime * 1000);
+            let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            let year = a.getFullYear();
+            let month = months[a.getMonth()];
+            let date = a.getDate();
+            let hour = a.getHours();
+            let minutes = a.getMinutes();
+            let seconds =  a.getSeconds();
+            let formattedTime = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + minutes + ':' + seconds; 
             this.match.startTime = formattedTime;
 
             //**********************************************************/

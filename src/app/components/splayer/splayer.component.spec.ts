@@ -209,7 +209,7 @@ describe('SplayerComponent', () => {
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     const headerTag = fixture.debugElement.nativeElement.querySelector('#startTime');
-    expect(headerTag.textContent).toBe("The match began at " + match.startTime + ". ");
+    expect(headerTag.textContent).toBe("The match started on " + match.startTime + ". ");
 
   });
   
