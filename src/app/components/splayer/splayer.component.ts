@@ -185,7 +185,6 @@ export class SplayerComponent implements OnInit {
             //**********************************************************/
             this.auth.user$.subscribe((data: any) => {
               this.match.authId = [];
-              console.log(data);
               this.match.authId.push(data.sub.substring(14,20));
             })
 
@@ -198,17 +197,10 @@ export class SplayerComponent implements OnInit {
 
     this.flag2 = true;
 
-
-
-    //call post match to successfully post match to database
+    //call add match to successfully post match to database
     this.savePlayerService.addMatch(this.match);
-    console.log(this.match.authId);
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
-
-
-
-
       // //If player exists, add match to player
       // this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
       //   for(let i=0; i < players.length ; i++){
