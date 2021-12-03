@@ -31,17 +31,6 @@ export class SplayerComponent implements OnInit {
   }
 
   onSubmit() {
-    //**********************************************************/
-    // Store authentication ID in model for future reference
-    //**********************************************************/
-    this.auth.user$.subscribe((data: any) => {
-      this.match.authId = [];
-      console.log(data);
-      this.match.authId.push(data.sub.substring(14,20));
-      console.log(this.match.authId);
-   
-    }),
-
     this.isPlayer = true;
     //**********************************************************/
     // Gets player details and stores them in SPlayer model
@@ -191,6 +180,15 @@ export class SplayerComponent implements OnInit {
           this.match.deaths = 0;
         }
 
+            //**********************************************************/
+            // Store authentication ID in model for future reference
+            //**********************************************************/
+            this.auth.user$.subscribe((data: any) => {
+              this.match.authId = [];
+              console.log(data);
+              this.match.authId.push(data.sub.substring(14,20));
+            })
+
       });
   }
   //**********************************************************/
@@ -203,9 +201,8 @@ export class SplayerComponent implements OnInit {
 
 
     //call post match to successfully post match to database
-    console.log(this.match.authId);
     this.savePlayerService.addMatch(this.match);
-    console.log(this.match);
+    console.log(this.match.authId);
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
 
