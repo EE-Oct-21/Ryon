@@ -31,10 +31,13 @@ export class UserProfileComponent implements OnInit {
     this.savePlayerService.getAllSavedMatches().subscribe((matchArray: any) => {
       this.matchArray = [];
       console.log(matchArray);
+      console.log(this.matchArray);
       console.log("Right before for loop");
       for(let i = 0; i < matchArray.length; ++i){
         console.log("Inside for loop");
         console.log(this.authId);
+        console.log(matchArray[i].authId + this.authId);
+        console.log(matchArray[i].authId.includes(this.authId));
         if(matchArray[i].authId.includes(this.authId)){
           console.log("Inside if");
           this.matchArray.push(matchArray[i]);
