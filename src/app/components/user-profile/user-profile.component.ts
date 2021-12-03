@@ -21,33 +21,21 @@ export class UserProfileComponent implements OnInit {
     // Fetch this user's ID and store it locally
     //**********************************************************/
     this.auth.user$.subscribe((data: any) => {
-        this.authId = data.sub.substring(14,20);
-        console.log(this.authId);
-    
-    //**********************************************************/
-    // Loop through matches, and display any match that has this
-    //    user's auth ID associated with it
-    //**********************************************************/
-    this.savePlayerService.getAllSavedMatches().subscribe((matchArray: any) => {
-      this.matchArray = [];
-      console.log(matchArray);
-      console.log(this.matchArray);
-      console.log("Right before for loop");
-      for(let i = 0; i < matchArray.length; ++i){
-        console.log("Inside for loop");
-        console.log(this.authId);
-        console.log(matchArray[i].authId + ' ' + this.authId);
-        console.log(typeof matchArray[i].authId);
-        console.log(typeof this.authId);
-        console.log(matchArray[i].authId.includes(this.authId));
-        if(matchArray[i].authId.includes(this.authId)){
-          console.log("Inside if");
-          this.matchArray.push(matchArray[i]);
-          console.log(this.matchArray);
+      this.authId = data.sub.substring(14, 20);
+
+      //**********************************************************/
+      // Loop through matches, and display any match that has this
+      //    user's auth ID associated with it
+      //**********************************************************/
+      this.savePlayerService.getAllSavedMatches().subscribe((matchArray: any) => {
+        this.matchArray = [];
+        for (let i = 0; i < matchArray.length; ++i) {
+          if (matchArray[i].authId.toString().includes(this.authId)) {
+            this.matchArray.push(matchArray[i]);
+          }
         }
-      }
+      })
     })
-  })
   }
   //need to show all match objects with this users auth ID :)
 }
