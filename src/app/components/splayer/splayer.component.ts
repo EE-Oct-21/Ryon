@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { User } from '@auth0/auth0-spa-js';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
@@ -30,6 +31,17 @@ export class SplayerComponent implements OnInit {
   }
 
   onSubmit() {
+    //**********************************************************/
+    // Store authentication ID in model for future reference
+    //**********************************************************/
+    this.auth.user$.subscribe((data: any) => {
+      this.match.authId = [];
+      //console.log(data);
+      this.match.authId.push(data.sub.substring(14,35));
+      //console.log(this.match.authId);
+   
+    }),
+
     this.isPlayer = true;
     //**********************************************************/
     // Gets player details and stores them in SPlayer model
