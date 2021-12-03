@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
         console.log(this.authId);
         console.log(matchArray[i].authId + this.authId);
         console.log(matchArray[i].authId.includes(this.authId));
-        if(matchArray[i].authId.includes(this.authId)){
+        if(matchArray[i].includes(this.authId)){
           console.log("Inside if");
           this.matchArray.push(matchArray[i]);
           console.log(this.matchArray);
