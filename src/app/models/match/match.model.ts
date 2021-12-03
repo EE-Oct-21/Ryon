@@ -1,6 +1,6 @@
 export class Match {
    id!: any;
-   authId!: bigint[];
+   authId!: any[];
    durationSeconds!: any;
    victory!: any;
    firstBloodTime!: any;

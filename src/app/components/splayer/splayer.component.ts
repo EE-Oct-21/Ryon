@@ -37,7 +37,7 @@ export class SplayerComponent implements OnInit {
     this.auth.user$.subscribe((data: any) => {
       this.match.authId = [];
       console.log(data);
-      this.match.authId.push(data.sub.substring(14,35));
+      this.match.authId.push(data.sub.substring(14,25));
       console.log(this.match.authId);
    
     }),
