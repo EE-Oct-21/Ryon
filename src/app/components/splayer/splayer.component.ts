@@ -31,16 +31,7 @@ export class SplayerComponent implements OnInit {
   }
 
   onSubmit() {
-    //**********************************************************/
-    // Store authentication ID in model for future reference
-    //**********************************************************/
-    this.auth.user$.subscribe((data: any) => {
-      this.match.authId = [];
-      //console.log(data);
-      this.match.authId.push(data.sub.substring(14,35));
-      //console.log(this.match.authId);
-   
-    }),
+
 
     this.isPlayer = true;
     //**********************************************************/
@@ -63,7 +54,16 @@ export class SplayerComponent implements OnInit {
           if (match[i]?.id !== undefined) {
             this.match = match[i];
 
-
+                //**********************************************************/
+                // Store authentication ID in model for future reference
+                //**********************************************************/
+                this.auth.user$.subscribe((data: any) => {
+                  this.match.authId = [];
+                  console.log(data);
+                  this.match.authId.push(data.sub.substring(14,35));
+                  console.log(this.match.authId);
+              
+                })
             //**********************************************************/
             //Start time
             //**********************************************************/
@@ -207,7 +207,7 @@ export class SplayerComponent implements OnInit {
 
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
-
+      console.log(this.match);
       this.savePlayerService.addMatch(this.match);
 
       // //If player exists, add match to player
