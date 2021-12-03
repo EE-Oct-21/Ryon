@@ -203,13 +203,14 @@ export class SplayerComponent implements OnInit {
 
 
     //call post match to successfully post match to database
-
-
+    console.log(this.match.authId);
+    this.savePlayerService.addMatch(this.match);
+    console.log(this.match);
 
     this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
-      console.log(this.match);
-      console.log(this.match.authId);
-      this.savePlayerService.addMatch(this.match);
+
+
+
 
       // //If player exists, add match to player
       // this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
