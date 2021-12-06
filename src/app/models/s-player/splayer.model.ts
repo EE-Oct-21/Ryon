@@ -6,5 +6,5 @@ export class SPlayer {
   realName!: any;
   avatar!: any;
   profileUri!: any;
-  match!: Match;
+  matchesList!: Match[];
 }

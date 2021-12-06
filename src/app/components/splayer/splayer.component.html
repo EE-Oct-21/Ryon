@@ -29,7 +29,7 @@
             <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
                 {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }} minutes.</p>
-            <p id="matchVictory" *ngIf="match.players[0].isVictory == true; else elseBlock">You won.</p>
+            <p id="matchVictory" *ngIf="match.players && match.players[0].isVictory == true; else elseBlock">You won.</p>
             <p>
                 <ng-template #elseBlock>
                     <p id="lost">You lost.</p>

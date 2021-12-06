@@ -51,7 +51,6 @@ export class SplayerComponent implements OnInit {
         for (let i = 0; i <= 10; ++i) {
           if (match[i]?.id !== undefined) {
             this.match = match[i];
-            console.log(this.match.players[0].isVictory);
 
             //**********************************************************/
             //Start time
@@ -185,9 +184,10 @@ export class SplayerComponent implements OnInit {
             //**********************************************************/
             this.auth.user$.subscribe((data: any) => {
               this.match.authId = [];
-              this.match.authId.push(data.sub.substring(14,20));
+              if(data){
+                this.match.authId.push(data.sub.substring(14,20));
+              }
             })
-
       });
   }
   //**********************************************************/
@@ -196,22 +196,14 @@ export class SplayerComponent implements OnInit {
   onSubmit2() {
 
     this.flag2 = true;
-
+    this.splayer.matchesList = [];
+    
     //call add match to successfully post match to database
     this.savePlayerService.addMatch(this.match);
-
-    this.savePlayerService.getAllSavedMatches().subscribe((match: any) => {
-      // //If player exists, add match to player
-      // this.savePlayerService.getAllSavedPlayers().subscribe((players:any) => {
-      //   for(let i=0; i < players.length ; i++){
-      //     if(players.id == this.splayer.id){
-      //         //add match to player
-      //         this.splayer.matches.id.push(this.match);
-      //     }
-      //   }
-      // });
-      //this.savePlayerService.addPlayer(this.splayer);
-    })
+    //add match to player
+    this.splayer.matchesList.push(this.match);
+    //save player in database
+    this.savePlayerService.addPlayer(this.splayer);
   }
 
   ngOnInit(): void {
