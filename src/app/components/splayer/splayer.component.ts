@@ -51,7 +51,7 @@ export class SplayerComponent implements OnInit {
         for (let i = 0; i <= 10; ++i) {
           if (match[i]?.id !== undefined) {
             this.match = match[i];
-
+            console.log(this.match.players[0].isVictory);
 
             //**********************************************************/
             //Start time

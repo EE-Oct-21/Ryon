@@ -17,4 +17,6 @@ export class Match {
    first_blood_time!: any;
    start_time!: any;
    duration!: any;
+   isVictory!: any;
+   players!: any[];
  }

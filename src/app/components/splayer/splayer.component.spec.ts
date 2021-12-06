@@ -18,8 +18,10 @@ describe('SplayerComponent', () => {
 
   let match = new Match();
   match.id = 1;
+  match.authId = [1,2,3];
   match.durationSeconds = "1";
   match.victory = true;
+  match.players[0].isVictory = true;
   match.firstBloodTime = "1";
   match.gameMode = "1";
   match.largestGoldLead = "1";
