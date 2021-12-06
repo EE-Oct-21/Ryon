@@ -67,6 +67,8 @@ export class SplayerComponent implements OnInit {
             let formattedTime = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + minutes + ':' + seconds; 
             this.match.startTime = formattedTime;
 
+            this.match.victory = this.match.players[0].isVictory;
+
             //**********************************************************/
             // Gets more match data on given match id from OpenDota API
             //**********************************************************/
