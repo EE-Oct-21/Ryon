@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit {
 
   authId!: any;
   matchArray!: Match[];
+  isPlayer = false;
 
   constructor(private savePlayerService: SavePlayerService, public auth: AuthService) {
   }
@@ -37,5 +38,7 @@ export class UserProfileComponent implements OnInit {
       })
     })
   }
-  //need to show all match objects with this users auth ID :)
+  onClick() {
+    this.isPlayer = true;
+  }
 }

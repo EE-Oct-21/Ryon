@@ -14,4 +14,7 @@ export class Match {
    deaths!: any;
    radiant_gold_adv!: any;
    radiant_xp_adv!: any;
+   first_blood_time!: any;
+   start_time!: any;
+   duration!: any;
  }
