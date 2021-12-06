@@ -11,10 +11,10 @@
             <p id="matchDuration" *ngIf="match.duration != undefined && match.duration != '0'">It lasted
                 {{ (match.duration / 60).toFixed(2) }} minutes.</p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.first_blood_time / 60).toFixed(2) }} minutes.</p>
-            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
+            <p id="matchVictory" *ngIf="match.radiant_win == true; else elseBlock">Radiant won.</p>
             <p>
                 <ng-template #elseBlock>
-                    <p id="lost">You lost.</p>
+                    <p id="lost">Dire won.</p>
                 </ng-template>
             </p>
             <p id="goldLead" *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLead != '0'">

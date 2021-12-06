@@ -15,11 +15,12 @@ describe('SplayerComponent', () => {
 
   let steamid = '1';
 
-
   let match = new Match();
   match.id = 1;
+  match.authId = [1,2,3];
   match.durationSeconds = "1";
   match.victory = true;
+  match.players = [{isVictory!: true}]
   match.firstBloodTime = "1";
   match.gameMode = "1";
   match.largestGoldLead = "1";
@@ -31,21 +32,7 @@ describe('SplayerComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
 
-
-  let match2 = new Match();
-  match2.id = 2;
-  match2.durationSeconds = "1";
-  match2.victory = true;
-  match2.firstBloodTime = "1";
-  match2.gameMode = "1";
-  match2.largestGoldLead = "1";
-  match2.largestGoldLeadTeam = "Dire";
-  match2.largestXpLead = "1";
-  match2.largestXpLeadTeam = "Radiant";
-  match2.startTime = "1";
-  match2.deaths = 10;
-
-  let matchArray = [match,match2]
+  let matchArray = [match];
 
   let player = new SPlayer();
   player.name = "Ryon";
@@ -53,7 +40,8 @@ describe('SplayerComponent', () => {
   player.realName = "Real Ryon";
   player.avatar = "link";
   player.profileUri = "uri";
-  player.match = match;
+  player.matchesList = [];
+  player.matchesList[0] = match;
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer', 'getPlayerMatches']);

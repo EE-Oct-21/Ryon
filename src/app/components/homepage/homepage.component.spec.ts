@@ -30,7 +30,8 @@ describe('HomepageComponent', () => {
   player.realName = "Real Ryon";
   player.avatar = "link";
   player.profileUri = "uri";
-  player.match = match;
+  player.matchesList = [];
+  player.matchesList.push(match);
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer'
