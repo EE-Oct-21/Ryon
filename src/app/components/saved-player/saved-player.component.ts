@@ -21,7 +21,6 @@ export class SavedPlayerComponent implements OnInit {
     // Gets more match data on given match id from OpenDota API
     //**********************************************************/
     this.opendotaService.getMatch(this.matchId).subscribe((match: any) => {
-      console.log(match);
       this.match = match;
 
       let a = new Date(match.start_time * 1000);
