@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { NgbToastService } from 'ngb-toast';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
@@ -14,7 +15,10 @@ describe('SavePlayerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        { provide: NgbToastService, useValue: NgbToastService}
+      ]
     });
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.inject(SavePlayerService);
