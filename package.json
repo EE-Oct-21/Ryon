@@ -24,7 +24,7 @@
     "angular-bootstrap-toasts": "^1.2.0",
     "bootstrap": "^4.6.1",
     "jquery": "^3.6.0",
-    "ngb-toast": "^0.0.6",
+    "ngb-toast": "0.0.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
