@@ -13,11 +13,13 @@ describe('SavePlayerService', () => {
   let match = new Match();
   let baseUrl = 'https://ryon.ee-cognizantacademy.com'
 
+  const toastServiceSpy = jasmine.createSpyObj('toastService', ['pop', 'show']);
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        { provide: NgbToastService, useValue: NgbToastService}
+        { provide: NgbToastService, useValue: toastServiceSpy}
       ]
     });
     httpTestingController = TestBed.get(HttpTestingController);
