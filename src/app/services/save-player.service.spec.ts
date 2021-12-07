@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { NgbToastService } from 'ngb-toast';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
@@ -12,9 +13,14 @@ describe('SavePlayerService', () => {
   let match = new Match();
   let baseUrl = 'https://ryon.ee-cognizantacademy.com'
 
+  const toastServiceSpy = jasmine.createSpyObj('toastService', ['pop', 'show']);
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        { provide: NgbToastService, useValue: toastServiceSpy}
+      ]
     });
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.inject(SavePlayerService);

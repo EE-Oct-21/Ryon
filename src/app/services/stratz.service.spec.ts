@@ -14,11 +14,14 @@ describe('StratzService', () => {
   let hero = new Hero();
   let match = new Match();
 
+  
+
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',['getPlayer','getPlayerMatches','getHero','getMatch']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(player);
   const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(match);
   const getHeroSpy = stratzServiceSpy.getHero.and.returnValue(hero);
   const getMatchSpy = stratzServiceSpy.getMatch.and.returnValue(match);
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({

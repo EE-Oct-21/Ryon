@@ -14,6 +14,7 @@ import { AuthButtonComponent } from './components/auth-button/auth-button.compon
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FormsModule } from '@angular/forms';
 import { SavedPlayerComponent } from './components/saved-player/saved-player.component';
+import { NgbToastModule } from 'ngb-toast';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SavedPlayerComponent } from './components/saved-player/saved-player.com
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    NgbToastModule,
     AuthModule.forRoot({
       domain: 'dev-ulpdvjy2.us.auth0.com',
       clientId: 'k6E8BCBB1pmYMyAFxpuCw6j025SS3Mdq'

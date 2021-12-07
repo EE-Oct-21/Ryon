@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
+import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,16 @@ export class SavePlayerService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: NgbToastService) { }
 
   addPlayer(player: SPlayer): boolean{
     this.http.post<SPlayer>(this.endpoint+"/player", player,
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
+    this.showPlayerAddSuccess();
   return true;
   }
 
@@ -36,6 +39,7 @@ export class SavePlayerService {
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
   return true;
   }
@@ -45,6 +49,7 @@ export class SavePlayerService {
     .subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
   return true;
   }
@@ -54,7 +59,9 @@ export class SavePlayerService {
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
+    this.showMatchAddSuccess();
   return true;
   }
 
@@ -63,6 +70,7 @@ export class SavePlayerService {
      this.postHeader).subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
   return true;
   }
@@ -72,6 +80,7 @@ export class SavePlayerService {
     .subscribe(res => {
     }, (err) => {
       console.log(err);
+      this.showFailure();
     });
   return true;
   }
@@ -94,5 +103,47 @@ export class SavePlayerService {
   getAllSavedMatches(): Observable<Match>{
     return this.http.get<any>(`${this.endpoint}/matches`);
   }
+
+  showMatchAddSuccess(): void {
+		const toast: NgbToast = {
+			toastType:  NgbToastType.Success,
+			text:  "Match added successfullly",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+	}
+  showPlayerAddSuccess(): void {
+		const toast: NgbToast = {
+			toastType:  NgbToastType.Success,
+			text:  "Player added successfullly",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+	}
+
+  showFailure(): void {
+    const toast: NgbToast = {
+			toastType:  NgbToastType.Danger,
+			text:  "Failure",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+  }
+	
+	removeToast(toast: NgbToast): void {
+		this.toastService.remove(toast);
+	}
 
 }

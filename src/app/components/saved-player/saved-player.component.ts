@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Match } from 'src/app/models/match/match.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
+import { NgbToastService } from 'ngb-toast';
 
 @Component({
   selector: 'app-saved-player',
@@ -13,7 +14,7 @@ export class SavedPlayerComponent implements OnInit {
   @Input() matchId: any;
   @Input() steamId: any;
 
-  constructor(private opendotaService: OpendotaService, private savePlayerService: SavePlayerService) { }
+  constructor(private opendotaService: OpendotaService, private savePlayerService: SavePlayerService, private toastService: NgbToastService) { }
 
   ngOnInit(): void {
 
