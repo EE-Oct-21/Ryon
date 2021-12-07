@@ -9,6 +9,7 @@ import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
+import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 
 @Component({
   selector: 'app-splayer',
@@ -29,7 +30,7 @@ export class SplayerComponent implements OnInit {
   steamid = '';
   isPlayer = false; //flag for displaying logo
 
-  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService) {
+  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
   }
 
   onSubmit() {
@@ -207,12 +208,17 @@ export class SplayerComponent implements OnInit {
     this.postPlayer();
 
   }
-
+  //**********************************************************/
+  // async so that the order is correct
+  //**********************************************************/
   async postMatch(){
     //call add match to successfully post match to database
     this.savePlayerService.addMatch(this.match);
   }
-
+  
+  //**********************************************************/
+  // async so that the order is correct
+  //**********************************************************/
   async postPlayer(){
     await this.postMatch();
     //add match to player

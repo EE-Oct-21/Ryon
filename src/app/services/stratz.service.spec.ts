@@ -5,6 +5,8 @@ import { StratzService } from './stratz.service';
 import { SPlayer } from '../models/s-player/splayer.model';
 import { Hero } from '../models/hero/hero.model';
 import { Match } from '../models/match/match.model';
+import { NgbToastService } from 'ngb-toast';
+import { of } from 'rxjs';
 
 describe('StratzService', () => {
   let httpTestingController: HttpTestingController;
@@ -14,15 +16,22 @@ describe('StratzService', () => {
   let hero = new Hero();
   let match = new Match();
 
+  
+
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',['getPlayer','getPlayerMatches','getHero','getMatch']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(player);
   const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(match);
   const getHeroSpy = stratzServiceSpy.getHero.and.returnValue(hero);
   const getMatchSpy = stratzServiceSpy.getMatch.and.returnValue(match);
+  const toastServiceSpy = jasmine.createSpyObj('NgbToastService',['pop']);
+  let popServiceSpy = toastServiceSpy.pop.and.returnValue(of(''));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [ HttpClientTestingModule, NgbToastService ], 
+      providers: [
+        { provide: NgbToastService, useValue: popServiceSpy }
+      ]
     });
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.inject(StratzService);
