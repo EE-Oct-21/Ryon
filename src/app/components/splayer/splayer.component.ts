@@ -1,5 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { waitForAsync } from '@angular/core/testing';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { Match } from 'src/app/models/match/match.model';
@@ -200,15 +202,41 @@ export class SplayerComponent implements OnInit {
     this.flag2 = true;
     this.splayer.matchesList = [];
     
+    this.postMatch();
+    this.sleep(100000);
+    this.postPlayer();
+
+  }
+
+  async postMatch(){
     //call add match to successfully post match to database
     this.savePlayerService.addMatch(this.match);
+  }
+
+  async postPlayer(){
+    await this.postMatch();
     //add match to player
     this.splayer.matchesList.push(this.match);
     //save player in database
     this.savePlayerService.addPlayer(this.splayer);
   }
 
+  sleep(milliseconds: any) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
   ngOnInit(): void {
 
   }
 }
+//
+// TEST ID's
+// 83177429
+// 64819449
+// 132407154
+//
