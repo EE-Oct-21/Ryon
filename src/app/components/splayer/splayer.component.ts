@@ -38,7 +38,10 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     // Form validation
     //**********************************************************/
+    console.log(this.regex);
+    console.log(this.steamid);
     if (!this.regex.test(this.steamid)) {
+      console.log("here");
       this.showFailure();
       return;
     }
