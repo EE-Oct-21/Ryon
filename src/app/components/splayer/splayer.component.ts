@@ -29,6 +29,7 @@ export class SplayerComponent implements OnInit {
   match2 = new Match;
   steamid = '';
   isPlayer = false; //flag for displaying logo
+  regex = /^[0-9]{8}$/;
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
   }
@@ -37,8 +38,8 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     // Form validation
     //**********************************************************/
-    if (this.steamid == "") {
-      alert("Please enter an 8 digit Steam ID");
+    if (!this.regex.test(this.steamid)) {
+      this.showFailure();
       return;
     }
     this.isPlayer = true;
@@ -244,6 +245,22 @@ export class SplayerComponent implements OnInit {
       }
     }
   }
+  showFailure(): void {
+    const toast: NgbToast = {
+			toastType:  NgbToastType.Danger,
+			text:  "Please enter an 8 digit Steam ID",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+  }
+	
+	removeToast(toast: NgbToast): void {
+		this.toastService.remove(toast);
+	}
 
   ngOnInit(): void {
 

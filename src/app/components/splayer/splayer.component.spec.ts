@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbToastService } from 'ngb-toast';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
@@ -13,7 +14,8 @@ describe('SplayerComponent', () => {
   let component: SplayerComponent;
   let fixture: ComponentFixture<SplayerComponent>;
 
-  let steamid = '1';
+  let steamid = '66914827';
+  let regex = /^[0-9]{8}$/;
 
   let match = new Match();
   match.id = 1;
@@ -64,7 +66,8 @@ describe('SplayerComponent', () => {
         { provide: StratzService, useValue: stratzServiceSpy },
         { provide: SavePlayerService, useValue: savePlayerServiceSpy },
         { provide: OpendotaService, useValue: opendotaServiceSpy },
-        { provide: steamid, useValue: '66914827' }
+        { provide: steamid, useValue: '66914827' },
+        { provide: regex, useValue: /^[0-9]{8}$/}
       ]
     })
     .compileComponents();
