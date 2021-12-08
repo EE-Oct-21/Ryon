@@ -227,11 +227,4 @@ describe('SplayerComponent', () => {
     expect(headerTag['src']).toContain('favicon.ico');
 
   });
-
-  // it('should display save match button if user is logged in', ()=>{
-
-  //   const headerTag = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
-  //   expect(headerTag.textContent).toBe("Save Match");
-
-  // });
 });
