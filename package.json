@@ -22,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/jquery": "^3.5.8",
     "angular-bootstrap-toasts": "^1.2.0",
+    "bignumber": "^1.1.0",
     "bootstrap": "^4.6.1",
     "jquery": "^3.6.0",
     "ngb-toast": "0.0.6",

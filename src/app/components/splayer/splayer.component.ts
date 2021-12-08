@@ -10,7 +10,6 @@ import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
-
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -29,7 +28,9 @@ export class SplayerComponent implements OnInit {
   match2 = new Match;
   steamid = '';
   isPlayer = false; //flag for displaying logo
-  regex = /^[0-9]{8}$/;
+  regex = /[0-9]{8}$/;
+  largeId = 99999999999n;
+  conversionNum = 76561197960265728n;
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
   }
@@ -38,18 +39,26 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     // Form validation
     //**********************************************************/
-    console.log(this.regex);
-    console.log(this.steamid);
     if (!this.regex.test(this.steamid)) {
-      console.log("here");
       this.showFailure();
       return;
+    }
+    if(BigInt(this.steamid) > this.largeId){
+      this.steamid = (BigInt(this.steamid) - this.conversionNum).toString();
+      this.steamid.slice(0,7);
+      this.showConversion();
     }
     this.isPlayer = true;
     //**********************************************************/
     // Gets player details and stores them in SPlayer model
     //**********************************************************/
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
+      //if player is null, do not show details, and show error toast
+      if(Player == null){
+        this.isPlayer = false;
+        this.showInvalidIdFailure();
+        return;
+      }
       this.splayer = Player;
       this.splayer.name = Player.steamAccount.name;
       this.splayer.id = Player.steamAccount.id;
@@ -239,7 +248,9 @@ export class SplayerComponent implements OnInit {
     //save player in database
     this.savePlayerService.addPlayer(this.splayer);
   }
-
+  //**********************************************************/
+  // sleep so that player is posted before match
+  //**********************************************************/
   sleep(milliseconds: any) {
     var start = new Date().getTime();
     for (var i = 0; i < 1e7; i++) {
@@ -248,10 +259,13 @@ export class SplayerComponent implements OnInit {
       }
     }
   }
+  //**********************************************************/
+  // Toast for id being too small
+  //**********************************************************/
   showFailure(): void {
     const toast: NgbToast = {
 			toastType:  NgbToastType.Danger,
-			text:  "Please enter an 8 digit Steam ID",
+			text:  "ID must be at least 8 digits",
 			dismissible:  true,
       timeInSeconds: 5,
 			onDismiss: () => {
@@ -260,7 +274,39 @@ export class SplayerComponent implements OnInit {
 		}
 		this.toastService.show(toast);
   }
-	
+  //**********************************************************/
+  // Toast for player not existing
+  //**********************************************************/
+  showInvalidIdFailure(): void {
+    const toast: NgbToast = {
+			toastType:  NgbToastType.Danger,
+			text:  "Either user does not exist, or their profile is hidden",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Toast for id conversion
+  //**********************************************************/
+  showConversion(): void {
+    const toast: NgbToast = {
+			toastType:  NgbToastType.Info,
+			text:  "ID converted to correct format",
+			dismissible:  true,
+      timeInSeconds: 5,
+			onDismiss: () => {
+				console.log("Toast dismissed!!");
+			}
+		}
+		this.toastService.show(toast);
+  }
+	//**********************************************************/
+  // Remove toast
+  //**********************************************************/
 	removeToast(toast: NgbToast): void {
 		this.toastService.remove(toast);
 	}
@@ -274,4 +320,5 @@ export class SplayerComponent implements OnInit {
 // 83177429
 // 64819449
 // 132407154
+// 76561198066745404
 //

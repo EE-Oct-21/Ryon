@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { NgbToastService } from 'ngb-toast';
+import { SavedPlayerComponent } from '../components/saved-player/saved-player.component';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 

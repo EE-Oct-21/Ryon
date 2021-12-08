@@ -15,7 +15,6 @@ describe('SplayerComponent', () => {
   let fixture: ComponentFixture<SplayerComponent>;
 
   let steamid = '66914827';
-  let regex = /^[0-9]{8}$/;
 
   let match = new Match();
   match.id = 1;
