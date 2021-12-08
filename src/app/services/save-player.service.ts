@@ -55,9 +55,9 @@ export class SavePlayerService {
   return true;
   }
 
-  addMatch(match: Match): boolean{
+  addMatch(match: Match, player: SPlayer): boolean{
     this.http.post<Match>(this.endpoint+"/match", match,
-     this.postHeader).subscribe(res => {
+     this.postHeader).subscribe(res => {this.addPlayer(player)
     }, (err) => {
       console.log(err);
       this.showFailure();

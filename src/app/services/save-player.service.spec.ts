@@ -57,7 +57,7 @@ describe('SavePlayerService', () => {
   });
 
   it('addMatch should make a POST call to the url', ()=>{
-    let didAdd = service.addMatch(match);
+    let didAdd = service.addMatch(match,player);
     let req = httpTestingController.expectOne(baseUrl+"/match");
     expect(req.request.method).toEqual("POST");
     expect(didAdd).toBe(true);

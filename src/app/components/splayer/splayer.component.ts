@@ -10,6 +10,7 @@ import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -41,11 +42,12 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     if (!this.regex.test(this.steamid)) {
       this.showFailure();
+      console.log(this.steamid);
       return;
     }
-    if(BigInt(this.steamid) > this.largeId){
+    if (BigInt(this.steamid) > this.largeId) {
       this.steamid = (BigInt(this.steamid) - this.conversionNum).toString();
-      this.steamid.slice(0,7);
+      this.steamid.slice(0, 7);
       this.showConversion();
     }
     this.isPlayer = true;
@@ -54,7 +56,7 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
       //if player is null, do not show details, and show error toast
-      if(Player == null){
+      if (Player == null) {
         this.isPlayer = false;
         this.showInvalidIdFailure();
         return;
@@ -103,10 +105,8 @@ export class SplayerComponent implements OnInit {
               let direGoldLead = 0;
 
               for (let j = 0; j < match?.radiant_gold_adv?.length; ++j) {
-                if (match.radiant_gold_adv[j] >= 0) {
-                  if (match.radiant_gold_adv[j] > radiantGoldLead) {
-                    radiantGoldLead = match.radiant_gold_adv[j];
-                  }
+                if (match.radiant_gold_adv[j] >= 0 && match.radiant_gold_adv[j] > radiantGoldLead) {
+                  radiantGoldLead = match.radiant_gold_adv[j];
                 }
                 else {
                   if (match.radiant_gold_adv[j] < direGoldLead) {
@@ -225,91 +225,60 @@ export class SplayerComponent implements OnInit {
     this.flag2 = true;
     this.splayer.matchesList = [];
 
-    this.postMatch();
-    this.sleep(100000);
-    this.postPlayer();
-
-  }
-  //**********************************************************/
-  // async so that the order is correct
-  //**********************************************************/
-  async postMatch() {
-    //call add match to successfully post match to database
-    this.savePlayerService.addMatch(this.match);
-  }
-
-  //**********************************************************/
-  // async so that the order is correct
-  //**********************************************************/
-  async postPlayer() {
-    await this.postMatch();
-    //add match to player
     this.splayer.matchesList.push(this.match);
-    //save player in database
-    this.savePlayerService.addPlayer(this.splayer);
-  }
-  //**********************************************************/
-  // sleep so that player is posted before match
-  //**********************************************************/
-  sleep(milliseconds: any) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds) {
-        break;
-      }
-    }
+    this.savePlayerService.addMatch(this.match,this.splayer);
   }
   //**********************************************************/
   // Toast for id being too small
   //**********************************************************/
   showFailure(): void {
     const toast: NgbToast = {
-			toastType:  NgbToastType.Danger,
-			text:  "ID must be at least 8 digits",
-			dismissible:  true,
+      toastType: NgbToastType.Danger,
+      text: "ID must be at least 8 digits",
+      dismissible: true,
       timeInSeconds: 5,
-			onDismiss: () => {
-				console.log("Toast dismissed!!");
-			}
-		}
-		this.toastService.show(toast);
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
   }
   //**********************************************************/
   // Toast for player not existing
   //**********************************************************/
   showInvalidIdFailure(): void {
     const toast: NgbToast = {
-			toastType:  NgbToastType.Danger,
-			text:  "Either user does not exist, or their profile is hidden",
-			dismissible:  true,
+      toastType: NgbToastType.Danger,
+      text: "Either user does not exist, or their profile is hidden",
+      dismissible: true,
       timeInSeconds: 5,
-			onDismiss: () => {
-				console.log("Toast dismissed!!");
-			}
-		}
-		this.toastService.show(toast);
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
   }
   //**********************************************************/
   // Toast for id conversion
   //**********************************************************/
   showConversion(): void {
     const toast: NgbToast = {
-			toastType:  NgbToastType.Info,
-			text:  "ID converted to correct format",
-			dismissible:  true,
+      toastType: NgbToastType.Info,
+      text: "ID converted to correct format",
+      dismissible: true,
       timeInSeconds: 5,
-			onDismiss: () => {
-				console.log("Toast dismissed!!");
-			}
-		}
-		this.toastService.show(toast);
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
   }
-	//**********************************************************/
+  //**********************************************************/
   // Remove toast
   //**********************************************************/
-	removeToast(toast: NgbToast): void {
-		this.toastService.remove(toast);
-	}
+  removeToast(toast: NgbToast): void {
+    this.toastService.remove(toast);
+  }
 
   ngOnInit(): void {
 

@@ -41,8 +41,7 @@ describe('SplayerComponent', () => {
   player.realName = "Real Ryon";
   player.avatar = "link";
   player.profileUri = "uri";
-  player.matchesList = [];
-  player.matchesList[0] = match;
+  player.matchesList = [match];
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer', 'getPlayerMatches']);
@@ -74,6 +73,7 @@ describe('SplayerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SplayerComponent);
     component = fixture.componentInstance;
+    component.steamid = steamid;
     fixture.detectChanges();
   });
 

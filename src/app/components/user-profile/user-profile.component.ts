@@ -22,7 +22,10 @@ export class UserProfileComponent implements OnInit {
     // Fetch this user's ID and store it locally
     //**********************************************************/
     this.auth.user$.subscribe((data: any) => {
-      this.authId = data.sub.substring(14, 20);
+      if(data.sub){
+        this.authId = data.sub.substring(14, 20);
+      }
+
 
       //**********************************************************/
       // Loop through matches, and display any match that has this
