@@ -1,7 +1,7 @@
 <div class="row justify-content-center" style="margin-top: 1rem">
 
     <!--66914827-->
-    <div class="input-group input-group-lg">
+    <form class="input-group input-group-lg">
         <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
             [(ngModel)]="steamid">
         <span class="input-group-btn">
@@ -10,7 +10,7 @@
                     style="margin-left: 1rem;">Submit</button>
             </form>
         </span>
-    </div>
+    </form>
     <div *ngIf="isPlayer == true" class="row justify-content-center" style="margin-top: 3rem">
         <div class="col-sm text-center">
             <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
@@ -55,8 +55,5 @@
         <button id="saveMatchButton" class="btn btn-outline-light" type="submit" (click)="onSubmit2()"
             style="width: 10rem;">Save
             Match</button>
-    </div>
-    <div id="matchConfirmation" *ngIf="flag2 == true" class="row justify-content-center" style="margin-top: 1rem">
-        <p>Match added successfully</p>
     </div>
 </div>

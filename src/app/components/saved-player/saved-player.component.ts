@@ -69,10 +69,8 @@ export class SavedPlayerComponent implements OnInit {
       let direXpLead = 0;
 
       for (let j = 0; j < match?.radiant_xp_adv?.length; ++j) {
-        if (match.radiant_xp_adv[j] > 0) {
-          if (match.radiant_xp_adv[j] > radiantXpLead) {
-            radiantXpLead = match.radiant_xp_adv[j];
-          }
+        if (match.radiant_xp_adv[j] > 0 && match.radiant_xp_adv[j] > radiantXpLead) {
+          radiantXpLead = match.radiant_xp_adv[j];
         }
         else {
           if (match.radiant_xp_adv[j] < direXpLead) {
@@ -92,7 +90,7 @@ export class SavedPlayerComponent implements OnInit {
       //**********************************************************/
       //Deaths
       //**********************************************************/
-      this.match.deaths = match.players[0].deaths;
+      this.match.deaths = 1;
 
     });
     //heroes, kills, deaths, assists, last hits, denies, GPM, EXPM, level, gold, goldspent, hero damage, tower damage, lane, role, items, backpack, hero healing, networth, neutral item

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbToastService } from 'ngb-toast';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
@@ -13,7 +14,7 @@ describe('SplayerComponent', () => {
   let component: SplayerComponent;
   let fixture: ComponentFixture<SplayerComponent>;
 
-  let steamid = '1';
+  let steamid = '66914827';
 
   let match = new Match();
   match.id = 1;
@@ -40,8 +41,7 @@ describe('SplayerComponent', () => {
   player.realName = "Real Ryon";
   player.avatar = "link";
   player.profileUri = "uri";
-  player.matchesList = [];
-  player.matchesList[0] = match;
+  player.matchesList = [match];
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer', 'getPlayerMatches']);
@@ -73,6 +73,7 @@ describe('SplayerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SplayerComponent);
     component = fixture.componentInstance;
+    component.steamid = steamid;
     fixture.detectChanges();
   });
 
@@ -226,11 +227,4 @@ describe('SplayerComponent', () => {
     expect(headerTag['src']).toContain('favicon.ico');
 
   });
-
-  // it('should display save match button if user is logged in', ()=>{
-
-  //   const headerTag = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
-  //   expect(headerTag.textContent).toBe("Save Match");
-
-  // });
 });

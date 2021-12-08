@@ -10,7 +10,7 @@ import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
-
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -29,16 +29,38 @@ export class SplayerComponent implements OnInit {
   match2 = new Match;
   steamid = '';
   isPlayer = false; //flag for displaying logo
+  regex = /[0-9]{8}$/;
+  largeId = 99999999999n;
+  conversionNum = 76561197960265728n;
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
   }
 
   onSubmit() {
+    //**********************************************************/
+    // Form validation
+    //**********************************************************/
+    if (!this.regex.test(this.steamid)) {
+      this.showFailure();
+      console.log(this.steamid);
+      return;
+    }
+    if (BigInt(this.steamid) > this.largeId) {
+      this.steamid = (BigInt(this.steamid) - this.conversionNum).toString();
+      this.steamid.slice(0, 7);
+      this.showConversion();
+    }
     this.isPlayer = true;
     //**********************************************************/
     // Gets player details and stores them in SPlayer model
     //**********************************************************/
     this.stratzService.getPlayer(this.steamid).subscribe((Player: any) => {
+      //if player is null, do not show details, and show error toast
+      if (Player == null) {
+        this.isPlayer = false;
+        this.showInvalidIdFailure();
+        return;
+      }
       this.splayer = Player;
       this.splayer.name = Player.steamAccount.name;
       this.splayer.id = Player.steamAccount.id;
@@ -60,14 +82,14 @@ export class SplayerComponent implements OnInit {
             //**********************************************************/
 
             let a = new Date(match[i]?.startDateTime * 1000);
-            let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             let year = a.getFullYear();
             let month = months[a.getMonth()];
             let date = a.getDate();
             let hour = a.getHours();
             let minutes = a.getMinutes();
-            let seconds =  a.getSeconds();
-            let formattedTime = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + minutes + ':' + seconds; 
+            let seconds = a.getSeconds();
+            let formattedTime = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + minutes + ':' + seconds;
             this.match.startTime = formattedTime;
 
             this.match.victory = this.match.players[0].isVictory;
@@ -83,10 +105,8 @@ export class SplayerComponent implements OnInit {
               let direGoldLead = 0;
 
               for (let j = 0; j < match?.radiant_gold_adv?.length; ++j) {
-                if (match.radiant_gold_adv[j] >= 0) {
-                  if (match.radiant_gold_adv[j] > radiantGoldLead) {
-                    radiantGoldLead = match.radiant_gold_adv[j];
-                  }
+                if (match.radiant_gold_adv[j] >= 0 && match.radiant_gold_adv[j] > radiantGoldLead) {
+                  radiantGoldLead = match.radiant_gold_adv[j];
                 }
                 else {
                   if (match.radiant_gold_adv[j] < direGoldLead) {
@@ -184,16 +204,18 @@ export class SplayerComponent implements OnInit {
           this.match.deaths = 0;
         }
 
-            //**********************************************************/
-            // Store authentication ID in model for future reference
-            //**********************************************************/
-            this.auth.user$.subscribe((data: any) => {
-              this.match.authId = [];
-              if(data){
-                this.match.authId.push(data.sub.substring(14,20));
-              }
-            })
+        //**********************************************************/
+        // Store authentication ID in model for future reference
+        //**********************************************************/
+        this.auth.user$.subscribe((data: any) => {
+          this.match.authId = [];
+          if (data) {
+            this.match.authId.push(data.sub.substring(14, 20));
+          }
+        })
       });
+
+
   }
   //**********************************************************/
   // Saves match and player to database
@@ -202,38 +224,60 @@ export class SplayerComponent implements OnInit {
 
     this.flag2 = true;
     this.splayer.matchesList = [];
-    
-    this.postMatch();
-    this.sleep(100000);
-    this.postPlayer();
 
-  }
-  //**********************************************************/
-  // async so that the order is correct
-  //**********************************************************/
-  async postMatch(){
-    //call add match to successfully post match to database
-    this.savePlayerService.addMatch(this.match);
-  }
-  
-  //**********************************************************/
-  // async so that the order is correct
-  //**********************************************************/
-  async postPlayer(){
-    await this.postMatch();
-    //add match to player
     this.splayer.matchesList.push(this.match);
-    //save player in database
-    this.savePlayerService.addPlayer(this.splayer);
+    this.savePlayerService.addMatch(this.match,this.splayer);
   }
-
-  sleep(milliseconds: any) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds){
-        break;
+  //**********************************************************/
+  // Toast for id being too small
+  //**********************************************************/
+  showFailure(): void {
+    const toast: NgbToast = {
+      toastType: NgbToastType.Danger,
+      text: "ID must be at least 8 digits",
+      dismissible: true,
+      timeInSeconds: 5,
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
       }
     }
+    this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Toast for player not existing
+  //**********************************************************/
+  showInvalidIdFailure(): void {
+    const toast: NgbToast = {
+      toastType: NgbToastType.Danger,
+      text: "Either user does not exist, or their profile is hidden",
+      dismissible: true,
+      timeInSeconds: 5,
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Toast for id conversion
+  //**********************************************************/
+  showConversion(): void {
+    const toast: NgbToast = {
+      toastType: NgbToastType.Info,
+      text: "ID converted to correct format",
+      dismissible: true,
+      timeInSeconds: 5,
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Remove toast
+  //**********************************************************/
+  removeToast(toast: NgbToast): void {
+    this.toastService.remove(toast);
   }
 
   ngOnInit(): void {
@@ -245,4 +289,5 @@ export class SplayerComponent implements OnInit {
 // 83177429
 // 64819449
 // 132407154
+// 76561198066745404
 //

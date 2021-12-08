@@ -14,6 +14,7 @@ export class SavePlayerService {
   endpoint: string = 'https://ryon.ee-cognizantacademy.com';
   //endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
   //endpoint: string = 'http://localhost:8000';
+  //endpoint: string = 'http://localhost:3306'
 
   postHeader =  {
     headers: new HttpHeaders({
@@ -54,9 +55,9 @@ export class SavePlayerService {
   return true;
   }
 
-  addMatch(match: Match): boolean{
+  addMatch(match: Match, player: SPlayer): boolean{
     this.http.post<Match>(this.endpoint+"/match", match,
-     this.postHeader).subscribe(res => {
+     this.postHeader).subscribe(res => {this.addPlayer(player)
     }, (err) => {
       console.log(err);
       this.showFailure();
