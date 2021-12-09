@@ -1,12 +1,7 @@
 <ul *ngIf="auth.user$ | async as user">
   <div class="row justify-content-center" style="margin-top: 1rem">
-    <h3 id="userDetails">User details</h3>
+    <h3 id="userDetails">User Profile</h3>
   </div>
   <p id="userName">User Name: {{ user.name }}</p>
   <p id="userEmail">User Email: {{ user.email }}</p>
-  <div class="matches">
-    <p *ngFor="let match of matchArray" (click)="onClick()">Match {{ match.id }} <app-saved-player
-        *ngIf="isPlayer == true" [matchId]="match.id"></app-saved-player>
-    </p>
-  </div>
 </ul>
