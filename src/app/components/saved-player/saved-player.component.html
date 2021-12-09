@@ -5,16 +5,16 @@
         <div class="col-sm text-center">
             <h3 id="recentDetails">Match Details:</h3>
             <p id="matchId" *ngIf="match.id != undefined && match.id != '0'">The match id was {{match.id}}.</p>
-            <p id="startTime" *ngIf="match.start_time != undefined && match.start_time != '0'">The match started on
-                {{match.start_time}}.
+            <p id="startTime" *ngIf="match.startTime != undefined && match.startTime != '0'">The match started on
+                {{match.startTime}}.
             </p>
             <p id="matchDuration" *ngIf="match.duration != undefined && match.duration != '0'">It lasted
                 {{ (match.duration / 60).toFixed(2) }} minutes.</p>
-            <p id="firstBloodTime">First blood was achieved at {{ (match.first_blood_time / 60).toFixed(2) }} minutes.</p>
-            <p id="matchVictory" *ngIf="match.radiant_win == true; else elseBlock">Radiant won.</p>
+            <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }} minutes.</p>
+            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
             <p>
                 <ng-template #elseBlock>
-                    <p id="lost">Dire won.</p>
+                    <p id="lost">You lost.</p>
                 </ng-template>
             </p>
             <p id="goldLead" *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLead != '0'">
