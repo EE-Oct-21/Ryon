@@ -25,7 +25,6 @@ export class SavedPlayerComponent implements OnInit {
       if (data.sub) {
         this.authId = data.sub.substring(14, 20);
       }
-
     })
     //**********************************************************/
     // Loop through matches, and display any match that has this
@@ -38,11 +37,11 @@ export class SavedPlayerComponent implements OnInit {
           this.matchArray.push(matchArray[i]);
         }
       }
+      this.matchArray.reverse();
     })
 
   }
   onClick() {
     this.isPlayer = true;
-    this.matchArray.reverse();
   }
 }
