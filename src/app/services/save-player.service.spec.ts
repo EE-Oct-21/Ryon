@@ -64,7 +64,7 @@ describe('SavePlayerService', () => {
   });
 
   it('updateMatch should make a PUT call to the url', ()=>{
-    let didAdd = service.updateMatch(match);
+    let didAdd = service.updateMatch(match,player);
     let req = httpTestingController.expectOne(baseUrl+"/match");
     expect(req.request.method).toEqual("PUT");
     expect(didAdd).toBe(true);
@@ -85,13 +85,13 @@ describe('SavePlayerService', () => {
 
   it('getSavedPlayerById should make a GET call to the url', ()=>{
     service.getSavedPlayerById(1).subscribe();
-    let req = httpTestingController.expectOne(baseUrl+"/player/1");
+    let req = httpTestingController.expectOne(baseUrl+"/player/id/1");
     expect(req.request.method).toEqual("GET");
   });
 
   it('getSavedPlayerByName should make a GET call to the url', ()=>{
     service.getSavedPlayerByName("Ryon").subscribe();
-    let req = httpTestingController.expectOne(baseUrl+"/player/Ryon");
+    let req = httpTestingController.expectOne(baseUrl+"/player/name/Ryon");
     expect(req.request.method).toEqual("GET");
   });
 

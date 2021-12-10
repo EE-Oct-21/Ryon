@@ -223,8 +223,9 @@ export class SplayerComponent implements OnInit {
   onSubmit2() {
 
     this.flag2 = true;
-    this.splayer.matchesList = [];
-
+    if(this.splayer.matchesList == null){
+      this.splayer.matchesList = [];
+    }
     this.splayer.matchesList.push(this.match);
     this.savePlayerService.addMatch(this.match,this.splayer);
   }
