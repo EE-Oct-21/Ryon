@@ -208,7 +208,9 @@ export class SplayerComponent implements OnInit {
         // Store authentication ID in model for future reference
         //**********************************************************/
         this.auth.user$.subscribe((data: any) => {
-          this.match.authId = [];
+          if (this.match.authId == null){
+            this.match.authId = [];
+          }
           if (data) {
             this.match.authId.push(data.sub.substring(14, 20));
           }
