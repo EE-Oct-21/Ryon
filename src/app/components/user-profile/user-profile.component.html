@@ -7,7 +7,7 @@
   <div class="row justify-content-center" style="margin-top: 1rem">
     <h3 id="userDetails">Your Matches</h3>
   </div>
-  <div class="matches" *ngFor="let match of player.matchesList" (click)="onClick()">
+  <div class="matches" *ngFor="let match of player?.matchesList" (click)="onClick()">
     <p>Match {{match.id}}</p>
     <div class="row justify-content-center" style="margin-top: 1rem" *ngIf="isPlayer == true">
 
