@@ -26,7 +26,7 @@ export class SavedPlayerComponent implements OnInit {
         this.authId = data.sub.substring(14, 20);
       }
     })
-    //**********************************************************/
+    /**********************************************************/
     // Loop through matches, and display any match that has this
     //    user's auth ID associated with it
     //**********************************************************/
