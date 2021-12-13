@@ -11,10 +11,10 @@ import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com';//
+  //endpoint: string = 'https://ryon.ee-cognizantacademy.com';
   //endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
   //endpoint: string = 'http://localhost:8000';
-  //endpoint: string = 'http://localhost:3306'
+  endpoint: string = 'http://localhost:3306'
 
   postHeader =  {
     headers: new HttpHeaders({
