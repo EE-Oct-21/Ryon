@@ -11,7 +11,7 @@ import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com';
+  endpoint: string = 'https://ryon.ee-cognizantacademy.com';//
   //endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
   //endpoint: string = 'http://localhost:8000';
   //endpoint: string = 'http://localhost:3306'
@@ -66,9 +66,9 @@ export class SavePlayerService {
   return true;
   }
 
-  updateMatch(match: Match): boolean{
+  updateMatch(match: Match, player: SPlayer): boolean{
     this.http.put<Match>(this.endpoint+"/match", match,
-     this.postHeader).subscribe(res => {
+     this.postHeader).subscribe(res => {this.updatePlayer(player)
     }, (err) => {
       console.log(err);
       this.showFailure();
@@ -91,10 +91,10 @@ export class SavePlayerService {
   }
 
   getSavedPlayerById(id: any): Observable<SPlayer>{
-    return this.http.get<any>(`${this.endpoint}/player/${id}`);
+    return this.http.get<any>(`${this.endpoint}/player/id/${id}`);
   }
   getSavedPlayerByName(name: any): Observable<SPlayer>{
-    return this.http.get<any>(`${this.endpoint}/player/${name}`);
+    return this.http.get<any>(`${this.endpoint}/player/name/${name}`);
   }
 
   getSavedMatch(id:any): Observable<Match>{

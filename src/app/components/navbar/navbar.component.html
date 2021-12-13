@@ -8,7 +8,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a id="saved-match" *ngIf="auth.isAuthenticated$ | async;" class="nav-link" routerLink="/saved-player">Saved Matches</a>
+        <a id="saved-match" *ngIf="auth.isAuthenticated$ | async;" class="nav-link" routerLink="/saved-player">Saved
+          Matches</a>
       </li>
       <li class="nav-item">
         <a id="profile" *ngIf="auth.isAuthenticated$ | async;" class="nav-link" routerLink="/profile">Profile</a>
@@ -16,6 +17,7 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+        <img *ngIf="auth.user$ | async as user" src="{{user.picture}}">
         <app-auth-button></app-auth-button>
       </li>
     </ul>
