@@ -1,47 +1,66 @@
-<ul *ngIf="auth.user$ | async as user">
-  <div class="row justify-content-center" style="margin-top: 1rem">
-    <h3 id="userDetails">Account Information</h3>
-  </div>
-  <p id="userName">User Name: {{ user.name }}</p>
-  <p id="userEmail">User Email: {{ user.email }}</p>
-  <div class="row justify-content-center" style="margin-top: 1rem">
-    <h3 id="userDetails">Your Matches</h3>
-  </div>
-  <div class="matches" *ngFor="let match of player?.matchesList" (click)="onClick()">
-    <p>Match {{match.id}}</p>
-    <div class="row justify-content-center" style="margin-top: 1rem" *ngIf="isPlayer == true">
-
+<ul *ngIf="authentication.user$ | async as user">
+    <div *ngIf="playerExists == false">
         <div class="row justify-content-center" style="margin-top: 1rem">
+            <h3 id="userDetails">Enter your Steam ID</h3>
+        </div>
+        <form class="input-group input-group-lg">
+            <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
+                [(ngModel)]="steamId">
+            <span class="input-group-btn">
+                <form class="form-inline">
+                    <button id="submitButton" class="btn btn-outline-light" type="submit" (click)="onSubmit()"
+                        style="margin-left: 1rem;">Submit</button>
+                </form>
+            </span>
+        </form>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 1rem">
+        <h3 id="userDetails">Account Information</h3>
+    </div>
+    <p id="userName">User Name: {{ user.name }}</p>
+    <p id="userEmail">User Email: {{ user.email }}</p>
+    <div *ngIf="playerExists == true">
+        <div class="row justify-content-center" style="margin-top: 1rem">
+            <h3 id="userDetails">Your Matches</h3>
+        </div>
+        <div class="matches" *ngFor="let match of player?.matchesList" (click)="onClick()">
+            <p>Match {{match.id}}</p>
+            <div class="row justify-content-center" style="margin-top: 1rem" *ngIf="isPlayer == true">
 
-            <div class="col-sm text-center">
-                <p id="startTime" *ngIf="match.startTime != undefined && match.startTime != '0'">The match started
-                    on
-                    {{match.startTime}}.
-                </p>
-                <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
-                    {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
-                <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
-                    minutes.
-                </p>
-                <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
-                <p>
-                    <ng-template #elseBlock>
-                        <p id="lost">You lost.</p>
-                    </ng-template>
-                </p>
-                <p id="goldLead" *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLead != '0'">
-                    {{match.largestGoldLeadTeam}} had the highest gold
-                    lead of
-                    {{match.largestGoldLead}} gold.</p>
-                <p id="xpLead" *ngIf="match.largestXpLeadTeam != undefined && match.largestXpLead != '0'">
-                    {{match.largestXpLeadTeam}} had the highest
-                    experience
-                    lead
-                    of {{match.largestXpLead}} experience.</p>
-                <p id="deaths" *ngIf="match.deaths != undefined">You died {{match.deaths}} times.</p>
-                <p id="feed" *ngIf="match.deaths > 10">You fed.</p>
+                <div class="row justify-content-center" style="margin-top: 1rem">
+
+                    <div class="col-sm text-center">
+                        <p id="startTime" *ngIf="match.startTime != undefined && match.startTime != '0'">The match
+                            started
+                            on
+                            {{match.startTime}}.
+                        </p>
+                        <p id="matchDuration"
+                            *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
+                            {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
+                        <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
+                            minutes.
+                        </p>
+                        <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
+                        <p>
+                            <ng-template #elseBlock>
+                                <p id="lost">You lost.</p>
+                            </ng-template>
+                        </p>
+                        <p id="goldLead" *ngIf="match.largestGoldLeadTeam != undefined && match.largestGoldLead != '0'">
+                            {{match.largestGoldLeadTeam}} had the highest gold
+                            lead of
+                            {{match.largestGoldLead}} gold.</p>
+                        <p id="xpLead" *ngIf="match.largestXpLeadTeam != undefined && match.largestXpLead != '0'">
+                            {{match.largestXpLeadTeam}} had the highest
+                            experience
+                            lead
+                            of {{match.largestXpLead}} experience.</p>
+                        <p id="deaths" *ngIf="match.deaths != undefined">You died {{match.deaths}} times.</p>
+                        <p id="feed" *ngIf="match.deaths > 10">You fed.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </ul>

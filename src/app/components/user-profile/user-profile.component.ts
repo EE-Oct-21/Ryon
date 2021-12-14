@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
+import { Auth } from 'src/app/models/auth/auth.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 
@@ -9,31 +11,113 @@ import { SavePlayerService } from 'src/app/services/save-player.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  playerId = '66914827';
+  playerExists = true;
+  auth = new Auth();
+  playerId = '';
   isPlayer = false;
   player!: SPlayer;
   authId!: any;
+  steamId = '';
+  regex = /[0-9]{8}$/;
+  largeId = 99999999999n;
+  conversionNum = 76561197960265728n;
 
-  constructor(private savePlayerService: SavePlayerService, public auth: AuthService) {
+  constructor(private savePlayerService: SavePlayerService, public authentication: AuthService, private toastService: NgbToastService) {
   }
   ngOnInit(): void {
     //**********************************************************/
     // Fetch this user's ID and store it locally
     //**********************************************************/
-    this.auth.user$.subscribe((data: any) => {
+    this.authentication.user$.subscribe((data: any) => {
       if (data.sub) {
         this.authId = data.sub.substring(14, 20);
       }
-    })
-    /**********************************************************/
-    // Loop through matches, and display all of associated 
-    //   player's match data
-    //**********************************************************/
-    this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
-      this.player = player;
+      //**********************************************************/
+      // If user has not yet saved their ID, set flag to false
+      //**********************************************************/
+      this.savePlayerService.getAuth(this.authId).subscribe((object: any) => {
+        if (object == null) {
+          this.playerExists = false;
+        }
+        else {
+          this.playerId = object.steamId;
+          /**********************************************************/
+          // Loop through matches, and display all of associated 
+          //   player's match data
+          //**********************************************************/
+          this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
+            this.player = player;
+          });
+        }
+      });
     });
+
   }
   onClick() {
     this.isPlayer = true;
+  }
+
+  onSubmit() {
+    //**********************************************************/
+    // Form validation
+    //**********************************************************/
+    if (!this.regex.test(this.steamId)) {
+      this.showFailure();
+      return;
+    }
+    //**********************************************************/
+    // Convert steamId to proper format
+    //**********************************************************/
+    if (BigInt(this.steamId) > this.largeId) {
+      this.steamId = (BigInt(this.steamId) - this.conversionNum).toString();
+      this.steamId.slice(0, 7);
+      this.showConversion();
+    }
+    //**********************************************************/
+    // Set appropriate values, post them to database, 
+    //  then reload page
+    //**********************************************************/
+    this.auth.steamId = this.steamId;
+    this.auth.id = this.authId;
+    this.savePlayerService.addAuth(this.auth);
+
+    location.reload();
+  }
+
+  //**********************************************************/
+  // Toast for id conversion
+  //**********************************************************/
+  showConversion(): void {
+    const toast: NgbToast = {
+      toastType: NgbToastType.Info,
+      text: "ID converted to correct format",
+      dismissible: true,
+      timeInSeconds: 5,
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Toast for id being too small
+  //**********************************************************/
+  showFailure(): void {
+    const toast: NgbToast = {
+      toastType: NgbToastType.Danger,
+      text: "ID must be at least 8 digits",
+      dismissible: true,
+      timeInSeconds: 5,
+      onDismiss: () => {
+        console.log("Toast dismissed!!");
+      }
+    }
+    this.toastService.show(toast);
+  }
+  //**********************************************************/
+  // Remove toast
+  //**********************************************************/
+  removeToast(toast: NgbToast): void {
+    this.toastService.remove(toast);
   }
 }

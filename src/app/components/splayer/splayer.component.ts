@@ -42,9 +42,11 @@ export class SplayerComponent implements OnInit {
     //**********************************************************/
     if (!this.regex.test(this.steamid)) {
       this.showFailure();
-      console.log(this.steamid);
       return;
     }
+    //**********************************************************/
+    // Convert steamId to proper format
+    //**********************************************************/
     if (BigInt(this.steamid) > this.largeId) {
       this.steamid = (BigInt(this.steamid) - this.conversionNum).toString();
       this.steamid.slice(0, 7);

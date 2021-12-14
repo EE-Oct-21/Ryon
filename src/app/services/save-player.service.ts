@@ -5,13 +5,14 @@ import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
+import { Auth } from '../models/auth/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com';//
+  endpoint: string = 'https://ryon.ee-cognizantacademy.com';
   //endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
   //endpoint: string = 'http://localhost:8000';
   //endpoint: string = 'http://localhost:3306'
@@ -23,6 +24,16 @@ export class SavePlayerService {
   };
 
   constructor(private http: HttpClient, private toastService: NgbToastService) { }
+  addAuth(auth: Auth): boolean{
+    this.http.post<Auth>(this.endpoint+"/auth", auth,
+     this.postHeader).subscribe(res => {
+    }, (err) => {
+      console.log(err);
+      this.showFailure();
+    });
+    this.showPlayerAddSuccess();
+  return true;
+  }
 
   addPlayer(player: SPlayer): boolean{
     this.http.post<SPlayer>(this.endpoint+"/player", player,
@@ -84,6 +95,10 @@ export class SavePlayerService {
       this.showFailure();
     });
   return true;
+  }
+
+  getAuth(id: any): Observable<Auth>{
+    return this.http.get<any>(`${this.endpoint}/auth/id/${id}`);
   }
 
   getAllSavedPlayers(): Observable<SPlayer>{
