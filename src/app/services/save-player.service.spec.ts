@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { NgbToastService } from 'ngb-toast';
-import { SavedPlayerComponent } from '../components/saved-player/saved-player.component';
+import { Auth } from '../models/auth/auth.model';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
 
@@ -12,6 +12,7 @@ describe('SavePlayerService', () => {
   let service: SavePlayerService;
   let player = new SPlayer();
   let match = new Match();
+  let auth = new Auth();
   let baseUrl = 'https://ryon.ee-cognizantacademy.com'
 
   const toastServiceSpy = jasmine.createSpyObj('toastService', ['pop', 'show']);
@@ -104,6 +105,19 @@ describe('SavePlayerService', () => {
   it('getAllSavedMatches should make a GET call to the url', ()=>{
     service.getAllSavedMatches().subscribe();
     let req = httpTestingController.expectOne(baseUrl+"/matches");
+    expect(req.request.method).toEqual("GET");
+  });
+
+  it('Auth should make a POST call to the url', ()=>{
+    let didAdd = service.addAuth(auth);
+    let req = httpTestingController.expectOne(baseUrl+"/auth");
+    expect(req.request.method).toEqual("POST");
+    expect(didAdd).toBe(true);
+  });
+
+  it('getAuth should make a GET call to the url', ()=>{
+    service.getAuth(1).subscribe();
+    let req = httpTestingController.expectOne(baseUrl+"/auth/id/1");
     expect(req.request.method).toEqual("GET");
   });
 });
