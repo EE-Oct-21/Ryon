@@ -1,16 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { waitForAsync } from '@angular/core/testing';
-import { SelectMultipleControlValueAccessor } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { User } from '@auth0/auth0-spa-js';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -22,8 +18,6 @@ import { Observable } from 'rxjs';
 //    match data to that player
 //***********************************************************************************/
 export class SplayerComponent implements OnInit {
-
-  flag2: boolean = false;
   splayer = new SPlayer;
   match = new Match;
   match2 = new Match;
@@ -225,8 +219,9 @@ export class SplayerComponent implements OnInit {
   // Saves match and player to database
   //**********************************************************/
   onSubmit2() {
-
-    this.flag2 = true;
+    this.savePlayerService.getSavedPlayerById(this.steamid).subscribe((player: any) => {
+      this.splayer = player;
+    });
     if(this.splayer.matchesList == null){
       this.splayer.matchesList = [];
     }
