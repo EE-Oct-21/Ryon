@@ -2,8 +2,8 @@
     <h3 id="userDetails">All Saved Matches</h3>
 </div>
 
-<div class="matches" *ngFor="let match of matchArray" (click)="onClick()">
-    <p>Match {{match.id}}</p>
+<div id="submitButton" class="matches" *ngFor="let match of matchArray" (click)="onClick()">
+    <p id="matchLabel">Match {{match.id}}</p>
     <div class="row justify-content-center" style="margin-top: 1rem" *ngIf="isPlayer == true">
 
         <div class="row justify-content-center" style="margin-top: 1rem">

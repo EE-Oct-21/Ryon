@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Match } from 'src/app/models/match/match.model';
-import { OpendotaService } from 'src/app/services/opendota.service';
+import { SavePlayerService } from 'src/app/services/save-player.service';
 
 import { SavedPlayerComponent } from './saved-player.component';
 
@@ -25,15 +25,17 @@ describe('SavedPlayerComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
 
-  const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getMatch']);
-  const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(of(match));
+  let matchArray = {match};
+
+  const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',['getAllSavedMatches']);
+  const getAllSavedMatchesSpy = savePlayerServiceSpy.getAllSavedMatches.and.returnValue(of(matchArray));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SavedPlayerComponent ],
       imports: [ AppModule ],
       providers: [
-        { provide: OpendotaService, useValue: opendotaServiceSpy }
+        { provide: SavePlayerService, useValue: savePlayerServiceSpy }
       ]
     })
     .compileComponents();
@@ -45,7 +47,21 @@ describe('SavedPlayerComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display All saved Matches', ()=>{    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#userDetails');
+    expect(headerTag.textContent).toBe("All Saved Matches");
+  });
+
+  it('should display all match ids', ()=>{
+    const pTag = fixture.debugElement.nativeElement.querySelector('#matchLabel');
+    expect(pTag.textContent).toBe("Match " + match.id);
   });
 });
