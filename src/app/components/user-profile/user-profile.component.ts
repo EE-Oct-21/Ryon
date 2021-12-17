@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private savePlayerService: SavePlayerService, public authentication: AuthService, private toastService: NgbToastService) {
   }
   ngOnInit(): void {
+    console.log(this.authentication);
     //**********************************************************/
     // Fetch this user's ID and store it locally
     //**********************************************************/

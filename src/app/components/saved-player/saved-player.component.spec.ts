@@ -12,6 +12,7 @@ describe('SavedPlayerComponent', () => {
 
   let match = new Match();
   match.id = 1;
+  match.authId = [1];
   match.durationSeconds = "1";
   match.victory = true;
   match.firstBloodTime = "1";
@@ -25,7 +26,7 @@ describe('SavedPlayerComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
 
-  let matchArray = {match};
+  let matchArray = [match];
 
   const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',['getAllSavedMatches']);
   const getAllSavedMatchesSpy = savePlayerServiceSpy.getAllSavedMatches.and.returnValue(of(matchArray));
@@ -44,6 +45,7 @@ describe('SavedPlayerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SavedPlayerComponent);
     component = fixture.componentInstance;
+    component.authId = 1;
     fixture.detectChanges();
   });
 
@@ -63,5 +65,85 @@ describe('SavedPlayerComponent', () => {
   it('should display all match ids', ()=>{
     const pTag = fixture.debugElement.nativeElement.querySelector('#matchLabel');
     expect(pTag.textContent).toBe("Match " + match.id);
+  });
+
+  it('should display all match start times', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#startTime');
+    expect(pTag.textContent).toBe("The match started on " + match.startTime +". ");
+  });
+
+  it('should display all match duration seconds', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#matchDuration');
+    expect(pTag.textContent).toBe("It lasted " + (match.durationSeconds / 60).toFixed(2) +" minutes.");
+  });
+
+  it('should display all match first bloods', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#firstBloodTime');
+    expect(pTag.textContent).toBe("First blood was achieved at " + (match.firstBloodTime / 60).toFixed(2) +" minutes. ");
+  });
+
+  it('should display all match victories', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
+    expect(pTag.textContent).toBe("You won.");
+  });
+
+  it('should display all gold leads', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#goldLead');
+    expect(pTag.textContent).toBe(" " + match.largestGoldLeadTeam + " had the highest gold lead of " + match.largestGoldLead + " gold.");
+  });
+
+  it('should display all xp leads', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#xpLead');
+    expect(pTag.textContent).toBe(" " + match.largestXpLeadTeam + " had the highest experience lead of " + match.largestXpLead + " experience.");
+  });
+
+  it('should display all deaths', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#deaths');
+    expect(pTag.textContent).toBe("You died " + match.deaths + " times.");
+  });
+
+  it('should display hidden message if deaths are greater than 10', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#feed');
+    expect(pTag.textContent).toBe("You fed.");
   });
 });

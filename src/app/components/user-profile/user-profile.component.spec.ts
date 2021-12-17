@@ -23,6 +23,8 @@ describe('UserProfileComponent', () => {
   const getSavedPlayerByIdSpy = savePlayerServiceSpy.getSavedPlayerById.and.returnValue(of(player));
   const getAuthSpy = savePlayerServiceSpy.getAuth.and.returnValue(of(auth));
 
+  let authenticationSpy = {user$: true};
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UserProfileComponent ],
@@ -48,4 +50,9 @@ describe('UserProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should displayEnter your Steam ID', ()=>{
+  //   const headerTag = fixture.debugElement.nativeElement.querySelector('#userDetails');
+  //   expect(headerTag.textContent).toBe("Enter your Steam ID");
+  // });
 });
