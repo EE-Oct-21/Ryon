@@ -3,6 +3,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 import { Auth } from 'src/app/models/auth/auth.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
+import { Auth0Service } from 'src/app/services/auth0.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 
 @Component({
@@ -21,37 +22,38 @@ export class UserProfileComponent implements OnInit {
   regex = /[0-9]{8}$/;
   largeId = 99999999999n;
   conversionNum = 76561197960265728n;
+  data!: any;
 
-  constructor(private savePlayerService: SavePlayerService, public authentication: AuthService, private toastService: NgbToastService) {
+  constructor(private savePlayerService: SavePlayerService, public authentication: Auth0Service, private toastService: NgbToastService) {
   }
   ngOnInit(): void {
-    console.log(this.authentication);
     //**********************************************************/
     // Fetch this user's ID and store it locally
     //**********************************************************/
-    this.authentication.user$.subscribe((data: any) => {
-      if (data.sub) {
-        this.authId = data.sub.substring(14, 20);
+    this.data = this.authentication.getUser();
+    if(this.data.sub){
+      this.authId = this.data.sub.substring(14, 20);
+    }
+
+    //**********************************************************/
+    // If user has not yet saved their ID, set flag to false
+    //**********************************************************/
+    this.savePlayerService.getAuth(this.authId).subscribe((object: any) => {
+      if (object == null) {
+        this.playerExists = false;
       }
-      //**********************************************************/
-      // If user has not yet saved their ID, set flag to false
-      //**********************************************************/
-      this.savePlayerService.getAuth(this.authId).subscribe((object: any) => {
-        if (object == null) {
-          this.playerExists = false;
-        }
-        else {
-          this.playerId = object.steamId;
-          /**********************************************************/
-          // Loop through matches, and display all of associated 
-          //   player's match data
-          //**********************************************************/
-          this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
-            this.player = player;
-          });
-        }
-      });
+      else {
+        this.playerId = object.steamId;
+        /**********************************************************/
+        // Loop through matches, and display all of associated 
+        //   player's match data
+        //**********************************************************/
+        this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
+          this.player = player;
+        });
+      }
     });
+
 
   }
   onClick() {

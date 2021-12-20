@@ -1,4 +1,4 @@
-<ul *ngIf="authentication.user$ | async as user">
+<ul *ngIf="authentication.getUser">
   <div *ngIf="playerExists == false">
     <div class="row justify-content-center" style="margin-top: 1rem">
       <h3 id="userDetails">Enter your Steam ID</h3>
@@ -16,8 +16,8 @@
   <div class="row justify-content-center" style="margin-top: 1rem">
     <h3 id="userDetails">Account Information</h3>
   </div>
-  <p id="userName">User Name: {{ user.name }}</p>
-  <p id="userEmail">User Email: {{ user.email }}</p>
+  <p id="userName">User Name: {{ data.name }}</p>
+  <p id="userEmail">User Email: {{ data.email }}</p>
   <div *ngIf="playerExists == true">
     <div class="col-sm text-center">
       <img *ngIf="player.avatar != null && player.avatar != undefined" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">

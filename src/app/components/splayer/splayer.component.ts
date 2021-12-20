@@ -7,6 +7,7 @@ import { OpendotaService } from 'src/app/services/opendota.service';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
+import { Hero } from 'src/app/models/hero/hero.model';
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -26,6 +27,7 @@ export class SplayerComponent implements OnInit {
   regex = /[0-9]{8}$/;
   largeId = 99999999999n;
   conversionNum = 76561197960265728n;
+  hero = new Hero;
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
   }
@@ -93,6 +95,21 @@ export class SplayerComponent implements OnInit {
             //**********************************************************/
             this.match.heroes = this.match.players[0].heroId;
             this.match.victory = this.match.players[0].isVictory;
+
+            //**********************************************************/
+            // Searches the API for the given hero ID and then stores the hero data
+            //**********************************************************/
+            this.stratzService.getHero().subscribe((heroes: any) => {
+              for (let i = 1; i <= Object.keys(heroes).length; ++i) {
+                if (heroes[i]?.id !== undefined) {
+                  if (heroes[i]?.id == this.match.heroes) {
+                    this.hero.id = heroes[i].id;
+                    this.hero.displayName = heroes[i].displayName;
+                    this.match.heroes = this.hero.displayName;
+                  }
+                }
+              }
+            });
 
             //**********************************************************/
             // Gets more match data on given match id from OpenDota API
@@ -208,7 +225,7 @@ export class SplayerComponent implements OnInit {
         // Store authentication ID in model for future reference
         //**********************************************************/
         this.auth.user$.subscribe((data: any) => {
-          if (this.match.authId == null){
+          if (this.match.authId == null) {
             this.match.authId = [];
           }
           if (data) {
@@ -226,11 +243,11 @@ export class SplayerComponent implements OnInit {
     this.savePlayerService.getSavedPlayerById(this.steamid).subscribe((player: any) => {
       this.splayer = player;
     });
-    if(this.splayer.matchesList == null){
+    if (this.splayer.matchesList == null) {
       this.splayer.matchesList = [];
     }
     this.splayer.matchesList.push(this.match);
-    this.savePlayerService.addMatch(this.match,this.splayer);
+    this.savePlayerService.addMatch(this.match, this.splayer);
   }
   //**********************************************************/
   // Toast for id being too small
