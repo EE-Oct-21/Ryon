@@ -11,12 +11,13 @@ import { StratzService } from 'src/app/services/stratz.service';
 export class HeroComponent implements OnInit {
 
   hero = new Hero;
-  heroId = '135';
+  @Input() heroId: any;
   
 
   constructor(private stratzService: StratzService) { }
 
   ngOnInit(): void {
+    console.log(this.heroId);
     //**********************************************************/
     // Searches the API for the given hero ID and then stores the hero data
     //**********************************************************/

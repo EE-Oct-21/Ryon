@@ -42,6 +42,7 @@ describe('HeroComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeroComponent);
     component = fixture.componentInstance;
+    component.heroId = '135';
     fixture.detectChanges();
   });
 

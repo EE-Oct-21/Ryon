@@ -88,6 +88,10 @@ export class SplayerComponent implements OnInit {
             let formattedTime = month + ' ' + date + ', ' + year + ' at ' + hour + ':' + minutes + ':' + seconds;
             this.match.startTime = formattedTime;
 
+            //**********************************************************/
+            //Hero ID and Victory
+            //**********************************************************/
+            this.match.heroes = this.match.players[0].heroId;
             this.match.victory = this.match.players[0].isVictory;
 
             //**********************************************************/

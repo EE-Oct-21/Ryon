@@ -23,13 +23,15 @@ describe('UserProfileComponent', () => {
   const getSavedPlayerByIdSpy = savePlayerServiceSpy.getSavedPlayerById.and.returnValue(of(player));
   const getAuthSpy = savePlayerServiceSpy.getAuth.and.returnValue(of(auth));
 
-  let authenticationSpy = {user$: true};
+  const authSpy = jasmine.createSpyObj('AuthService',['user$']);
+  const userSpy = authSpy.user$.and.returnValue(of(true));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UserProfileComponent ],
       providers: [
-        { provide: SavePlayerService, useValue: savePlayerServiceSpy }
+        { provide: SavePlayerService, useValue: savePlayerServiceSpy },
+        { provide: AuthService, useValue: authSpy }
       ],
       imports: [ AppModule ]
     })
