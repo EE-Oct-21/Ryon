@@ -31,7 +31,9 @@ export class UserProfileComponent implements OnInit {
     // Fetch this user's ID and store it locally
     //**********************************************************/
     this.authentication.getUser().subscribe((data: any) => {
-      this.data = data
+      if(data){
+        this.data = data;
+      }
       if (this.data.sub) {
         this.authId = this.data.sub.substring(14, 20);
       }

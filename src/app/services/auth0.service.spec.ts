@@ -18,7 +18,7 @@ describe('Auth0Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: AuthService, useValue: authServiceSpy }
+        { provide: Auth0Service, useValue: authServiceSpy }
       ]
     });
     service = TestBed.inject(Auth0Service);
@@ -29,9 +29,7 @@ describe('Auth0Service', () => {
   });
 
   it('should return an observable containing user authentication',()=>{
-    service.getUser().subscribe(
-      response => console.log(response)
-    );
+    service.getUser().subscribe();
     expect(userSpy.calls.any()).toBe(true);
   });
 });
