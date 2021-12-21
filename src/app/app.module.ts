@@ -8,7 +8,6 @@ import { HttpClientModule} from '@angular/common/http';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SplayerComponent } from './components/splayer/splayer.component';
-import { HeroComponent } from './components/hero/hero.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -22,7 +21,6 @@ import { NgbToastModule } from 'ngb-toast';
     HomepageComponent,
     NavbarComponent,
     SplayerComponent,
-    HeroComponent,
     AuthButtonComponent,
     UserProfileComponent,
     SavedPlayerComponent

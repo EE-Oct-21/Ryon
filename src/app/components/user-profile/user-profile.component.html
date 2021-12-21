@@ -1,4 +1,4 @@
-<ul *ngIf="authentication.user$ | async as user">
+<ul *ngIf="authentication.getUser">
   <div *ngIf="playerExists == false">
     <div class="row justify-content-center" style="margin-top: 1rem">
       <h3 id="userDetails">Enter your Steam ID</h3>
@@ -16,16 +16,17 @@
   <div class="row justify-content-center" style="margin-top: 1rem">
     <h3 id="userDetails">Account Information</h3>
   </div>
-  <p id="userName">User Name: {{ user.name }}</p>
-  <p id="userEmail">User Email: {{ user.email }}</p>
+  <p id="userName">User Name: {{ data.name }}</p>
+  <p id="userEmail">User Email: {{ data.email }}</p>
   <div *ngIf="playerExists == true">
     <div class="col-sm text-center">
-      <img *ngIf="player.avatar != null && player.avatar != undefined" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">
+      <img id="image" *ngIf="player.avatar != null && player.avatar != undefined"
+        src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">
       <br><br>
       <h1 id="playerName" *ngIf="player.name != undefined">{{player.name}}'s Saved Matches</h1>
     </div>
     <div class="matches" *ngFor="let match of player?.matchesList" (click)="onClick()">
-      <p>Match {{match.id}}</p>
+      <p id="matchId">Match {{match.id}}</p>
       <div class="row justify-content-center" style="margin-top: 1rem" *ngIf="isPlayer == true">
 
         <div class="row justify-content-center" style="margin-top: 1rem">
@@ -34,13 +35,12 @@
             <p id="startTime" *ngIf="match.startTime != undefined && match.startTime != '0'">The match
               started
               on
-              {{match.startTime}}.
-            </p>
+              {{match.startTime}}.</p>
             <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
               {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
+            <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }}.</p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
-              minutes.
-            </p>
+              minutes.</p>
             <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
             <p>
               <ng-template #elseBlock>

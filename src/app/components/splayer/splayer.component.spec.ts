@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbToastService } from 'ngb-toast';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
+import { Hero } from 'src/app/models/hero/hero.model';
 import { Match } from 'src/app/models/match/match.model';
 import { SPlayer } from 'src/app/models/s-player/splayer.model';
 import { OpendotaService } from 'src/app/services/opendota.service';
@@ -15,13 +16,22 @@ describe('SplayerComponent', () => {
   let fixture: ComponentFixture<SplayerComponent>;
 
   let steamid = '66914827';
+  
+  let hero = new Hero();
+  hero.displayName = "Outworld Destroyer";
+  hero.id = 76;
+  let hero2 = new Hero();
+  hero2.id = 11;
+  hero2.displayName = "Mars";
+
+  let heroArray = [hero, hero2];
 
   let match = new Match();
   match.id = 1;
   match.authId = [1,2,3];
   match.durationSeconds = "1";
   match.victory = true;
-  match.players = [{isVictory!: true}]
+  match.players = [{isVictory!: true, heroId!: 11}]
   match.firstBloodTime = "1";
   match.gameMode = "1";
   match.largestGoldLead = "1";
@@ -32,6 +42,7 @@ describe('SplayerComponent', () => {
   match.deaths = 11;
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
+  match.heroes = "Outworld Destroyer";
 
   let matchArray = [match];
 
@@ -43,10 +54,16 @@ describe('SplayerComponent', () => {
   player.profileUri = "uri";
   player.matchesList = [match];
 
+  let user = {
+    name: "Ryon",
+    email: "ryon137@gmail.com"
+  };
+
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
-    'getPlayer', 'getPlayerMatches']);
+    'getPlayer', 'getPlayerMatches', 'getHero']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(of(player));
   const getPlayerMatchesSpy = stratzServiceSpy.getPlayerMatches.and.returnValue(of(matchArray));
+  const getHeroSpy = stratzServiceSpy.getHero.and.returnValue(of(heroArray));
 
   const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',[
     'getAllSavedMatches', 'addMatch']);
@@ -55,6 +72,9 @@ describe('SplayerComponent', () => {
 
   const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getMatch']);
   const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(of(match));
+
+  const auth0Spy = jasmine.createSpyObj('Auth0Service',['getUser']);
+  const getUserSpy = auth0Spy.getUser.and.returnValue(of(user));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -146,6 +166,16 @@ describe('SplayerComponent', () => {
     expect(headerTag.textContent).toBe("It lasted " + (match.durationSeconds / 60).toFixed(2) + " minutes.");
   });
 
+  it('should display the hero when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#hero');
+    expect(headerTag.textContent).toBe("You played " + hero2.displayName + ".");
+  });
+
   it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
@@ -225,6 +255,15 @@ describe('SplayerComponent', () => {
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#protractor');
     expect(headerTag['src']).toContain('favicon.ico');
+
+  });
+
+  it('should display save button when logged in', ()=>{
+    component.isPlayer = true;
+    fixture.detectChanges();
+    
+    const saveMatch = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
+    expect(saveMatch.textContent).toBe("Save Match");
 
   });
 });

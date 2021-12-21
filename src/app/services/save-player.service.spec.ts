@@ -108,7 +108,7 @@ describe('SavePlayerService', () => {
     expect(req.request.method).toEqual("GET");
   });
 
-  it('Auth should make a POST call to the url', ()=>{
+  it('addAuth should make a POST call to the url', ()=>{
     let didAdd = service.addAuth(auth);
     let req = httpTestingController.expectOne(baseUrl+"/auth");
     expect(req.request.method).toEqual("POST");
