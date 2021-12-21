@@ -3,6 +3,7 @@ import { Match } from 'src/app/models/match/match.model';
 import { SavePlayerService } from 'src/app/services/save-player.service';
 import { NgbToastService } from 'ngb-toast';
 import { AuthService } from '@auth0/auth0-angular';
+import { Auth0Service } from 'src/app/services/auth0.service';
 
 @Component({
   selector: 'app-saved-player',
@@ -15,13 +16,13 @@ export class SavedPlayerComponent implements OnInit {
   matchArray!: Match[];
   isPlayer = false;
 
-  constructor(private savePlayerService: SavePlayerService, private auth: AuthService, private toastService: NgbToastService) { }
+  constructor(private savePlayerService: SavePlayerService, private auth: Auth0Service, private toastService: NgbToastService) { }
 
   ngOnInit(): void {
     //**********************************************************/
     // Fetch this user's ID and store it locally
     //**********************************************************/
-    this.auth.user$.subscribe((data: any) => {
+    this.auth.getUser().subscribe((data: any) => {
       if (data.sub) {
         this.authId = data.sub.substring(14, 20);
       }

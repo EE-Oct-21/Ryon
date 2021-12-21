@@ -8,6 +8,7 @@ import { SavePlayerService } from 'src/app/services/save-player.service';
 import { StratzService } from 'src/app/services/stratz.service';
 import { NgbToast, NgbToastService, NgbToastType } from 'ngb-toast';
 import { Hero } from 'src/app/models/hero/hero.model';
+import { Auth0Service } from 'src/app/services/auth0.service';
 @Component({
   selector: 'app-splayer',
   templateUrl: './splayer.component.html',
@@ -29,7 +30,7 @@ export class SplayerComponent implements OnInit {
   conversionNum = 76561197960265728n;
   hero = new Hero;
 
-  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private toastService: NgbToastService) {
+  constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: Auth0Service, private toastService: NgbToastService) {
   }
 
   onSubmit() {
@@ -224,7 +225,7 @@ export class SplayerComponent implements OnInit {
         //**********************************************************/
         // Store authentication ID in model for future reference
         //**********************************************************/
-        this.auth.user$.subscribe((data: any) => {
+        this.auth.getUser().subscribe((data: any) => {
           if (this.match.authId == null) {
             this.match.authId = [];
           }

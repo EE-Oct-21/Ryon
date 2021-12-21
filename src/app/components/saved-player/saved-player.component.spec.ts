@@ -25,6 +25,7 @@ describe('SavedPlayerComponent', () => {
   match.deaths = 11;
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
+  match.heroes = "Mars";
 
   let matchArray = [match];
 
@@ -65,6 +66,16 @@ describe('SavedPlayerComponent', () => {
   it('should display all match ids', ()=>{
     const pTag = fixture.debugElement.nativeElement.querySelector('#matchLabel');
     expect(pTag.textContent).toBe("Match " + match.id);
+  });
+
+  it('should display all match heroes', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    
+    const pTag = fixture.debugElement.nativeElement.querySelector('#hero');
+    expect(pTag.textContent).toBe("You played " + match.heroes);
   });
 
   it('should display all match start times', ()=>{

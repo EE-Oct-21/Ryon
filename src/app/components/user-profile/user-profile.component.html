@@ -38,6 +38,7 @@
             </p>
             <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
               {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
+              <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }}</p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
               minutes.
             </p>
