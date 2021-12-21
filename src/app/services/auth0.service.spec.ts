@@ -12,8 +12,8 @@ describe('Auth0Service', () => {
     email: "ryon137@gmail.com"
   };
   
-  const authServiceSpy = jasmine.createSpyObj('AuthService', ['user']);
-  const userSpy = authServiceSpy.user.and.returnValue(of(user));
+  const authServiceSpy = jasmine.createSpyObj('Auth0Service', ['getUser']);
+  const userSpy = authServiceSpy.getUser.and.returnValue(of(user));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,6 +29,9 @@ describe('Auth0Service', () => {
   });
 
   it('should return an observable containing user authentication',()=>{
+    service.getUser().subscribe(
+      response => console.log(response)
+    );
     expect(userSpy.calls.any()).toBe(true);
   });
 });
