@@ -30,30 +30,33 @@ export class UserProfileComponent implements OnInit {
     //**********************************************************/
     // Fetch this user's ID and store it locally
     //**********************************************************/
-    this.data = this.authentication.getUser();
-    if(this.data.sub){
-      this.authId = this.data.sub.substring(14, 20);
-    }
+    this.authentication.getUser().subscribe((data: any) => {
+      this.data = data
+      if (this.data.sub) {
+        this.authId = this.data.sub.substring(14, 20);
+      }
 
-    //**********************************************************/
-    // If user has not yet saved their ID, set flag to false
-    //**********************************************************/
-    this.savePlayerService.getAuth(this.authId).subscribe((object: any) => {
-      if (object == null) {
-        this.playerExists = false;
-      }
-      else {
-        this.playerId = object.steamId;
-        /**********************************************************/
-        // Loop through matches, and display all of associated 
-        //   player's match data
-        //**********************************************************/
-        this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
-          this.player = player;
-        });
-      }
+
+
+      //**********************************************************/
+      // If user has not yet saved their ID, set flag to false
+      //**********************************************************/
+      this.savePlayerService.getAuth(this.authId).subscribe((object: any) => {
+        if (object == null) {
+          this.playerExists = false;
+        }
+        else {
+          this.playerId = object.steamId;
+          /**********************************************************/
+          // Loop through matches, and display all of associated 
+          //   player's match data
+          //**********************************************************/
+          this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
+            this.player = player;
+          });
+        }
+      });
     });
-
 
   }
   onClick() {

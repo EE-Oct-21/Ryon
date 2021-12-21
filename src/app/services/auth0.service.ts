@@ -9,9 +9,7 @@ export class Auth0Service {
 
   constructor(public authentication: AuthService) {}
 
-  getUser(): any{
-    this.authentication.user$.subscribe((data: any) => {
-      return data;
-    });
+  getUser(): Observable<any>{
+    return this.authentication.user$;
   }
 }

@@ -31,7 +31,7 @@ describe('SplayerComponent', () => {
   match.authId = [1,2,3];
   match.durationSeconds = "1";
   match.victory = true;
-  match.players = [{isVictory!: true}]
+  match.players = [{isVictory!: true, heroId!: 11}]
   match.firstBloodTime = "1";
   match.gameMode = "1";
   match.largestGoldLead = "1";
@@ -165,7 +165,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(headerTag.textContent).toBe("You played " + hero.displayName);
+    expect(headerTag.textContent).toBe("You played " + hero2.displayName);
   });
 
   it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{
