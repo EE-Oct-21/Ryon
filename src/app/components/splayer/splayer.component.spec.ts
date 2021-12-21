@@ -173,7 +173,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(headerTag.textContent).toBe("You played " + hero2.displayName);
+    expect(headerTag.textContent).toBe("You played " + hero2.displayName + ".");
   });
 
   it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{

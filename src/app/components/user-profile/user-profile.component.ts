@@ -36,8 +36,6 @@ export class UserProfileComponent implements OnInit {
         this.authId = this.data.sub.substring(14, 20);
       }
 
-
-
       //**********************************************************/
       // If user has not yet saved their ID, set flag to false
       //**********************************************************/

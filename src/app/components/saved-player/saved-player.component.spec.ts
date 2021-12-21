@@ -75,7 +75,7 @@ describe('SavedPlayerComponent', () => {
     fixture.detectChanges();
     
     const pTag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(pTag.textContent).toBe("You played " + match.heroes);
+    expect(pTag.textContent).toBe("You played " + match.heroes+".");
   });
 
   it('should display all match start times', ()=>{

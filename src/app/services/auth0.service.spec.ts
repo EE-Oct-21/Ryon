@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AuthService } from '@auth0/auth0-angular';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { Auth0Service } from './auth0.service';
 
@@ -8,7 +8,8 @@ describe('Auth0Service', () => {
   let service: Auth0Service;
 
   let user = { 
-    name: "Ryon"
+    name: "Ryon",
+    email: "ryon137@gmail.com"
   };
   
   const authServiceSpy = jasmine.createSpyObj('AuthService', ['user']);
@@ -27,8 +28,7 @@ describe('Auth0Service', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return an observable containing user authentication'), ()=>{
-    service.getUser().subscribe(result => 
-      expect(result.length).toBeGreaterThan(0));
-  }
+  it('should return an observable containing user authentication',()=>{
+    expect(userSpy.calls.any()).toBe(true);
+  });
 });

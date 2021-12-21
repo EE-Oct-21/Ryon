@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService } from '@auth0/auth0-angular';
 import { Observable, of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Auth } from 'src/app/models/auth/auth.model';
@@ -120,7 +119,104 @@ describe('UserProfileComponent', () => {
     component.playerExists = true;
     fixture.detectChanges();
 
-    const headerTag = fixture.debugElement.nativeElement.querySelector('#image');
-    expect(headerTag.textContent).toBe("");
+    const image = fixture.debugElement.nativeElement.querySelector('#image');
+    expect(image['src']).toContain('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/link');
+  });
+
+  it('should display player name if player exists', ()=>{
+    component.playerExists = true;
+    fixture.detectChanges();
+
+    const htag = fixture.debugElement.nativeElement.querySelector('#playerName');
+    expect(htag.textContent).toBe(player.name + "'s Saved Matches");
+  });
+
+  it('should display match id if player exists', ()=>{
+    component.playerExists = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#matchId');
+    expect(ptag.textContent).toBe("Match " + match.id);
+  });
+
+  it('should display start time if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#startTime');
+    expect(ptag.textContent).toBe("The match started on " + match.startTime + ".");
+  });
+
+  it('should display match duration if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#matchDuration');
+    expect(ptag.textContent).toBe("It lasted " + (match.durationSeconds / 60).toFixed(2) + " minutes.");
+  });
+
+  it('should display hero if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#hero');
+    expect(ptag.textContent).toBe("You played " + match.heroes + ".");
+  });
+  
+  it('should display first blood time if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#firstBloodTime');
+    expect(ptag.textContent).toBe("First blood was achieved at " + (match.firstBloodTime / 60).toFixed(2) + " minutes.");
+  });
+
+  it('should display victory if player exists and player won', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
+    expect(ptag.textContent).toBe("You won.");
+  });
+
+  it('should display gold lead if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#goldLead');
+    expect(ptag.textContent).toBe(" " + match.largestGoldLeadTeam + " had the highest gold lead of " + match.largestGoldLead + " gold.");
+  });
+  
+  it('should display xp lead if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#xpLead');
+    expect(ptag.textContent).toBe(" " + match.largestXpLeadTeam + " had the highest experience lead of " + match.largestXpLead + " experience.");
+  });
+
+  it('should display deaths if player exists', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#deaths');
+    expect(ptag.textContent).toBe("You died " + match.deaths + " times.");
+  });
+
+  it('should display special message if player exists and player dies more than 10 times', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const ptag = fixture.debugElement.nativeElement.querySelector('#feed');
+    expect(ptag.textContent).toBe("You fed.");
   });
 });
