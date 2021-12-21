@@ -54,6 +54,11 @@ describe('SplayerComponent', () => {
   player.profileUri = "uri";
   player.matchesList = [match];
 
+  let user = {
+    name: "Ryon",
+    email: "ryon137@gmail.com"
+  };
+
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
     'getPlayer', 'getPlayerMatches', 'getHero']);
   const getPlayerSpy = stratzServiceSpy.getPlayer.and.returnValue(of(player));
@@ -67,6 +72,9 @@ describe('SplayerComponent', () => {
 
   const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getMatch']);
   const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(of(match));
+
+  const auth0Spy = jasmine.createSpyObj('Auth0Service',['getUser']);
+  const getUserSpy = auth0Spy.getUser.and.returnValue(of(user));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -247,6 +255,15 @@ describe('SplayerComponent', () => {
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#protractor');
     expect(headerTag['src']).toContain('favicon.ico');
+
+  });
+
+  it('should display save button when logged in', ()=>{
+    component.isPlayer = true;
+    fixture.detectChanges();
+    
+    const saveMatch = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
+    expect(saveMatch.textContent).toBe("Save Match");
 
   });
 });

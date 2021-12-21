@@ -20,7 +20,7 @@
   <p id="userEmail">User Email: {{ data.email }}</p>
   <div *ngIf="playerExists == true">
     <div class="col-sm text-center">
-      <img *ngIf="player.avatar != null && player.avatar != undefined" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">
+      <img id="image" *ngIf="player.avatar != null && player.avatar != undefined" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">
       <br><br>
       <h1 id="playerName" *ngIf="player.name != undefined">{{player.name}}'s Saved Matches</h1>
     </div>
