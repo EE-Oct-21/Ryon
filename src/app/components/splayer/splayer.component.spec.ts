@@ -194,7 +194,7 @@ describe('SplayerComponent', () => {
 
     const headerTag = fixture.debugElement.nativeElement.querySelector('#matchVictory');
 
-    expect(headerTag.textContent).toBe("You won.");
+    expect(headerTag.textContent).toBe("You won. ");
     
   });
 

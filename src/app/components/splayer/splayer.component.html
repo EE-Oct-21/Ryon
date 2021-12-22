@@ -1,6 +1,4 @@
 <div class="row justify-content-center" style="margin-top: 1rem">
-
-    <!--66914827-->
     <form class="input-group input-group-lg">
         <input type="text" class="form-control input-lg" name="input" placeholder="Enter Steam ID"
             [(ngModel)]="steamid">
@@ -30,7 +28,8 @@
                 {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
             <p id="hero">You played {{hero.displayName}}.</p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }} minutes.</p>
-            <p id="matchVictory" *ngIf="match.players && match.players[0].isVictory == true; else elseBlock">You won.</p>
+            <p id="matchVictory" *ngIf="match.players && match.players[0].isVictory == true; else elseBlock">You won.
+            </p>
             <p>
                 <ng-template #elseBlock>
                     <p id="lost">You lost.</p>
@@ -51,8 +50,8 @@
     </div>
     <img id="protractor" *ngIf="isPlayer == false" src="favicon.ico" style="padding-top: 2rem">
 </div>
-<div *ngIf="isPlayer == true">
-    <div *ngIf="auth.getUser" class="row justify-content-center" style="margin-top: 3rem">
+<div *ngIf="isPlayer == true && auth.getUser">
+    <div class="row justify-content-center" style="margin-top: 3rem">
         <button id="saveMatchButton" class="btn btn-outline-light" type="submit" (click)="onSubmit2()"
             style="width: 10rem;">Save
             Match</button>
