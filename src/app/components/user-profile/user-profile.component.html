@@ -1,5 +1,5 @@
-<ul *ngIf="authentication.getUser">
-  <div *ngIf="playerExists == false">
+<ul>
+  <div *ngIf="playerExists == false && authentication.getUser">
     <div class="row justify-content-center" style="margin-top: 1rem">
       <h3 id="userDetails">Enter your Steam ID</h3>
     </div>
