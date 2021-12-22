@@ -242,7 +242,7 @@ export class SplayerComponent implements OnInit {
   //**********************************************************/
   onSubmit2() {
     this.savePlayerService.getSavedPlayerById(this.steamid).subscribe((player: any) => {
-      this.splayer = player;
+      this.splayer.matchesList = player?.matchesList;
       if (this.splayer.matchesList == null) {
         this.splayer.matchesList = [];
       }
