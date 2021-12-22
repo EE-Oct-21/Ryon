@@ -241,12 +241,24 @@ export class SplayerComponent implements OnInit {
   // Saves match and player to database
   //**********************************************************/
   onSubmit2() {
+    let matchFound = false;
+
     this.savePlayerService.getSavedPlayerById(this.steamid).subscribe((player: any) => {
       this.splayer.matchesList = player?.matchesList;
+      //intilize match list if not already created
       if (this.splayer.matchesList == null) {
         this.splayer.matchesList = [];
       }
-      this.splayer.matchesList.push(this.match);
+      //if the id is in the match array, set match found to true
+      for(let i = 0; i < Object.keys(this.splayer.matchesList).length; ++i){
+        if(this.splayer.matchesList[i].id == this.match.id){
+          matchFound = true;
+        }
+      }
+      //add match to match array if match was not found in match array
+      if(matchFound == false){
+        this.splayer.matchesList.push(this.match);
+      }
       this.savePlayerService.addMatch(this.match, this.splayer);
     });
   }
