@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
+import { Auth0Service } from 'src/app/services/auth0.service';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -7,10 +9,21 @@ describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
 
+  let user = {
+    name: "Ryon",
+    email: "ryon137@gmail.com"
+  };
+
+  const auth0Spy = jasmine.createSpyObj('Auth0Service',['getUser']);
+  const getUserSpy = auth0Spy.getUser.and.returnValue(of(user));
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ NavbarComponent ],
-      imports: [ AppModule ]
+      imports: [ AppModule ],
+      providers: [
+        { provide: Auth0Service, useValue: auth0Spy }
+      ]
     })
     .compileComponents();
   });

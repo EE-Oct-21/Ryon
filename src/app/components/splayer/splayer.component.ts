@@ -243,12 +243,12 @@ export class SplayerComponent implements OnInit {
   onSubmit2() {
     this.savePlayerService.getSavedPlayerById(this.steamid).subscribe((player: any) => {
       this.splayer = player;
+      if (this.splayer.matchesList == null) {
+        this.splayer.matchesList = [];
+      }
+      this.splayer.matchesList.push(this.match);
+      this.savePlayerService.addMatch(this.match, this.splayer);
     });
-    if (this.splayer.matchesList == null) {
-      this.splayer.matchesList = [];
-    }
-    this.splayer.matchesList.push(this.match);
-    this.savePlayerService.addMatch(this.match, this.splayer);
   }
   //**********************************************************/
   // Toast for id being too small
