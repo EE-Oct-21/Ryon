@@ -16,14 +16,14 @@
   <div class="row justify-content-center" style="margin-top: 1rem">
     <h3 id="userDetails">Account Information</h3>
   </div>
-  <p id="userName">User Name: {{ data.name }}</p>
-  <p id="userEmail">User Email: {{ data.email }}</p>
+  <p id="userName" *ngIf="data">User Name: {{ data.name }}</p>
+  <p id="userEmail" *ngIf="data">User Email: {{ data.email }}</p>
   <div *ngIf="playerExists == true">
     <div class="col-sm text-center">
-      <img id="image" *ngIf="player.avatar != null && player.avatar != undefined"
+      <img id="image" *ngIf="player"
         src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{player.avatar}}">
       <br><br>
-      <h1 id="playerName" *ngIf="player.name != undefined">{{player.name}}'s Saved Matches</h1>
+      <h1 id="playerName" *ngIf="player">{{player.name}}'s Saved Matches</h1>
     </div>
     <div class="matches" *ngFor="let match of player?.matchesList" (click)="onClick()">
       <p id="matchId">Match {{match.id}}</p>

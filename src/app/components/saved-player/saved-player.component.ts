@@ -34,7 +34,7 @@ export class SavedPlayerComponent implements OnInit {
     this.savePlayerService.getAllSavedMatches().subscribe((matchArray: any) => {
       this.matchArray = [];
       for (let i = 0; i < matchArray.length; ++i) {
-        if (matchArray[i].authId.toString().includes(this.authId)) {
+        if (matchArray[i].authId?.toString().includes(this.authId)) {
           this.matchArray.push(matchArray[i]);
         }
       }
