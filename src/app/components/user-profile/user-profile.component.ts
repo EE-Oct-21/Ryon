@@ -53,11 +53,11 @@ export class UserProfileComponent implements OnInit {
           //**********************************************************/
           this.savePlayerService.getSavedPlayerById(this.playerId).subscribe((player: SPlayer) => {
             this.player = player;
+            this.player.matchesList.reverse();
           });
         }
       });
     });
-
   }
   onClick() {
     this.isPlayer = true;
