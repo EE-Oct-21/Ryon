@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbToastService } from 'ngb-toast';
+import { NgbToast, NgbToastService } from 'ngb-toast';
 import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { Hero } from 'src/app/models/hero/hero.model';
@@ -56,7 +56,8 @@ describe('SplayerComponent', () => {
 
   let user = {
     name: "Ryon",
-    email: "ryon137@gmail.com"
+    email: "ryon137@gmail.com",
+    authId: 'aaa'
   };
 
   const stratzServiceSpy = jasmine.createSpyObj('StratzService',[
@@ -66,15 +67,20 @@ describe('SplayerComponent', () => {
   const getHeroSpy = stratzServiceSpy.getHero.and.returnValue(of(heroArray));
 
   const savePlayerServiceSpy = jasmine.createSpyObj('SavePlayerService',[
-    'getAllSavedMatches', 'addMatch']);
+    'getAllSavedMatches', 'addMatch', 'getSavedPlayerById']);
     const getAllSavedMatchesSpy = savePlayerServiceSpy.getAllSavedMatches.and.returnValue(of(match));
     const addMatchSpy = savePlayerServiceSpy.addMatch.and.returnValue(of(match));
+    const getSavedPlayerByIdSpy = savePlayerServiceSpy.getSavedPlayerById.and.returnValue(of(player));
 
   const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getMatch']);
   const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(of(match));
 
   const auth0Spy = jasmine.createSpyObj('Auth0Service',['getUser']);
   const getUserSpy = auth0Spy.getUser.and.returnValue(of(user));
+
+  const toastSpy = jasmine.createSpyObj('NgbToastService',['remove','show']);
+  const removeSpy = toastSpy.remove.and.returnValue(of(new NgbToast));
+  const showSpy = toastSpy.show.and.returnValue(of(new NgbToast));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -84,6 +90,7 @@ describe('SplayerComponent', () => {
         { provide: StratzService, useValue: stratzServiceSpy },
         { provide: SavePlayerService, useValue: savePlayerServiceSpy },
         { provide: OpendotaService, useValue: opendotaServiceSpy },
+        { provide: NgbToastService, useValue: toastSpy },
         { provide: steamid, useValue: '66914827' }
       ]
     })
@@ -265,5 +272,30 @@ describe('SplayerComponent', () => {
     const saveMatch = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
     expect(saveMatch.textContent).toBe("Save Match");
 
+  });
+
+  it('if onSubmit is called and steamId does not fit the regex, showFailure should be called', ()=>{
+    component.onSubmit();
+    component.steamid = ' ';
+    component.showFailure();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('if steamId is the larger format, number should be converted and showConversion should be called', ()=>{
+    component.steamid = '76561198066745404';
+    component.largeId = 99999999999n;
+    component.conversionNum = 76561197960265728n;
+    component.onSubmit();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('if onSubmit2 is called, expect getSavedPlayerById to be called', ()=>{
+    component.onSubmit2();
+    expect(getSavedPlayerByIdSpy).toHaveBeenCalled();
+  });
+  
+  it('if onSubmit2 is called, expect addMatch to be called', ()=>{
+    component.onSubmit2();
+    expect(addMatchSpy).toHaveBeenCalled();
   });
 });

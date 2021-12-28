@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
-import { NgbToastService } from 'ngb-toast';
+import { NgbToast, NgbToastService } from 'ngb-toast';
+import { of } from 'rxjs';
 import { Auth } from '../models/auth/auth.model';
 import { Match } from '../models/match/match.model';
 import { SPlayer } from '../models/s-player/splayer.model';
@@ -15,7 +16,9 @@ describe('SavePlayerService', () => {
   let auth = new Auth();
   let baseUrl = 'https://ryon.ee-cognizantacademy.com'
 
-  const toastServiceSpy = jasmine.createSpyObj('toastService', ['pop', 'show']);
+  const toastServiceSpy = jasmine.createSpyObj('toastService', ['pop','remove', 'show']);
+  const removeSpy = toastServiceSpy.remove.and.returnValue(of(new NgbToast));
+  const showSpy = toastServiceSpy.show.and.returnValue(of(new NgbToast));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -120,4 +123,25 @@ describe('SavePlayerService', () => {
     let req = httpTestingController.expectOne(baseUrl+"/auth/id/1");
     expect(req.request.method).toEqual("GET");
   });
+
+  it('showMatchAddSuccess should execute toast show', ()=>{
+    service.showMatchAddSuccess();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('showPlayerAddSuccess should execute toast show', ()=>{
+    service.showPlayerAddSuccess();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('showFailure should execute toast show', ()=>{
+    service.showFailure();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('removeToast should execute toast remove', ()=>{
+    service.removeToast(new NgbToast);
+    expect(removeSpy).toHaveBeenCalled();
+  });
+
 });

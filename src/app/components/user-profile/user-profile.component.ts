@@ -34,10 +34,9 @@ export class UserProfileComponent implements OnInit {
       if(data){
         this.data = data;
       }
-      if (this.data.sub) {
+      if(this.data.sub) {
         this.authId = this.data.sub.substring(14, 20);
       }
-
       //**********************************************************/
       // If user has not yet saved their ID, set flag to false
       //**********************************************************/
@@ -86,8 +85,7 @@ export class UserProfileComponent implements OnInit {
     this.auth.steamId = this.steamId;
     this.auth.id = this.authId;
     this.savePlayerService.addAuth(this.auth);
-
-    location.reload();
+    this.windowReload();
   }
 
   //**********************************************************/
@@ -126,4 +124,11 @@ export class UserProfileComponent implements OnInit {
   removeToast(toast: NgbToast): void {
     this.toastService.remove(toast);
   }
+  //**********************************************************/
+  // Reload page
+  //**********************************************************/
+  windowReload(){
+    location.reload();
+  }
 }
+
