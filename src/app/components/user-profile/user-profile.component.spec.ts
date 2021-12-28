@@ -55,7 +55,7 @@ describe('UserProfileComponent', () => {
     'getSavedPlayerById', 'getAuth', 'addAuth'
   ]);
   const getSavedPlayerByIdSpy = savePlayerServiceSpy.getSavedPlayerById.and.returnValue(of(player));
-  let getAuthSpy = savePlayerServiceSpy.getAuth.and.returnValue(of(auth));
+  const getAuthSpy = savePlayerServiceSpy.getAuth.and.returnValue(of(auth));
   const addAuthSpy = savePlayerServiceSpy.addAuth.and.returnValue(of(auth));
 
 
@@ -272,12 +272,6 @@ describe('UserProfileComponent', () => {
   it('if onSubmit is called, addAuth should be called', ()=>{
     component.onSubmit();
     expect(addAuthSpy).toHaveBeenCalled();
-  });
-
-  
-  it('if getAuth returns null, then player does not exist', ()=>{
-    getAuthSpy = savePlayerServiceSpy.getAuth.and.returnValue(null);
-    expect(component.playerExists).toBeFalse();
   });
 });
 
