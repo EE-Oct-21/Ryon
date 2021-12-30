@@ -62,6 +62,10 @@ export class UserProfileComponent implements OnInit {
     this.isPlayer = true;
   }
 
+  onClick2(){
+    this.playerExists = false;
+  }
+
   onSubmit() {
     //**********************************************************/
     // Form validation

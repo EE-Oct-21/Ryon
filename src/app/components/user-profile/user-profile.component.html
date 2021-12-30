@@ -14,7 +14,10 @@
     </form>
   </div>
   <div class="row justify-content-center" style="margin-top: 1rem">
-    <h3 id="userDetails">Account Information</h3>
+    <div class="col-sm text-center">
+      <h3 id="userDetails">Account Information</h3>
+      <button *ngIf="playerExists == true" id="changeIdButton" class="btn btn-outline-light" type="submit" (click)="onClick2()">Change Steam ID</button>
+    </div>
   </div>
   <p id="userName" *ngIf="data">User Name: {{ data.name }}</p>
   <p id="userEmail" *ngIf="data">User Email: {{ data.email }}</p>
