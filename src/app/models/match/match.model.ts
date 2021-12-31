@@ -19,4 +19,5 @@ export class Match {
    duration!: any;
    players!: any;
    radiant_win!: any;
+   isRadiant: any;
  }
