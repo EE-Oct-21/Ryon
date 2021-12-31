@@ -16,7 +16,8 @@
   <div class="row justify-content-center" style="margin-top: 1rem">
     <div class="col-sm text-center">
       <h3 id="userDetails">Account Information</h3>
-      <button *ngIf="playerExists == true" id="changeIdButton" class="btn btn-outline-light" type="submit" (click)="onClick2()">Change Steam ID</button>
+      <button *ngIf="playerExists == true" id="changeIdButton" class="btn btn-outline-light" type="submit"
+        (click)="onClick2()">Change Steam ID</button>
     </div>
   </div>
   <p id="userName" *ngIf="data">User Name: {{ data.name }}</p>
@@ -42,11 +43,17 @@
             <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
               {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
             <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }}.</p>
-            <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
-              minutes.</p>
-            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
+            <p id="radiant" *ngIf="match.isRadiant == true; else elseBlock">You were Radiant.</p>
             <p>
               <ng-template #elseBlock>
+                <p id="dire">You were Dire.</p>
+              </ng-template>
+            </p>
+            <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
+              minutes.</p>
+            <p id="matchVictory" *ngIf="match.victory == true; else elseBlock2">You won.</p>
+            <p>
+              <ng-template #elseBlock2>
                 <p id="lost">You lost.</p>
               </ng-template>
             </p>

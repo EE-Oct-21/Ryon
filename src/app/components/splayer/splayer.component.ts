@@ -92,10 +92,11 @@ export class SplayerComponent implements OnInit {
             this.match.startTime = formattedTime;
 
             //**********************************************************/
-            //Hero ID and Victory
+            //Hero ID, Victory, and isRadiant
             //**********************************************************/
             this.match.heroes = this.match.players[0].heroId;
             this.match.victory = this.match.players[0].isVictory;
+            this.match.isRadiant = this.match.players[0].isRadiant;
 
             //**********************************************************/
             // Searches the API for the given hero ID and then stores the hero data
@@ -173,7 +174,7 @@ export class SplayerComponent implements OnInit {
               //Deaths
               //**********************************************************/
               for (let j = 0; match.players.length > 0; ++j) {
-                if (match.players[j].account_id == this.steamid) {
+                if(match.players[j].account_id == this.steamid) {
                   this.match.deaths = match.players[j].deaths;
                 }
               }
