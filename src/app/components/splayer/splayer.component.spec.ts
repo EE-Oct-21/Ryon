@@ -31,7 +31,7 @@ describe('SplayerComponent', () => {
   match.authId = [1,2,3];
   match.durationSeconds = "1";
   match.victory = true;
-  match.players = [{isVictory!: true, heroId!: 11}]
+  match.players = [{isVictory!: true, heroId!: 11, isRadiant!: true}]
   match.firstBloodTime = "1";
   match.gameMode = "1";
   match.largestGoldLead = "1";
@@ -192,6 +192,17 @@ describe('SplayerComponent', () => {
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#radiant');
     expect(headerTag.textContent).toBe("You were Radiant.");
+  });
+
+  it('should display the radiant played when submit button is clicked and steamid is provided', ()=>{
+    const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
+
+    submitButton.dispatchEvent(new Event('click'));
+    match.isRadiant = false;
+    fixture.detectChanges();
+    
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#dire');
+    expect(headerTag.textContent).toBe("You were Dire.");
   });
 
   it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{

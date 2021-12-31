@@ -37,6 +37,7 @@ describe('UserProfileComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
   match.heroes = "Outworld Destroyer";
+  match.isRadiant = true;
 
   player.name = "Ryon";
   player.id = 1;
@@ -177,6 +178,25 @@ describe('UserProfileComponent', () => {
     expect(ptag.textContent).toBe("You played " + match.heroes + ".");
   });
   
+  it('should display all match team side if radiant', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#radiant');
+    expect(pTag.textContent).toBe("You were Radiant.");
+  });
+
+  it('should display all match team side if dire', ()=>{
+    component.playerExists = true;
+    component.isPlayer = true;
+    match.isRadiant = false;
+    fixture.detectChanges();
+
+    const pTag = fixture.debugElement.nativeElement.querySelector('#dire');
+    expect(pTag.textContent).toBe("You were Dire.");
+  });
+
   it('should display first blood time if player exists', ()=>{
     component.playerExists = true;
     component.isPlayer = true;

@@ -17,12 +17,18 @@
                     lasted
                     {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
                 <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }}.</p>
+                <p id="radiant" *ngIf="match.isRadiant == true; else elseBlock">You were Radiant.</p>
+                <p>
+                    <ng-template #elseBlock>
+                        <p id="dire">You were Dire.</p>
+                    </ng-template>
+                </p>
                 <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }}
                     minutes.
                 </p>
-                <p id="matchVictory" *ngIf="match.victory == true; else elseBlock">You won.</p>
+                <p id="matchVictory" *ngIf="match.victory == true; else elseBlock2">You won.</p>
                 <p>
-                    <ng-template #elseBlock>
+                    <ng-template #elseBlock2>
                         <p id="lost">You lost.</p>
                     </ng-template>
                 </p>

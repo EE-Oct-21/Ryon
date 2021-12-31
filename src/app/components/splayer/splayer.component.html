@@ -34,10 +34,10 @@
                 </ng-template>
             </p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }} minutes.</p>
-            <p id="matchVictory" *ngIf="match.players && match.players[0].isVictory == true; else elseBlock">You won.
+            <p id="matchVictory" *ngIf="match.players && match.players[0].isVictory == true; else elseBlock2">You won.
             </p>
             <p>
-                <ng-template #elseBlock>
+                <ng-template #elseBlock2>
                     <p id="lost">You lost.</p>
                 </ng-template>
             </p>
