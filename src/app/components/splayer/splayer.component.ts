@@ -96,7 +96,7 @@ export class SplayerComponent implements OnInit {
             //**********************************************************/
             this.match.heroes = this.match.players[0].heroId;
             this.match.victory = this.match.players[0].isVictory;
-            this.match.isRadiant = this.match.players[0].isRadiant;
+            this.match.radiant = this.match.players[0].isRadiant;
 
             //**********************************************************/
             // Searches the API for the given hero ID and then stores the hero data
@@ -260,6 +260,7 @@ export class SplayerComponent implements OnInit {
       if(matchFound == false){
         this.splayer.matchesList.push(this.match);
       }
+      console.log(this.match);
       this.savePlayerService.addMatch(this.match, this.splayer);
     });
   }

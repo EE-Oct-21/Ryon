@@ -26,7 +26,7 @@ describe('SavedPlayerComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
   match.heroes = "Mars";
-  match.isRadiant = true;
+  match.radiant = true;
 
   let matchArray = [match];
 
@@ -76,7 +76,7 @@ describe('SavedPlayerComponent', () => {
     fixture.detectChanges();
     
     const pTag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(pTag.textContent).toBe("You played " + match.heroes+".");
+    expect(pTag.textContent).toBe("You played " + match.heroes+" .");
   });
 
   it('should display all match start times', ()=>{
@@ -106,19 +106,19 @@ describe('SavedPlayerComponent', () => {
     fixture.detectChanges();
 
     const pTag = fixture.debugElement.nativeElement.querySelector('#radiant');
-    expect(pTag.textContent).toBe("You were Radiant.");
+    expect(pTag.textContent).toBe("You were Radiant .");
   });
 
   it('should display all match team side if dire', ()=>{
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
-    match.isRadiant = false;
+    match.radiant = false;
 
     submitButton.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
     const pTag = fixture.debugElement.nativeElement.querySelector('#dire');
-    expect(pTag.textContent).toBe("You were Dire.");
+    expect(pTag.textContent).toBe("You were Dire .");
   });
 
   it('should display all match first bloods', ()=>{

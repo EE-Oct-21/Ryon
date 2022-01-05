@@ -11,7 +11,7 @@
     </form>
     <div *ngIf="isPlayer == true" class="row justify-content-center" style="margin-top: 3rem">
         <div class="col-sm text-center">
-            <img *ngIf="splayer" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
+            <img *ngIf="splayer" style ="padding-bottom: 1rem; width: 15rem;"src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{{splayer.avatar}}">
             <br>
             <h1 id="playerName" *ngIf="splayer.name != undefined">{{splayer.name}}</h1>
             <p id="playerId" *ngIf="splayer.id != undefined">Steam ID: {{splayer.id}}</p>
@@ -26,11 +26,11 @@
             </p>
             <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It lasted
                 {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
-            <p id="hero">You played {{hero.displayName}}.</p>
-            <p id="radiant" *ngIf="match.isRadiant == true; else elseBlock">You were Radiant.</p>
+            <p id="hero">You played {{hero.displayName}} <img style="width: 2rem" src="assets/heroes/{{hero.displayName}}.png">.</p>
+            <p id="radiant" *ngIf="match.radiant == true; else elseBlock">You were Radiant <img style="width: 2rem"*ngIf="hero.displayName" src="assets/Radiant_icon.png">.</p>
             <p>
                 <ng-template #elseBlock>
-                    <p id="dire">You were Dire.</p>
+                    <p id="dire">You were Dire <img style="width: 2rem" src="assets/Dire_icon.png">.</p>
                 </ng-template>
             </p>
             <p id="firstBloodTime">First blood was achieved at {{ (match.firstBloodTime / 60).toFixed(2) }} minutes.</p>
@@ -54,7 +54,7 @@
             <p id="feed" *ngIf="match.deaths > 10">You fed.</p>
         </div>
     </div>
-    <img id="protractor" *ngIf="isPlayer == false" src="favicon.ico" style="padding-top: 2rem">
+    <img id="protractor" *ngIf="isPlayer == false" src="favicon.ico" style="padding-top: 2rem; padding-bottom: 1rem; width: 15rem;">
 </div>
 <div *ngIf="isPlayer == true && auth.getUser">
     <div class="row justify-content-center" style="margin-top: 3rem">
