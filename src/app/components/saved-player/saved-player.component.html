@@ -16,7 +16,7 @@
                 <p id="matchDuration" *ngIf="match.durationSeconds != undefined && match.durationSeconds != '0'">It
                     lasted
                     {{ (match.durationSeconds / 60).toFixed(2) }} minutes.</p>
-                <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }}.</p>
+                <p id="hero" *ngIf="match.heroes != 0">You played {{ match.heroes }} <img style="width: 2rem"*ngIf="match.heroes" src="assets/heroes/{{match.heroes}}.png">.</p>
                 <p id="radiant" *ngIf="match.isRadiant == true; else elseBlock">You were Radiant.</p>
                 <p>
                     <ng-template #elseBlock>
