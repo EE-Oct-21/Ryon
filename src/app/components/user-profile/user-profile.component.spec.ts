@@ -127,6 +127,12 @@ describe('UserProfileComponent', () => {
     expect(headerTag.textContent).toBe("User Email: " + user.email);
   });
 
+  it('should display User steam id', ()=>{
+    component.playerId = '1';
+    const headerTag = fixture.debugElement.nativeElement.querySelector('#playerId');
+    expect(headerTag.textContent).toBe("Steam ID: " + component.playerId);
+  });
+
   it('should display player avatar if player exists', ()=>{
     component.playerExists = true;
     fixture.detectChanges();
