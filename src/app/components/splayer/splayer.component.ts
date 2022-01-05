@@ -260,7 +260,6 @@ export class SplayerComponent implements OnInit {
       if(matchFound == false){
         this.splayer.matchesList.push(this.match);
       }
-      console.log(this.match);
       this.savePlayerService.addMatch(this.match, this.splayer);
     });
   }
