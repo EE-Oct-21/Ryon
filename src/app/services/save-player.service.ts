@@ -12,9 +12,9 @@ import { Auth } from '../models/auth/auth.model';
 })
 export class SavePlayerService {
 
-  endpoint: string = 'https://ryon.ee-cognizantacademy.com';
+  //endpoint: string = 'https://ryon.ee-cognizantacademy.com';
   //endpoint: string = 'http://ryonbackend-env.eba-pbjsc7zw.us-east-2.elasticbeanstalk.com';
-  //endpoint: string = 'http://localhost:8000';
+  endpoint: string = 'http://localhost:8000';
   //endpoint: string = 'http://localhost:3306';
 
   postHeader =  {
