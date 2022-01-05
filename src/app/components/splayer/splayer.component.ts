@@ -29,6 +29,7 @@ export class SplayerComponent implements OnInit {
   largeId = 99999999999n;
   conversionNum = 76561197960265728n;
   hero = new Hero;
+  data!: any;
 
   constructor(private savePlayerService: SavePlayerService, private stratzService: StratzService, private opendotaService: OpendotaService, @Inject(DOCUMENT) public document: Document, public auth: Auth0Service, private toastService: NgbToastService) {
   }
@@ -227,6 +228,8 @@ export class SplayerComponent implements OnInit {
         // Store authentication ID in model for future reference
         //**********************************************************/
         this.auth.getUser().subscribe((data: any) => {
+          //to check if user exists
+          this.data = data;
           if (this.match.authId == null) {
             this.match.authId = [];
           }

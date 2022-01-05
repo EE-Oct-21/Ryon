@@ -289,6 +289,7 @@ describe('SplayerComponent', () => {
 
   it('should display save button when logged in', ()=>{
     component.isPlayer = true;
+    component.data = 'a';
     fixture.detectChanges();
     
     const saveMatch = fixture.debugElement.nativeElement.querySelector('#saveMatchButton');
