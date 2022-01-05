@@ -181,7 +181,7 @@ describe('UserProfileComponent', () => {
     fixture.detectChanges();
 
     const ptag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(ptag.textContent).toBe("You played " + match.heroes + ".");
+    expect(ptag.textContent).toBe("You played " + match.heroes + " .");
   });
   
   it('should display all match team side if radiant', ()=>{
@@ -190,7 +190,7 @@ describe('UserProfileComponent', () => {
     fixture.detectChanges();
 
     const pTag = fixture.debugElement.nativeElement.querySelector('#radiant');
-    expect(pTag.textContent).toBe("You were Radiant.");
+    expect(pTag.textContent).toBe("You were Radiant .");
   });
 
   it('should display all match team side if dire', ()=>{
@@ -200,7 +200,7 @@ describe('UserProfileComponent', () => {
     fixture.detectChanges();
 
     const pTag = fixture.debugElement.nativeElement.querySelector('#dire');
-    expect(pTag.textContent).toBe("You were Dire.");
+    expect(pTag.textContent).toBe("You were Dire .");
   });
 
   it('should display first blood time if player exists', ()=>{

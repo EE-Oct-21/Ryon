@@ -181,7 +181,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#hero');
-    expect(headerTag.textContent).toBe("You played " + hero2.displayName + ".");
+    expect(headerTag.textContent).toBe("You played " + hero2.displayName + " .");
   });
 
   it('should display the radiant played when submit button is clicked and steamid is provided', ()=>{
@@ -191,7 +191,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#radiant');
-    expect(headerTag.textContent).toBe("You were Radiant.");
+    expect(headerTag.textContent).toBe("You were Radiant .");
   });
 
   it('should display the radiant played when submit button is clicked and steamid is provided', ()=>{
@@ -202,7 +202,7 @@ describe('SplayerComponent', () => {
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#dire');
-    expect(headerTag.textContent).toBe("You were Dire.");
+    expect(headerTag.textContent).toBe("You were Dire .");
   });
 
   it('should display the first blood time when submit button is clicked and steamid is provided', ()=>{
