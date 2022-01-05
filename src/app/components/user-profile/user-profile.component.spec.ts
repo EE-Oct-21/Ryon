@@ -37,7 +37,7 @@ describe('UserProfileComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
   match.heroes = "Outworld Destroyer";
-  match.isRadiant = true;
+  match.radiant = true;
 
   player.name = "Ryon";
   player.id = 1;
@@ -196,7 +196,7 @@ describe('UserProfileComponent', () => {
   it('should display all match team side if dire', ()=>{
     component.playerExists = true;
     component.isPlayer = true;
-    match.isRadiant = false;
+    match.radiant = false;
     fixture.detectChanges();
 
     const pTag = fixture.debugElement.nativeElement.querySelector('#dire');

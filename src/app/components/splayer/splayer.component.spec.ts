@@ -43,7 +43,7 @@ describe('SplayerComponent', () => {
   match.radiant_gold_adv = [0, -34, 405, 224];
   match.radiant_xp_adv = [0, 24, 212, 211];
   match.heroes = "Outworld Destroyer";
-  match.isRadiant = true;
+  match.radiant = true;
 
   let matchArray = [match];
 
@@ -198,7 +198,7 @@ describe('SplayerComponent', () => {
     const submitButton = fixture.debugElement.nativeElement.querySelector('#submitButton');
 
     submitButton.dispatchEvent(new Event('click'));
-    match.isRadiant = false;
+    match.radiant = false;
     fixture.detectChanges();
     
     const headerTag = fixture.debugElement.nativeElement.querySelector('#dire');
