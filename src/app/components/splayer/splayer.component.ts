@@ -175,7 +175,7 @@ export class SplayerComponent implements OnInit {
               //Deaths
               //**********************************************************/
               for (let j = 0; match.players.length > 0; ++j) {
-                if(match.players[j].account_id == this.steamid) {
+                if (match.players[j].account_id == this.steamid) {
                   this.match.deaths = match.players[j].deaths;
                 }
               }
@@ -254,13 +254,19 @@ export class SplayerComponent implements OnInit {
         this.splayer.matchesList = [];
       }
       //if the id is in the match array, set match found to true
-      for(let i = 0; i < Object.keys(this.splayer.matchesList).length; ++i){
-        if(this.splayer.matchesList[i].id == this.match.id){
+      //CURRENT BUG: If the match id is the same, a different players match
+      // will overwrite current match
+      //
+      //SOLUTION: make it so that if the match id already exists,
+      // create a new instance 
+      //
+      for (let i = 0; i < Object.keys(this.splayer.matchesList).length; ++i) {
+        if (this.splayer.matchesList[i].id == this.match.id) {
           matchFound = true;
         }
       }
       //add match to match array if match was not found in match array
-      if(matchFound == false){
+      if (matchFound == false) {
         this.splayer.matchesList.push(this.match);
       }
       this.savePlayerService.addMatch(this.match, this.splayer);
