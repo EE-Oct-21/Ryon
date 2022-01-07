@@ -174,8 +174,8 @@ export class SplayerComponent implements OnInit {
               //**********************************************************/
               //Deaths
               //**********************************************************/
-              for (let j = 0; match.players.length > 0; ++j) {
-                if (match.players[j].account_id == this.steamid) {
+              for (let j = 0;  j < match.players.length; ++j) {
+                if(match.players[j].account_id && match.players[j].account_id == this.steamid) {
                   this.match.deaths = match.players[j].deaths;
                 }
               }

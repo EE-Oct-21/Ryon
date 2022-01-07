@@ -11,20 +11,21 @@ describe('OpendotaService', () => {
   let baseUrl = 'https://api.opendota.com';
   let player = new SPlayer();
   let match = new Match();
+  let apiKey = '368d3d7f-1034-483f-8226-e8e5de4f76b9';
 
-  const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService',['getPlayer','getMatch']);
+  const opendotaServiceSpy = jasmine.createSpyObj('OpendotaService', ['getPlayer', 'getMatch']);
   const getPlayerSpy = opendotaServiceSpy.getPlayer.and.returnValue(player);
   const getMatchSpy = opendotaServiceSpy.getMatch.and.returnValue(match);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule]
     });
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.inject(OpendotaService);
   });
 
-  afterEach(()=>{
+  afterEach(() => {
     httpTestingController.verify();
   })
 
@@ -32,16 +33,16 @@ describe('OpendotaService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('getPlayer should make a GET call to the url', ()=> {
+  it('getPlayer should make a GET call to the url', () => {
     service.getPlayer(1).subscribe();
-    let req = httpTestingController.expectOne(baseUrl+"/api/players/1");
+    let req = httpTestingController.expectOne(baseUrl + "/api/players/1?api_key=" + apiKey);
     expect(req.request.method).toEqual("GET");
- });
+  });
 
- it('getMatch should make a GET call to the url', ()=> {
-  service.getMatch(1).subscribe();
-  let req = httpTestingController.expectOne(baseUrl+"/api/matches/1");
-  expect(req.request.method).toEqual("GET");
-});
- 
+  it('getMatch should make a GET call to the url', () => {
+    service.getMatch(1).subscribe();
+    let req = httpTestingController.expectOne(baseUrl + "/api/matches/1?api_key=" + apiKey);
+    expect(req.request.method).toEqual("GET");
+  });
+
 });
